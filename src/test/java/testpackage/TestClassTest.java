@@ -10,10 +10,8 @@ public class TestClassTest {
     public void setValue() {
         TestClass T = new TestClass();
 
-        assertEquals(0, T.getValue());
-
         T.setValue(2020);
 
-        assertEquals(2019, T.getValue());
+        assertEquals(2020, T.getValue());
     }
 }
