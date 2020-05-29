@@ -45,7 +45,7 @@ import java.util.*;
                     input = gui.getInput();
                     if(input!=-1) flag = true;
                 }
-            }while(Duration.between(timeStart, timeEnd).getSeconds()<1);
+            }while(Duration.between(timeStart, timeEnd).getSeconds()<60);
 
             if(input==-1) { //nothing in
 
