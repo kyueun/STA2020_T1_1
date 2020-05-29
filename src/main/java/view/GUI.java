@@ -19,6 +19,8 @@ public class GUI extends JFrame {
         this.setBounds(100, 100, 600, 400);
         this.setVisible(true);
 
+        System.out.println("please...");
+
         // set layout
         this.setLayout(gridBagLayout);
 
