@@ -1,19 +1,11 @@
 package testpackage;
 
+import view.GUI;
+
 public class TestClass {
-    private static int value = 0;
+    public static void main(String args[]){
+        System.out.println("hello");
 
-    public static int getValue()
-    {
-        return value*2;
-    }
-
-    public static void setValue(int a)
-    {
-        value = a;
-    }
-
-    public static void main(String args[]) {
-        System.out.println("Hellhho World");
+        GUI gui = new GUI();
     }
 }
