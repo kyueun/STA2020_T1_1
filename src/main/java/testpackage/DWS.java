@@ -69,6 +69,7 @@ import java.util.*;
 
             gui.display(mode, object);
             gui.setInput(-1);
+            timeStart = timeEnd;
         }
     }
 
