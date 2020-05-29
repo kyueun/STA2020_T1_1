@@ -1,10 +1,12 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class GUI extends JFrame {
-    TimeKeepingPanel timeKeepingPanel = new TimeKeepingPanel();
+    static MenuPanel menuPanel = new MenuPanel();
+    JPanel timeKeepingPanel = new TimeKeepingPanel();
     JButton buttonA = new JButton("A");
     JButton buttonB = new JButton("B");
     JButton buttonC = new JButton("C");
@@ -12,7 +14,6 @@ public class GUI extends JFrame {
 
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
 
     public GUI() {
         this.setTitle("Schedule DWS");
@@ -30,6 +31,13 @@ public class GUI extends JFrame {
         buttonB.setBackground(Color.WHITE);
         buttonC.setBackground(Color.WHITE);
         buttonD.setBackground(Color.WHITE);
+
+        buttonA.setFont(new Font("SanSerif", Font.PLAIN, 30));
+        buttonB.setFont(new Font("SanSerif", Font.PLAIN, 30));
+        buttonC.setFont(new Font("SanSerif", Font.PLAIN, 30));
+        buttonD.setFont(new Font("SanSerif", Font.PLAIN, 30));
+
+        timeKeepingPanel.setBorder(new LineBorder(Color.BLACK, 2));
 
         setComponentLayout(buttonA, 0, 0, 1, 1, 0.1, 0.1);
         setComponentLayout(buttonB, 5, 0, 1, 1, 0.1, 0.1);
@@ -57,8 +65,6 @@ public class GUI extends JFrame {
 
         // set exit button
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 
     public void setComponentLayout(JComponent component, int x, int y, int weight, int height, double weightx, double weighty) {
