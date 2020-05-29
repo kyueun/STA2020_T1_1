@@ -33,8 +33,8 @@ import java.util.*;
         boolean flag;
         int input;
 
+        timeStart = LocalTime.now();
         while(true) {
-            timeStart = LocalTime.now();
             input = -1;
             flag = false;
 
