@@ -1,52 +1,26 @@
+package testpackage;
 
 import java.util.*;
 
 /**
- * 
- */
-private class DWS System (User Interface) {
+ *
+ *
+ **/
+ public class DWS{
 
     /**
      * Default constructor
      */
-    private DWS System (User Interface)() {
+    public DWS () {
     }
 
-    /**
-     * 
-     */
-    private UI ui;
-
-    /**
-     * 
-     */
+   // private UI ui;
     private int index;
-
-    /**
-     * 
-     */
     private int pointer;
-
-    /**
-     * 
-     */
     private int mode;
-
-    /**
-     * 
-     */
     private int object_type;
-
-    /**
-     * 
-     */
     private int time_type;
-
-    /**
-     * 
-     */
-    private Mode Controller controller;
-
+    private ModeController controller;
 
     /**
      * @return
@@ -115,7 +89,7 @@ private class DWS System (User Interface) {
     /**
      * @return
      */
-    private Object^ enterSettingMode() {
+    private Object enterSettingMode() {
         // TODO implement here
         return null;
     }
@@ -125,11 +99,11 @@ private class DWS System (User Interface) {
      */
     private void increaseValue() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
-     * 
+     *
      */
     public void display() {
         // TODO implement here
@@ -140,7 +114,7 @@ private class DWS System (User Interface) {
      */
     private void decreaseValue() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -156,7 +130,7 @@ private class DWS System (User Interface) {
      */
     private void saveSchedule() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -170,7 +144,7 @@ private class DWS System (User Interface) {
     /**
      * @return
      */
-    private Object^ saveTime() {
+    private Object saveTime() {
         // TODO implement here
         return null;
     }
@@ -180,7 +154,7 @@ private class DWS System (User Interface) {
      */
     private void startTimer() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -188,7 +162,7 @@ private class DWS System (User Interface) {
      */
     private void pauseTimer() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -196,7 +170,7 @@ private class DWS System (User Interface) {
      */
     private void resetTimer() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -204,7 +178,7 @@ private class DWS System (User Interface) {
      */
     private void startStopwatch() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -212,7 +186,7 @@ private class DWS System (User Interface) {
      */
     private void pauseStopwatch() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -220,7 +194,7 @@ private class DWS System (User Interface) {
      */
     private void resetStopwatch() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -228,7 +202,7 @@ private class DWS System (User Interface) {
      */
     private void enableAlarm() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -236,7 +210,7 @@ private class DWS System (User Interface) {
      */
     private void disableAlarm() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -244,7 +218,7 @@ private class DWS System (User Interface) {
      */
     private void saveAlarm() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -252,7 +226,7 @@ private class DWS System (User Interface) {
      */
     private void deleteAlarm() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -260,7 +234,7 @@ private class DWS System (User Interface) {
      */
     private void changeMode() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -268,7 +242,7 @@ private class DWS System (User Interface) {
      */
     private void moveListPointer() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -276,7 +250,7 @@ private class DWS System (User Interface) {
      */
     private void saveMode() {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -292,7 +266,7 @@ private class DWS System (User Interface) {
      */
     private void muteBeep() {
         // TODO implement here
-        return null;
+        return;
     }
 
 }

@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -18,21 +19,10 @@ public class StopwatchMode extends Mode {
     private Time stopwatchTime;
 
     /**
-     * 
-     */
-    public Mode Controller 1;
-
-
-    /**
-     * 
-     */
-    public Controller 1;
-
-    /**
      * @param int index 
      * @return
      */
-    public Time getValue(void int index) {
+    public Time getValue(int index) {
         // TODO implement here
         return null;
     }
@@ -42,7 +32,7 @@ public class StopwatchMode extends Mode {
      * @param Time time 
      * @return
      */
-    public Time saveValue(void int index, void Time time) {
+    public Time saveValue(int index, Time time) {
         // TODO implement here
         return null;
     }

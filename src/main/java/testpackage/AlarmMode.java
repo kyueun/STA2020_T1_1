@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -5,44 +6,16 @@ import java.util.*;
  * 
  */
 public class AlarmMode extends Mode {
-
-    /**
-     * Default constructor
-     */
     public AlarmMode() {
     }
 
-    /**
-     * 
-     */
     private ArrayList<Alarm> alarmList;
-
-    /**
-     * 
-     */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    public Alarm 0..4;
-
-    /**
-     * 
-     */
-    public Controller 1;
-
-    /**
-     * 
-     */
-    public Mode Controller 1;
-
 
     /**
      * @param int index 
      * @return
      */
-    public Alarm getValue(void int index) {
+    public Alarm getValue(int index) {
         // TODO implement here
         return null;
     }
@@ -52,7 +25,7 @@ public class AlarmMode extends Mode {
      * @param Alarm alarm 
      * @return
      */
-    public Alarm saveValue(void int index, void Alarm alarm) {
+    public Alarm saveValue(int index, Alarm alarm) {
         // TODO implement here
         return null;
     }
@@ -61,7 +34,7 @@ public class AlarmMode extends Mode {
      * @param int index 
      * @return
      */
-    public boolean deleteValue(void int index) {
+    public boolean deleteValue(int index) {
         // TODO implement here
         return false;
     }
@@ -71,7 +44,7 @@ public class AlarmMode extends Mode {
      * @param boolean toggle 
      * @return
      */
-    public boolean toggleAlarm(void int index, void boolean toggle) {
+    public boolean toggleAlarm(int index, boolean toggle) {
         // TODO implement here
         return false;
     }

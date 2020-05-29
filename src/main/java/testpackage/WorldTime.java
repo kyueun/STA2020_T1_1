@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -26,12 +27,6 @@ public class WorldTime {
     /**
      * 
      */
-    public Time 1;
-
-    /**
-     * 
-     */
-    public WorldTimeMode 1;
 
 
 }

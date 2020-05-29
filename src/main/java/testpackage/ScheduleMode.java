@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -18,27 +19,10 @@ public class ScheduleMode extends Mode {
     private ArrayList<Schedule> scheduleList;
 
     /**
-     * 
-     */
-    public Schedule 0..4;
-
-    /**
-     * 
-     */
-    public Controller 1;
-
-    /**
-     * 
-     */
-    public Mode Controller 1;
-
-
-
-    /**
      * @param int index 
      * @return
      */
-    public Schedule getValue(void int index) {
+    public Schedule getValue(int index) {
         // TODO implement here
         return null;
     }
@@ -48,7 +32,7 @@ public class ScheduleMode extends Mode {
      * @param Schedule schedule 
      * @return
      */
-    public Schedule saveValue(void int index, void Schedule schedule) {
+    public Schedule saveValue(int index, Schedule schedule) {
         // TODO implement here
         return null;
     }
@@ -57,7 +41,7 @@ public class ScheduleMode extends Mode {
      * @param int index 
      * @return
      */
-    public boolean deleteValue(void int index) {
+    public boolean deleteValue(int index) {
         // TODO implement here
         return false;
     }

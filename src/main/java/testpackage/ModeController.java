@@ -1,19 +1,20 @@
 package testpackage;
+
 import java.util.*;
 
 /**
- * 
+ *
  */
-public class Mode {
+public class ModeController {
 
     /**
      * Default constructor
      */
-    public Mode() {
+    public ModeController() {
     }
 
     /**
-     * @param type 
+     * @param type
      * @param num
      */
     public void upData(int type, int num) {

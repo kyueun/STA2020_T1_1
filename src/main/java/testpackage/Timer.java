@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ public class Timer {
     /**
      * 
      */
-    public void time;
+    public Time time;
 
     /**
      * 

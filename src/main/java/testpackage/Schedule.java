@@ -1,3 +1,4 @@
+package testpackage;
 
 import java.util.*;
 
@@ -21,21 +22,5 @@ public class Schedule {
      * 
      */
     public int scheduleType;
-
-    /**
-     * 
-     */
-    public ScheduleMode 1;
-
-    /**
-     * 
-     */
-    public Time 1;
-
-    /**
-     * 
-     */
-    public ScheduleMode 1;
-
 
 }
