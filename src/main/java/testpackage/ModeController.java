@@ -14,15 +14,37 @@ public class ModeController {
     final int TIME_POINTER_MINUTE = 4;
     final int TIME_POINTER_SECOND = 5;
 
+    private Schedule curSchedule;
+    private Alarm curAlarm;
     private Time curTimer;
+    private Time curTime;
     private Time curStopwatch;
     private Time runningTimer;
+    private Alarm[] runningAlarm;
     private Time runningStopwatch;
+    private Schedule recentSchedule;
+    private int curMode;
+    private boolean[] selectedModeNum;
+    private Mode[] selectedMode;
+    private Beep beep;
 
-    /**
-     * Default constructor
-     */
-    public ModeController() {
+    public ModeController(Time time, Mode[] modes) {
+        this.curMode = Info.TIMEKEEPING;
+        this.curTime = time;
+        this.selectedMode = new Mode[6];
+        this.selectedModeNum = new boolean[6];
+
+        for(int i=0; i<4; i++){
+            this.selectedMode[i] = modes[i];
+            this.selectedModeNum[i] = true;
+        }
+
+        for(int i=4; i<6; i++){
+            this.selectedMode[i] = null;
+            this.selectedModeNum[i] = false;
+        }
+
+        this.beep = new Beep();
     }
 
     public Time loadTime(int time_type){

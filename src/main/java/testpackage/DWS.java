@@ -8,19 +8,20 @@ import java.util.*;
  **/
  public class DWS{
 
-    /**
-     * Default constructor
-     */
-    public DWS () {
+    public DWS (ModeController controller, int mode) {
+        this.controller = controller;
+        this.mode = mode;
     }
 
-   // private UI ui;
+
+    // private UI ui;
     private int index;
     private int pointer;
     private int mode;
     private int object_type;
     private int time_type;
     private ModeController controller;
+
 
     /**
      * @return

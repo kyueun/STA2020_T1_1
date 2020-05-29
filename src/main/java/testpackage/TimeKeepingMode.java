@@ -7,17 +7,19 @@ import java.util.*;
  */
 public class TimeKeepingMode extends Mode {
 
-    /**
-     * Default constructor
-     */
+    private Time currentTime;
+
     public TimeKeepingMode() {
+        this.currentTime = null;
+    }
+
+    public TimeKeepingMode(Time time) {
+        this.currentTime = time;
     }
 
     /**
      * 
      */
-    private Time currentTime;
-
     /**
      * 
      */
@@ -25,7 +27,7 @@ public class TimeKeepingMode extends Mode {
      * @param int index 
      * @return
      */
-    public Time getValue(int index) {
+    public Time getValue() {
         // TODO implement here
         return null;
     }
@@ -35,7 +37,7 @@ public class TimeKeepingMode extends Mode {
      * @param Time time 
      * @return
      */
-    public Time saveValue(int index, Time time) {
+    public Time saveValue(Time time) {
         // TODO implement here
         return null;
     }
