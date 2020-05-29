@@ -1,5 +1,7 @@
 package testpackage;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -22,10 +24,54 @@ import java.util.*;
     private int time_type;
     private ModeController controller;
 
-
     /**
      * @return
      */
+
+    public void start() {
+        LocalTime timeStart, timeEnd;
+        boolean flag;
+        int input;
+
+        while(true) {
+            timeStart = LocalTime.now();
+            input = -1;
+            flag = false;
+
+            do {
+                timeEnd = LocalTime.now();
+
+                if(!flag) {
+                    input = gui.getInput();
+                    if(input!=-1) flag = true;
+                }
+            }while(Duration.between(timeStart, timeEnd).getSeconds()<1);
+
+            if(input==-1) { //nothing in
+
+            }
+            else { // button input exist
+                switch(input) {
+                    case Info.A:
+                        break;
+                    case Info.B:
+                        break;
+                    case Info.C:
+                        break;
+                    case Info.D:
+                        break;
+                    case Info.LONGB:
+                        break;
+                    case Info.LONGD:
+                        break;
+                }
+            }
+
+            gui.display(mode, object);
+            gui.setInput(-1);
+        }
+    }
+
     public int pressButtonA() {
         // TODO implement here
         return 0;
