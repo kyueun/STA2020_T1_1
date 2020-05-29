@@ -5,7 +5,7 @@ public class TestClass {
 
     public static int getValue()
     {
-        return value;
+        return value*2;
     }
 
     public static void setValue(int a)
