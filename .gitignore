@@ -47,3 +47,4 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .gradle/6.3/fileContent/fileContent.lock
 .gradle/checksums/checksums.lock
+*.iml
