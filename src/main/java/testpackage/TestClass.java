@@ -26,7 +26,7 @@ public class TestClass {
 
 //        while(true) {
 //          }
-        DWS.setGui(new GUI());
+        dws.setGui(new GUI());
     }
 
     private static void initTime(Time time){

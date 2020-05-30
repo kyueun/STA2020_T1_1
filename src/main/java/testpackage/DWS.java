@@ -11,7 +11,7 @@ import java.util.*;
  *
  **/
  public class DWS{
-    private static GUI gui;
+    private GUI gui;
     private int index;
     private int pointer;
     private int mode;
@@ -69,12 +69,12 @@ import java.util.*;
         }
     }
 
-    public static GUI getGui() {
+    public GUI getGui() {
         return gui;
     }
 
-    public static void setGui(GUI gui) {
-        DWS.gui = gui;
+    public void setGui(GUI gui) {
+        this.gui = gui;
     }
 
     public int pressButtonA() {
