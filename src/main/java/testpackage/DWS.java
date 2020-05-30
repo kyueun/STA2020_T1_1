@@ -1,5 +1,7 @@
 package testpackage;
 
+import view.GUI;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
@@ -9,14 +11,7 @@ import java.util.*;
  *
  **/
  public class DWS{
-
-    public DWS (ModeController controller, int mode) {
-        this.controller = controller;
-        this.mode = mode;
-    }
-
-
-    // private UI ui;
+    private static GUI gui;
     private int index;
     private int pointer;
     private int mode;
@@ -24,9 +19,10 @@ import java.util.*;
     private int time_type;
     private ModeController controller;
 
-    /**
-     * @return
-     */
+    public DWS (ModeController controller, int mode) {
+        this.controller = controller;
+        this.mode = mode;
+    }
 
     public void start() {
         LocalTime timeStart, timeEnd;
@@ -42,7 +38,7 @@ import java.util.*;
                 timeEnd = LocalTime.now();
 
                 if(!flag) {
-                    input = gui.getInput();
+                    input = this.gui.getInput();
                     if(input!=-1) flag = true;
                 }
             }while(Duration.between(timeStart, timeEnd).getSeconds()<1);
@@ -67,10 +63,18 @@ import java.util.*;
                 }
             }
 
-            gui.display(mode, object);
-            gui.setInput(-1);
+            this.gui.display(mode, new Object()); // (Required) modify object
+            this.gui.setInput(-1);
             timeStart = timeEnd;
         }
+    }
+
+    public static GUI getGui() {
+        return gui;
+    }
+
+    public static void setGui(GUI gui) {
+        DWS.gui = gui;
     }
 
     public int pressButtonA() {

@@ -12,7 +12,7 @@ public class TestClass {
         Time time = new Time();
         Mode modes[] = new Mode[6];
 
-        //display를 위한 현재 모드
+        // Current Mode for Display
         int mode = Info.TIMEKEEPING;
 
         initTime(time);
@@ -21,13 +21,12 @@ public class TestClass {
         ModeController controller = new ModeController(time, modes);
         DWS dws = new DWS(controller, Info.TIMEKEEPING);
 
-        //부모 클래스에서 자식 클래스 메소드 호출
+        // call sub class's method from super class
         ((TimeKeepingMode) modes[0]).saveValue(time);
 
 //        while(true) {
 //          }
-
-        GUI gui = new GUI();
+        DWS.setGui(new GUI());
     }
 
     private static void initTime(Time time){

@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class GUI extends JFrame {
+    private int input;
     static MenuPanel menuPanel = new MenuPanel();
     JPanel timeKeepingPanel = new TimeKeepingPanel();
     JButton buttonA = new JButton("A");
@@ -67,6 +68,14 @@ public class GUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public int getInput() {
+        return input;
+    }
+
+    public void setInput(int input) {
+        this.input = input;
+    }
+
     public void setComponentLayout(JComponent component, int x, int y, int weight, int height, double weightx, double weighty) {
         gridBagConstraints.gridx = x;
         gridBagConstraints.gridy = y;
@@ -76,5 +85,10 @@ public class GUI extends JFrame {
         gridBagConstraints.weighty = weighty;
 
         gridBagLayout.setConstraints(component, gridBagConstraints);
+    }
+
+    public void display(int mode, Object object) {
+        // display
+        System.out.println("Display is Called with mode: " + mode + ", object: " + object.toString());
     }
 }
