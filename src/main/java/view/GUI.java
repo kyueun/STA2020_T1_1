@@ -8,17 +8,19 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
     private int input;
+    int mode;
     TimeKeepingPanel timeKeepingPanel = new TimeKeepingPanel();
     TimerPanel timerPanel = new TimerPanel();
     StopWatchPanel stopWatchPanel = new StopWatchPanel();
     AlarmListPanel alarmListPanel = new AlarmListPanel();
+    WorldTimePanel worldTimePanel = new WorldTimePanel();
+    ScheduleListPanel scheduleListPanel = new ScheduleListPanel();
     JPanel[] modePanel = new JPanel[6];
     JButton buttonA = new JButton("A");
     JButton buttonB = new JButton("B");
     JButton buttonC = new JButton("C");
     JButton buttonD = new JButton("D");
     JPanel curMode;
-    int mode;
 
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -39,8 +41,8 @@ public class GUI extends JFrame {
         modePanel[1] = timerPanel;
         modePanel[2] = stopWatchPanel;
         modePanel[3] = alarmListPanel;
-        modePanel[4] = timeKeepingPanel;
-        modePanel[5] = timeKeepingPanel;
+        modePanel[4] = worldTimePanel;
+        modePanel[5] = scheduleListPanel;
         curMode = timeKeepingPanel;
         mode = 0;
 
