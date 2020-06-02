@@ -16,7 +16,8 @@ public class TestClass {
         int mode = Info.TIMEKEEPING;
 
         DWS dws = new DWS();
-        //부모 클래스에서 자식 클래스 메소드 호출
+
+        dws.setGui(new GUI());
 
         dws.start();
     }

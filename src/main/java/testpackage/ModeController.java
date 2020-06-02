@@ -67,7 +67,7 @@ public class ModeController {
         switch (time_type) {
             case Info.TIMEKEEPING :
                 switch (pointer) {
-                    case 0 :    // TIME_POINTER_YEAR
+                    case Info.TIME_POINTER_YEAR :
                         this.curTime.year++;
 
                         // ~ Use Case 6. A3-1
@@ -79,7 +79,7 @@ public class ModeController {
                             this.curTime.day = 1;
                         }
                         break;
-                    case 1:    // TIME_POINTER_MONTH
+                    case Info.TIME_POINTER_MONTH:
                         this.curTime.month++;
 
                         // ~ Use Case 6. A3-1
@@ -91,7 +91,7 @@ public class ModeController {
                             this.curTime.day = 1;
                         }
                         break;
-                    case 2:    // TIME_POINTER_DAY
+                    case Info.TIME_POINTER_DAY:
                         this.curTime.day++;
 
                         // ~ Use Case 6. A3-1
@@ -100,13 +100,13 @@ public class ModeController {
                             this.curTime.day = 1;
                         }
                         break;
-                    case 3:    // TIME_POINTER_HOUR
+                    case Info.TIME_POINTER_HOUR:
                         this.curTime.hour = (this.curTime.hour + 1) % 24;
                         break;
-                    case 4:    // TIME_POINTER_MINUTE
+                    case Info.TIME_POINTER_MINUTE:
                         this.curTime.minute = (this.curTime.minute + 1) % 60;
                         break;
-                    case 5:    // TIME_POINTER_SECOND
+                    case Info.TIME_POINTER_SECOND:
                         this.curTime.second = (this.curTime.second + 1) % 60;
                         break;
                 }
@@ -114,13 +114,13 @@ public class ModeController {
 
             case Info.TIMER :
                 switch (pointer) {
-                    case 3:    // TIME_POINTER_HOUR
+                    case Info.TIME_POINTER_HOUR:
                         this.curTimer.hour = (this.curTimer.hour + 1) % 24;
                         break;
-                    case 4:    // TIME_POINTER_MINUTE
+                    case Info.TIME_POINTER_MINUTE:
                         this.curTimer.minute = (this.curTimer.minute + 1) % 60;
                         break;
-                    case 5:    // TIME_POINTER_SECOND
+                    case Info.TIME_POINTER_SECOND:
                         this.curTimer.second = (this.curTimer.second + 1) % 60;
                         break;
                 }
@@ -150,7 +150,7 @@ public class ModeController {
         switch (time_type) {
             case Info.TIMEKEEPING :
                 switch (pointer) {
-                    case 0:    // TIME_POINTER_YEAR
+                    case Info.TIME_POINTER_YEAR:
                         this.curTime.year--;
 
                         // ~ Use Case 6. A3-2
@@ -162,7 +162,7 @@ public class ModeController {
                             this.curTime.day = 1;
                         }
                         break;
-                    case 1:    // TIME_POINTER_MONTH
+                    case Info.TIME_POINTER_MONTH:
                         this.curTime.month--;
 
                         // ~ Use Case 6. A3-2
@@ -174,7 +174,7 @@ public class ModeController {
                             this.curTime.day = 1;
                         }
                         break;
-                    case 2:    // TIME_POINTER_DAY
+                    case Info.TIME_POINTER_DAY:
                         this.curTime.day--;
 
                         // ~ Use Case 6. A3-2
@@ -183,15 +183,15 @@ public class ModeController {
                             this.curTime.day = cldDay.getActualMaximum(Calendar.DAY_OF_MONTH);
                         }
                         break;
-                    case 3:    // TIME_POINTER_HOUR
+                    case Info.TIME_POINTER_HOUR:
                         this.curTime.hour--;
                         if(this.curTime.hour < 0) this.curTime.hour = 23;
                         break;
-                    case 4:    // TIME_POINTER_MINUTE
+                    case Info.TIME_POINTER_MINUTE:
                         this.curTime.minute--;
                         if(this.curTime.minute < 0) this.curTime.minute = 59;
                         break;
-                    case 5:    // TIME_POINTER_SECOND
+                    case Info.TIME_POINTER_SECOND:
                         this.curTime.second--;
                         if(this.curTime.second < 0) this.curTime.second = 59;
                         break;
@@ -265,19 +265,17 @@ public class ModeController {
         return null;
     }
 
-
-
-    public void upData(int type, int num) {
-        // TODO implement here
-    }
-
-    public Object getValue(int index) {
-        // TODO implement here
-        return null;
-    }
-    
-    public Object saveValue(int index, Object object) {
-        // TODO implement here
-        return null;
-    }
+//    public void upData(int type, int num) {
+//        // TODO implement here
+//    }
+//
+//    public Object getValue(int index) {
+//        // TODO implement here
+//        return null;
+//    }
+//
+//    public Object saveValue(int index, Object object) {
+//        // TODO implement here
+//        return null;
+//    }
 }

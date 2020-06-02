@@ -24,10 +24,10 @@ import java.util.*;
 
     int timeStart, timeEnd;
 
-    gui = new GUI();
     private int input;
 
     public DWS () {
+
         time = new Time();
         modes = new Mode[6];
 
@@ -97,13 +97,14 @@ import java.util.*;
         }
     }
 
-    /**
-     * @return
-     */
+    public GUI getGui() {
+        return gui;
+    }
 
-    /**
-     * @return
-     */
+    public void setGui(GUI gui) {
+        this.gui = gui;
+    }
+
     public Object pressButtonA() {
             switch (mode) {
                 case Info.TIMEKEEPINGSET:
