@@ -3,9 +3,9 @@ package testpackage;
 import java.util.*;
 
 public class ModeController {
-    final int TIME_TYPE_CURRENT_TIME = 0;
-    final int TIME_TYPE_TIMER = 1;
-    final int TIME_TYPE_STOPWATCH = 2;
+//    final int TIME_TYPE_CURRENT_TIME = 0;
+//    final int TIME_TYPE_TIMER = 1;
+//    final int TIME_TYPE_STOPWATCH = 2;
 
     final int TIME_POINTER_YEAR = 0;
     final int TIME_POINTER_MONTH = 1;
@@ -47,15 +47,19 @@ public class ModeController {
         this.beep = new Beep();
     }
 
-    public Time loadTime(int time_type){
-        switch (time_type){
-            case TIME_TYPE_CURRENT_TIME :
+    public Time loadTime(int mode){
+        switch (mode){
+            case Info.TIMEKEEPING :
+                if(selectedModeNum[mode/10]){
+                    return ((TimeKeepingMode)selectedMode[mode/10]).getValue();
+                }
+
                 return null;
 
-            case TIME_TYPE_TIMER :
+            case Info.TIMER:
                 return null;
 
-            case TIME_TYPE_STOPWATCH :
+            case Info.STOPWATCH :
                 return null;
         }
         return null;

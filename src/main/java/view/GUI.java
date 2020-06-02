@@ -1,5 +1,8 @@
 package view;
 
+import testpackage.DWS;
+import testpackage.Info;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,6 +21,46 @@ public class GUI extends JFrame {
         this.setTitle("Schedule DWS");
         this.setBounds(100, 100, 600, 400);
         this.setVisible(true);
+
+        DWS sys = new DWS();
+
+        int object
+        int displayNum;
+        boolean pressed = false;
+        mousePressed(){
+            pressed = true;
+        }
+        mouseReleased(){
+            pressed = false;
+            object = DWS.pressButtonB();
+        }
+
+        trigger(displayNum, nt object){
+            displayNum = displayNum;
+            object = object;
+
+            display();
+        }
+
+        display(displayNum){
+            if(pressd){
+                switch(displayNum){
+                    case Info.TIMEKEEPING:
+                        pannel(object);
+                        break;
+                    ...
+                }
+            }else{
+
+            }
+
+        }
+        while(true){
+            switch(displayNum){
+                case 10:
+
+            }
+        }
 
         System.out.println("please...");
 
