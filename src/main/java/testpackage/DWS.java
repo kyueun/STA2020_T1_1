@@ -49,16 +49,25 @@ import java.util.*;
             else { // button input exist
                 switch(input) {
                     case Info.A:
+                        pressButtonA();
                         break;
                     case Info.B:
+                        pressButtonB();
                         break;
                     case Info.C:
+                        pressButtonC();
                         break;
                     case Info.D:
+                        pressButtonD();
                         break;
                     case Info.LONGB:
+                        pressLongButtonB();
+                        break;
+                    case Info.LONGC:
+                        pressLongButtonC();
                         break;
                     case Info.LONGD:
+                        pressLongButtonD();
                         break;
                 }
             }
@@ -79,6 +88,11 @@ import java.util.*;
 
     public int pressButtonA() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                increaseValue();
+                break;
+        }
         return 0;
     }
 
@@ -87,6 +101,17 @@ import java.util.*;
      */
     public int pressButtonB() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                saveTime();
+                //startTimer();
+                //pauseTimer();
+                break;
+            case Info.STOPWATCH:
+                //startStopwatch();
+                //pauseStopwatch();
+                break;
+        }
         return 0;
     }
 
@@ -95,6 +120,11 @@ import java.util.*;
      */
     public int pressButtonC() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                movePointer();
+                break;
+        }
         return 0;
     }
 
@@ -119,6 +149,14 @@ import java.util.*;
      */
     public int pressLongButtonB() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER :
+                resetTimer();
+                break;
+            case Info.STOPWATCH:
+                resetStopwatch();
+                break;
+        }
         return 0;
     }
 
@@ -151,6 +189,14 @@ import java.util.*;
      */
     private void increaseValue() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                controller.increaseTimeValue(Info.TIMER, pointer);
+                break;
+            case Info.STOPWATCH:
+                controller.increaseTimeValue(Info.STOPWATCH, pointer);
+                break;
+        }
         return;
     }
 
@@ -166,6 +212,11 @@ import java.util.*;
      */
     private void decreaseValue() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                controller.decreaseTimeValue(Info.TIMER, pointer);
+                break;
+        }
         return;
     }
 
@@ -174,6 +225,13 @@ import java.util.*;
      */
     private int movePointer() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                pointer++;
+                if(pointer == 5) pointer = 3; //3(HOUR), 4(MINUTE), 5(SECOND)
+                controller.moveTimerPointer(Info.TIMER);
+                break;
+        }
         return 0;
     }
 
@@ -198,6 +256,11 @@ import java.util.*;
      */
     private Object saveTime() {
         // TODO implement here
+        switch (mode){
+            case Info.TIMER:
+                controller.saveTimeValue(null, 0, Info.TIMER);
+                break;
+        }
         return null;
     }
 
@@ -221,7 +284,7 @@ import java.util.*;
      * @return
      */
     private void resetTimer() {
-        // TODO implement here
+        controller.saveTimeValue(new Time(), 0, Info.TIMER);
         return;
     }
 
@@ -245,7 +308,7 @@ import java.util.*;
      * @return
      */
     private void resetStopwatch() {
-        // TODO implement here
+        controller.saveTimeValue(new Time(), 0, Info.STOPWATCH);
         return;
     }
 

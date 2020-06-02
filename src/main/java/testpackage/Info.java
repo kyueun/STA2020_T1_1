@@ -1,7 +1,7 @@
 package testpackage;
 
 public class Info {
-    final static int A = 0, B = 1, C = 2, D = 3, LONGB = 4, LONGD = 5;
+    final static int A = 0, B = 1, C = 2, D = 3, LONGB = 4, LONGC = 5, LONGD = 6;
 
     final static int TIMEKEEPING = 10, TIMEKEEPINGSET = 11;
     final static int TIMER = 20;
