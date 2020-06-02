@@ -12,7 +12,7 @@ public class TestClass {
         Time time = new Time();
         Mode modes[] = new Mode[6];
 
-        //display를 위한 현재 모드
+        // Current Mode for Display
         int mode = Info.TIMEKEEPING;
 
         DWS dws = new DWS();

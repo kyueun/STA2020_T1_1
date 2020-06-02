@@ -4,6 +4,7 @@ import java.util.*;
 
 public class StopwatchMode extends Mode {
     public StopwatchMode() {
+        this.stopwatchTime = null;
     }
 
     private Time stopwatchTime;
