@@ -13,7 +13,7 @@ public class TimerMode extends Mode {
         return this.timerTime;
     }
 
-    public Time saveValue(int index, Time time) {
+    public Time saveValue(Time time) {
         this.timerTime = time;
         return this.timerTime;
     }

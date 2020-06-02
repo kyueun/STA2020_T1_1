@@ -36,6 +36,8 @@ import java.util.*;
         initTime(time);
         initMode(modes, time);
 
+        pointer = Info.TIME_POINTER_NULL;
+
         ((TimeKeepingMode) modes[0]).saveValue(time);
         controller = new ModeController(time, modes);
 
@@ -46,16 +48,17 @@ import java.util.*;
     }
 
     public void start() {
-        LocalTime timeStart, timeEnd;
-        boolean flag;
-        int input;
+        LocalTime timeStart, timeEnd; //실제 1초 체
+        boolean flag; //input 유
+        int input; //input in gui
 
         timeStart = LocalTime.now();
-        Object[] screenValue = null;
+        Object[] screenValue = null; //display 할 값
 
         while(true) {
             input = -1;
             flag = false;
+
             controller.increaseTimeValue(Info.TIMEKEEPING, Info.TIME_POINTER_NULL);
             if(controller.isRunningTimer()) controller.increaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
             if(controller.isRunningStopwatch()) controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL);
@@ -89,25 +92,25 @@ import java.util.*;
             else { // button input exist
                 switch(input) {
                     case Info.A:
-                        pressButtonA();
+                        screenValue = pressButtonA();
                         break;
                     case Info.B:
-                        screenValue = new Object[]{pressButtonB()};
+                        screenValue = pressButtonB();
                         break;
                     case Info.C:
-                        pressButtonC();
+                        screenValue = pressButtonC();
                         break;
                     case Info.D:
-                        pressButtonD();
+                        screenValue = pressButtonD();
                         break;
                     case Info.LONGB:
-                        pressLongButtonB();
+                        screenValue = pressLongButtonB();
                         break;
                     case Info.LONGC:
-                        pressLongButtonC();
+                        screenValue = pressLongButtonC();
                         break;
                     case Info.LONGD:
-                        pressLongButtonD();
+                        screenValue = pressLongButtonD();
                         break;
                     default:
                         screenValue = null;
@@ -120,19 +123,16 @@ import java.util.*;
         }
     }
 
-    public GUI getGui() {
-        return gui;
-    }
-
     public void setGui(GUI gui) {
         this.gui = gui;
     }
 
-    public Object pressButtonA() {
+    public Object[] pressButtonA() {
             switch (mode) {
-                case Info.TIMEKEEPINGSET:
+                case Info.TIMEKEEPINGSET: //increase
+                    increaseValue();
+                    return new Object[]{controller.getCurTime()};
 
-                    return enterSettingMode();
                 case Info.TIMER:
                     increaseValue();
                     break;
@@ -159,15 +159,20 @@ import java.util.*;
     /**
      * @return
      */
-    public Object pressButtonB() {
+    public Object[] pressButtonB() {
         switch(mode){
-            case Info.TIMEKEEPING:
+            case Info.TIMEKEEPING: //enterSetting
                 mode = Info.TIMEKEEPINGSET;
-                return enterSettingMode();
-            case Info.TIMEKEEPINGSET:
-                break;
+                pointer = Info.TIME_POINTER_HOUR;
+                return new Object[]{enterSettingMode()};
+
+            case Info.TIMEKEEPINGSET: //exitSetting
+                time = (Time) saveValue();
+                mode = Info.TIMEKEEPING;
+                return new Object[]{time};
+
             case Info.TIMER:
-                saveTime();
+
                 //startTimer();
                 //pauseTimer();
                 break;
@@ -199,11 +204,12 @@ import java.util.*;
     /**
      * @return
      */
-    public Object pressButtonC() {
+    public Object[] pressButtonC() {
         switch(mode){
-            case Info.TIMEKEEPINGSET:
+            case Info.TIMEKEEPINGSET: //decrease
+               decreaseValue();
+                return new Object[]{controller.getCurTime()};
 
-                return enterSettingMode();
             case Info.TIMER:
                 movePointer();
                 break;
@@ -232,34 +238,36 @@ import java.util.*;
      * @return
      */
 
-    public Object pressButtonD() {
-                switch (mode) {
-                    case Info.TIMEKEEPING:
-                        return enterSettingMode();
-                    case Info.TIMER:
+    public Object[] pressButtonD() {
+        switch (mode) {
+            case Info.TIMEKEEPING: //change mode
 
-                        break;
-                    case Info.STOPWATCH:
+            case Info.TIMEKEEPINGSET: //move pointer
+                movePointer();
+                return new Object[]{controller.getCurTime(), pointer};
 
-                        break;
-                    case Info.ALARM:
+            case Info.TIMER:
 
-                        break;
-                    case Info.SCHEDULE:
+            case Info.STOPWATCH:
 
-                        break;
-                    case Info.WORLDTIME:
+            case Info.ALARM:
 
-                        break;
-                    default:
-                        break;
-                }
+            case Info.ALARMSET:
+
+            case Info.SCHEDULE:
+
+            case Info.SCHEDULESET:
+
+            case Info.WORLDTIME:
+
+            default:
                 return null;
-            }
+        }
+    }
 
 
 
-    public Object pressLongButtonB() {
+    public Object[] pressLongButtonB() {
         switch(mode){
             case Info.SCHEDULE:
                 break;
@@ -275,7 +283,7 @@ import java.util.*;
         return null;
     }
 
-    public Object pressLongButtonC() {
+    public Object[] pressLongButtonC() {
         switch(mode){
             case Info.SCHEDULE:
                 break;
@@ -291,9 +299,10 @@ import java.util.*;
         return null;
     }
 
-    public int pressLongButtonD() {
+    public Object[] pressLongButtonD() {
         // TODO implement here
-        return 0;
+
+        return null;
     }
 
     /**
@@ -308,20 +317,28 @@ import java.util.*;
         return null;
     }
 
-    /**
-     * @return
-     */
-    private void increaseValue() {
-        // TODO implement here
+    private Object increaseValue() {
+        controller.increaseTimeValue(mode, pointer);
+
         switch (mode){
+            case Info.TIMEKEEPINGSET:
+                return controller.getCurTime();
+
             case Info.TIMER:
-                controller.increaseTimeValue(Info.TIMER, pointer);
-                break;
+                return controller.getCurTimer();
+
             case Info.STOPWATCH:
-                controller.increaseTimeValue(Info.STOPWATCH, pointer);
-                break;
+                return controller.getCurStopwatch();
+
+            case Info.ALARMSET:
+                return controller.getCurAlarm();
+
+            case Info.SCHEDULESET:
+                return controller.getCurSchedule();
+
+            default:
+                return null;
         }
-        return;
     }
 
     /**
@@ -334,29 +351,51 @@ import java.util.*;
     /**
      * @return
      */
-    private void decreaseValue() {
-        // TODO implement here
+    private Object decreaseValue() {
+        controller.decreaseTimeValue(pointer);
+
         switch (mode){
+            case Info.TIMEKEEPINGSET:
+                return controller.getCurTime();
+
             case Info.TIMER:
-               // controller.decreaseTimeValue(Info.TIMER, pointer);
-                break;
+                return controller.getCurTimer();
+
+            case Info.STOPWATCH:
+                return controller.getCurStopwatch();
+
+            case Info.ALARMSET:
+                return controller.getCurAlarm();
+
+            case Info.SCHEDULESET:
+                return controller.getCurSchedule();
+
+            default:
+                return null;
         }
-        return;
     }
 
-    /**
-     * @return
-     */
-    private int movePointer() {
-        // TODO implement here
+    private void movePointer() {
+        pointer++;
+
         switch (mode){
+            case Info.TIMEKEEPINGSET:
+                if(pointer>Info.TIME_POINTER_DAY) pointer = Info.TIME_POINTER_HOUR;
+                break;
+
             case Info.TIMER:
-                pointer++;
-                if(pointer == 5) pointer = 3; //3(HOUR), 4(MINUTE), 5(SECOND)
-                controller.moveTimerPointer(Info.TIMER);
+                if(pointer>Info.TIME_POINTER_SECOND) pointer = Info.TIME_POINTER_HOUR;
+                break;
+
+            case Info.ALARMSET:
+                if(pointer>Info.TIME_POINTER_SECOND) pointer = Info.TIME_POINTER_HOUR;
+                break;
+
+            case Info.SCHEDULESET:
+                if(pointer>Info.TIME_POINTER_SCHETYPE) pointer = Info.TIME_POINTER_MONTH;
+                else if(pointer>Info.TIME_POINTER_DAY) pointer = Info.TIME_POINTER_HOUR;
                 break;
         }
-        return 0;
     }
 
     /**
@@ -378,12 +417,14 @@ import java.util.*;
     /**
      * @return
      */
-    private Object saveTime() {
-        // TODO implement here
+    private Object saveValue() {
+        controller.saveTimeValue(index, mode);
+
         switch (mode){
-            case Info.TIMER:
-                controller.saveTimeValue(null, 0, Info.TIMER);
-                break;
+            case Info.TIMEKEEPINGSET:
+                return ((TimeKeepingMode)controller.getSelectedMode()[controller.getCurMode()/10]).getValue();
+
+
         }
         return null;
     }
@@ -408,7 +449,7 @@ import java.util.*;
      * @return
      */
     private void resetTimer() {
-        controller.saveTimeValue(new Time(), 0, Info.TIMER);
+//        controller.saveTimeValue(new Time(), 0, Info.TIMER);
         return;
     }
 
@@ -432,8 +473,8 @@ import java.util.*;
      * @return
      */
     private void resetStopwatch() {
-        controller.saveTimeValue(new Time(), 0, Info.STOPWATCH);
-        return;
+//        controller.saveTimeValue(new Time(), 0, Info.STOPWATCH);
+//        return;
     }
 
     /**
@@ -473,6 +514,7 @@ import java.util.*;
      */
     private void changeMode() {
         // TODO implement here
+       // mode = controller.changeModeValue();
         return;
     }
 

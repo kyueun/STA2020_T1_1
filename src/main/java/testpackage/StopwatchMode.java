@@ -13,7 +13,7 @@ public class StopwatchMode extends Mode {
         return this.stopwatchTime;
     }
 
-    public Time saveValue(int index, Time time) {
+    public Time saveValue(Time time) {
         this.stopwatchTime = time;
         return this.stopwatchTime;
     }

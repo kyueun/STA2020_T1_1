@@ -133,43 +133,33 @@ public class ModeController {
         //((DWS)super).setPointer(curPointer);
     }
 
-    public Time saveTimeValue(Time time, int index, int time_type){
-        switch (time_type){
-            case Info.TIMEKEEPING :
-                if(this.selectedModeNum[0] == true){
-                    if(time == null)
-                        return ((TimeKeepingMode)(this.selectedMode[0])).saveValue(curTime);
-                    else
-                        return ((TimeKeepingMode)(this.selectedMode[0])).saveValue(time);
-                }
-                else
-                    return null;
+    public void saveTimeValue(int index, int mode){
+        switch (mode){
+            case Info.TIMEKEEPINGSET :
+                ((TimeKeepingMode)(this.selectedMode[curMode/10])).saveValue(curTime);
+                break;
+
             case Info.TIMER :
-                if(this.selectedModeNum[1] == true){
-                    if(time == null)
-                        return ((TimerMode)(this.selectedMode[1])).saveValue(0, curTimer);
-                    else
-                        return ((TimerMode)(this.selectedMode[1])).saveValue(0, time);
-                }
-                else
-                    return null;
+                ((TimerMode)(this.selectedMode[curMode/10])).saveValue(curTimer);
+                break;
 
             case Info.STOPWATCH :
-                if(this.selectedModeNum[2] == true){
-                    if(time == null)
-                        return ((StopwatchMode)(this.selectedMode[2])).saveValue(0, curStopwatch);
-                    else
-                        return ((StopwatchMode)(this.selectedMode[2])).saveValue(0, time);
-                }
-                else
-                    return null;
+                ((StopwatchMode)(this.selectedMode[curMode/10])).saveValue(curStopwatch);
+                break;
+
+            case Info.ALARMSET :
+                ((AlarmMode)(this.selectedMode[curMode/10])).saveValue(index, curAlarm);
+                break;
+
+            case Info.SCHEDULESET :
+                ((ScheduleMode)(this.selectedMode[curMode/10])).saveValue(index, curSchedule);
+                break;
+
+
         }
-        return null;
     }
 
-    public Schedule getRecentSchedule() {
-        return recentSchedule;
-    }
+
 
     public boolean isRunningTimer() {
         return runningTimer;
@@ -179,10 +169,10 @@ public class ModeController {
         return runningStopwatch;
     }
 
-    public boolean[] getRunningAlarm() {
-        return runningAlarm;
-    }
 
+    public Time getCurTime() {
+        return curTime;
+    }
     public Time getCurTimer() {
         return curTimer;
     }
@@ -199,6 +189,29 @@ public class ModeController {
         return curSchedule;
     }
 
+    public Schedule getRecentSchedule() {
+        return recentSchedule;
+    }
+
+    public boolean[] getRunningAlarm() {
+        return runningAlarm;
+    }
+
+    public Mode[] getSelectedMode() {
+        return selectedMode;
+    }
+
+    public int getCurMode() {
+        return curMode;
+    }
+
+    public boolean[] getSelectedModeNum() {
+        return selectedModeNum;
+    }
+
+    public Beep getBeep() {
+        return beep;
+    }
     //    public void upData(int type, int num) {
 //        // TODO implement here
 //    }

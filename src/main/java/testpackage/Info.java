@@ -21,12 +21,14 @@ public class Info {
 //    final static int TIME_TYPE_STOPWATCH = 2;
 
     final static int TIME_POINTER_NULL = 0;
-    final static int TIME_POINTER_YEAR = 1;
-    final static int TIME_POINTER_MONTH = 2;
-    final static int TIME_POINTER_DAY = 3;
-    final static int TIME_POINTER_HOUR = 4;
-    final static int TIME_POINTER_MINUTE = 5;
-    final static int TIME_POINTER_SECOND = 6;
+    final static int TIME_POINTER_HOUR = 1;
+    final static int TIME_POINTER_MINUTE = 2;
+    final static int TIME_POINTER_SECOND = 3;
+    final static int TIME_POINTER_SCHETYPE = 3;
+    final static int TIME_POINTER_YEAR = 4;
+    final static int TIME_POINTER_MONTH = 5;
+    final static int TIME_POINTER_DAY = 6;
+
 
     final static int DAY_OF_MONTH[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 }
