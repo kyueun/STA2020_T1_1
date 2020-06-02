@@ -121,9 +121,9 @@ public class GUI extends JFrame {
         gridBagLayout.setConstraints(component, gridBagConstraints);
     }
 
-    public void display(int mode, Object object) {
+    public void display(int mode, Object[] objects) {
         // display
-        System.out.println("Display is Called with mode: " + mode + ", object: " + object.toString());
+//        System.out.println("Display is Called with mode: " + mode + ", object: " + object.toString());
     }
 
     public void changePanel() {

@@ -1,6 +1,8 @@
 package testpackage;
 
 import view.GUI;
+
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -49,9 +51,16 @@ import java.util.*;
         int input;
 
         timeStart = LocalTime.now();
+        Object[] screenValue = null;
+
         while(true) {
             input = -1;
             flag = false;
+            controller.increaseTimeValue(Info.TIMEKEEPING, Info.TIME_POINTER_NULL);
+            if(controller.isRunningTimer()) controller.increaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
+            if(controller.isRunningStopwatch()) controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL);
+
+           // System.out.println("TIme: "+time.year+"년"+time.month+"월"+time.day+"일"+time.hour+"시"+time.minute+"분"+time.second+"초");
 
             do {
                 timeEnd = LocalTime.now();
@@ -63,7 +72,19 @@ import java.util.*;
             }while(Duration.between(timeStart, timeEnd).getSeconds()<1);
 
             if(input==-1) { //nothing in
+                switch(mode) {
+                    case Info.TIMEKEEPING: //show current time
+                        screenValue = new Object[]{controller.getRecentSchedule(), time};
+                        break;
 
+                    case Info.TIMER: //show timer time
+                        screenValue = new Object[]{time, controller.getCurTimer()};
+                        break;
+
+                    case Info.STOPWATCH: //show timer time
+                        screenValue = new Object[]{time, controller.getCurStopwatch()};
+                        break;
+                }
             }
             else { // button input exist
                 switch(input) {
@@ -71,7 +92,7 @@ import java.util.*;
                         pressButtonA();
                         break;
                     case Info.B:
-                        pressButtonB();
+                        screenValue = new Object[]{pressButtonB()};
                         break;
                     case Info.C:
                         pressButtonC();
@@ -88,10 +109,12 @@ import java.util.*;
                     case Info.LONGD:
                         pressLongButtonD();
                         break;
+                    default:
+                        screenValue = null;
+                        break;
                 }
             }
-
-            this.gui.display(mode, new Object()); // (Required) modify object
+            this.gui.display(mode, screenValue); // (Required) modify object
             this.gui.setInput(-1);
             timeStart = timeEnd;
         }
@@ -315,7 +338,7 @@ import java.util.*;
         // TODO implement here
         switch (mode){
             case Info.TIMER:
-                controller.decreaseTimeValue(Info.TIMER, pointer);
+               // controller.decreaseTimeValue(Info.TIMER, pointer);
                 break;
         }
         return;

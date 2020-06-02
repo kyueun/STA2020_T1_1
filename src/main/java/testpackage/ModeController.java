@@ -4,18 +4,21 @@ import java.util.*;
 
 public class ModeController {
 
-    private Schedule curSchedule;
-    private Alarm curAlarm;
-    private Time curTimer;
     private Time curTime;
+    private Time curTimer;
     private Time curStopwatch;
-    private Time runningTimer;
-    private Alarm[] runningAlarm;
-    private Time runningStopwatch;
+    private Alarm curAlarm;
+    private Schedule curSchedule;
+
+    private boolean runningTimer;
+    private boolean runningStopwatch;
+    private boolean[] runningAlarm;
     private Schedule recentSchedule;
+
     private int curMode;
     private boolean[] selectedModeNum;
     private Mode[] selectedMode;
+
     private Beep beep;
 
     public ModeController(Time time, Mode[] modes) {
@@ -23,6 +26,10 @@ public class ModeController {
         this.curTime = time;
         this.selectedMode = new Mode[6];
         this.selectedModeNum = new boolean[6];
+
+        this.runningTimer = false;
+        this.runningStopwatch = false;
+        this.runningAlarm = new boolean[]{false, false, false, false};
 
         for(int i=0; i<4; i++){
             this.selectedMode[i] = modes[i];
@@ -47,13 +54,13 @@ public class ModeController {
                 return null;
 
             case Info.TIMER:
-                if (this.selectedModeNum[mode / 10] == true) {
+                if (this.selectedModeNum[mode / 10]) {
                     return ((TimerMode) (this.selectedMode[mode / 10])).getValue(0);
                 }
                 return null;
 
             case Info.STOPWATCH:
-                if (this.selectedModeNum[mode / 10] == true) {
+                if (this.selectedModeNum[mode / 10]) {
                     return ((StopwatchMode) (this.selectedMode[mode / 10])).getValue(0);
                 }
                 return null;
@@ -63,156 +70,51 @@ public class ModeController {
         }
     }
 
-    public void increaseTimeValue(int time_type, int pointer){
-        switch (time_type) {
+    public void increaseTimeValue(int mode, int pointer){
+        switch (mode) {
             case Info.TIMEKEEPING :
-                switch (pointer) {
-                    case Info.TIME_POINTER_YEAR :
-                        this.curTime.year++;
+                this.curTime.valueUp(curMode, pointer);
+                break;
 
-                        // ~ Use Case 6. A3-1
-                        if (this.curTime.year > 2099) this.curTime.year = 1900;
-
-                        // ~ Use Case 6. A3-3 (leaf year)
-                        GregorianCalendar cldYear = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                        if (this.curTime.day < cldYear.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                            this.curTime.day = 1;
-                        }
-                        break;
-                    case Info.TIME_POINTER_MONTH:
-                        this.curTime.month++;
-
-                        // ~ Use Case 6. A3-1
-                        if (this.curTime.month > 12) this.curTime.month = 1;   // January => 1, ... , December => 12
-
-                        // ~ Use Case 6. A3-3
-                        GregorianCalendar cldMonth = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                        if (this.curTime.day < cldMonth.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                            this.curTime.day = 1;
-                        }
-                        break;
-                    case Info.TIME_POINTER_DAY:
-                        this.curTime.day++;
-
-                        // ~ Use Case 6. A3-1
-                        GregorianCalendar cldDay = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                        if (this.curTime.day < cldDay.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                            this.curTime.day = 1;
-                        }
-                        break;
-                    case Info.TIME_POINTER_HOUR:
-                        this.curTime.hour = (this.curTime.hour + 1) % 24;
-                        break;
-                    case Info.TIME_POINTER_MINUTE:
-                        this.curTime.minute = (this.curTime.minute + 1) % 60;
-                        break;
-                    case Info.TIME_POINTER_SECOND:
-                        this.curTime.second = (this.curTime.second + 1) % 60;
-                        break;
-                }
+            case Info.TIMEKEEPINGSET :
+                this.curTime.valueUp(curMode, pointer);
                 break;
 
             case Info.TIMER :
-                switch (pointer) {
-                    case Info.TIME_POINTER_HOUR:
-                        this.curTimer.hour = (this.curTimer.hour + 1) % 24;
-                        break;
-                    case Info.TIME_POINTER_MINUTE:
-                        this.curTimer.minute = (this.curTimer.minute + 1) % 60;
-                        break;
-                    case Info.TIME_POINTER_SECOND:
-                        this.curTimer.second = (this.curTimer.second + 1) % 60;
-                        break;
-                }
+                this.curTimer.valueUp(curMode, pointer);
                 break;
 
             case Info.STOPWATCH :
-                this.curStopwatch.second++;
+                this.curStopwatch.valueUp(curMode, pointer);
+                break;
 
-                if (this.curStopwatch.second > 59) {
-                    this.curStopwatch.second = 0;
-                    this.curStopwatch.minute++;
+            case Info.ALARMSET :
+                this.curAlarm.alarmTime.valueUp(curMode, pointer);
+                break;
 
-                    if (this.curStopwatch.minute > 59) {
-                        this.curStopwatch.minute = 0;
-                        this.curStopwatch.hour++;
-
-                        if (this.curStopwatch.hour > 23) {
-                            this.curStopwatch.hour = 0;
-                        }
-                    }
-                }
+            case Info.SCHEDULESET :
+                this.curSchedule.scheduleTime.valueUp(curMode, pointer);
                 break;
         }
     }
 
-    public void decreaseTimeValue(int time_type, int pointer){
-        switch (time_type) {
-            case Info.TIMEKEEPING :
-                switch (pointer) {
-                    case Info.TIME_POINTER_YEAR:
-                        this.curTime.year--;
-
-                        // ~ Use Case 6. A3-2
-                        if (this.curTime.year < 1900) this.curTime.year = 2099;
-
-                        // ~ Use Case 6. A3-3 (leaf year)
-                        GregorianCalendar cldYear = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                        if (this.curTime.day < cldYear.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                            this.curTime.day = 1;
-                        }
-                        break;
-                    case Info.TIME_POINTER_MONTH:
-                        this.curTime.month--;
-
-                        // ~ Use Case 6. A3-2
-                        if (this.curTime.month < 1) this.curTime.month = 12;   // January => 1, ... , December => 12
-
-                        // ~ Use Case 6. A3-3
-                        GregorianCalendar cldMonth = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                        if (this.curTime.day < cldMonth.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                            this.curTime.day = 1;
-                        }
-                        break;
-                    case Info.TIME_POINTER_DAY:
-                        this.curTime.day--;
-
-                        // ~ Use Case 6. A3-2
-                        if (this.curTime.day < 1) {
-                            GregorianCalendar cldDay = new GregorianCalendar(this.curTime.year, this.curTime.month - 1, 1);
-                            this.curTime.day = cldDay.getActualMaximum(Calendar.DAY_OF_MONTH);
-                        }
-                        break;
-                    case Info.TIME_POINTER_HOUR:
-                        this.curTime.hour--;
-                        if(this.curTime.hour < 0) this.curTime.hour = 23;
-                        break;
-                    case Info.TIME_POINTER_MINUTE:
-                        this.curTime.minute--;
-                        if(this.curTime.minute < 0) this.curTime.minute = 59;
-                        break;
-                    case Info.TIME_POINTER_SECOND:
-                        this.curTime.second--;
-                        if(this.curTime.second < 0) this.curTime.second = 59;
-                        break;
-                }
+    public void decreaseTimeValue(int pointer){
+        switch (curMode) {
+            case Info.TIMEKEEPINGSET :
+                this.curTime.valueDown(pointer);
                 break;
 
             case Info.TIMER :
-                this.curTimer.second--;
-
-                if (this.curTimer.second < 0) {
-                    this.curTimer.second = 59;
-                    this.curTimer.minute--;
-
-                    if (this.curTimer.minute < 0) {
-                        this.curTimer.minute = 59;
-                        this.curTimer.hour--;
-                    }
-                }
+                this.curTimer.valueDown(pointer);
                 break;
 
-                // Stopwatch doesn't use decreaseTimeValue()
+            case Info.ALARMSET :
+                this.curAlarm.alarmTime.valueDown(pointer);
+                break;
+
+            case Info.SCHEDULESET :
+                this.curSchedule.scheduleTime.valueDown(pointer);
+                break;
         }
     }
 
@@ -265,7 +167,39 @@ public class ModeController {
         return null;
     }
 
-//    public void upData(int type, int num) {
+    public Schedule getRecentSchedule() {
+        return recentSchedule;
+    }
+
+    public boolean isRunningTimer() {
+        return runningTimer;
+    }
+
+    public boolean isRunningStopwatch() {
+        return runningStopwatch;
+    }
+
+    public boolean[] getRunningAlarm() {
+        return runningAlarm;
+    }
+
+    public Time getCurTimer() {
+        return curTimer;
+    }
+
+    public Time getCurStopwatch() {
+        return curStopwatch;
+    }
+
+    public Alarm getCurAlarm() {
+        return curAlarm;
+    }
+
+    public Schedule getCurSchedule() {
+        return curSchedule;
+    }
+
+    //    public void upData(int type, int num) {
 //        // TODO implement here
 //    }
 //
