@@ -1,5 +1,7 @@
 package testpackage;
 
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
+
 import java.util.*;
 
 public class ModeController {
@@ -12,7 +14,7 @@ public class ModeController {
 
     private boolean runningTimer;
     private boolean runningStopwatch;
-    private boolean[] runningAlarm;
+    private ArrayList<Alarm> runningAlarmList;
     private Schedule recentSchedule;
 
     private boolean[] selectedModeNum;
@@ -27,7 +29,7 @@ public class ModeController {
 
         this.runningTimer = false;
         this.runningStopwatch = false;
-        this.runningAlarm = new boolean[]{false, false, false, false};
+        this.runningAlarmList = new ArrayList<Alarm>();
 
         for(int i=0; i<4; i++){
             this.selectedMode[i] = modes[i];
@@ -42,7 +44,7 @@ public class ModeController {
         this.beep = new Beep();
     }
 
-    public Time loadTime(int mode){
+    public Time loadTime(int mode, int listPointer){
         switch (mode) {
             case Info.TIMEKEEPINGSET:
                 if (selectedModeNum[mode / 10]) {
@@ -64,18 +66,31 @@ public class ModeController {
 
             case Info.ALARMSET:
                 if (this.selectedModeNum[mode / 10]) {
-                    return this.selectedMode[mode / 10].getValue(0);
+                    return ((AlarmMode)this.selectedMode[mode / 10]).getValue(listPointer).alarmTime;
                 }
                 return null;
 
             case Info.SCHEDULESET:
                 if (this.selectedModeNum[mode / 10]) {
-                    return ((StopwatchMode) (this.selectedMode[mode / 10])).getValue(0);
+                    return ((ScheduleMode)this.selectedMode[mode / 10]).getValue(listPointer).scheduleTime;
                 }
                 return null;
 
             default:
                 return null;
+        }
+    }
+
+    public boolean deleteTime(int mode, int index){
+        switch(mode){
+            case Info.SCHEDULE:
+                return ((ScheduleMode)this.selectedMode[mode / 10]).deleteValue(index);
+
+            case Info.ALARM:
+                return ((AlarmMode)this.selectedMode[mode / 10]).deleteValue(index);
+
+            default:
+                return false;
         }
     }
 
@@ -111,19 +126,20 @@ public class ModeController {
     public void decreaseTimeValue(int mode, int pointer){
         switch (mode) {
             case Info.TIMEKEEPINGSET :
-                this.curTime.valueDown(pointer);
+                this.curTime.valueDown(mode, pointer);
                 break;
 
             case Info.TIMER :
-                this.curTimer.valueDown(pointer);
+                this.curTimer.valueDown(mode, pointer);
                 break;
 
             case Info.ALARMSET :
-                this.curAlarm.alarmTime.valueDown(pointer);
+                this.curAlarm.alarmTime.valueDown(mode, pointer);
                 break;
 
             case Info.SCHEDULESET :
-                this.curSchedule.scheduleTime.valueDown(pointer);
+                this.curSchedule.scheduleTime.valueDown(mode, pointer);
+                this.curSchedule.scheduleType = this.curSchedule.scheduleTime.second;
                 break;
         }
     }
@@ -159,17 +175,33 @@ public class ModeController {
 
             case Info.ALARMSET :
                 ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm);
+                if(((AlarmMode)(this.selectedMode[mode/10])).getValue(index).enable){
+                    runningAlarmList.add(((AlarmMode)(this.selectedMode[mode/10])).getValue(index));
+                }
                 break;
 
             case Info.SCHEDULESET :
                 ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule);
                 break;
-
-
         }
     }
 
+    public void toggleAlarm(int index){
+        Alarm temp = ((AlarmMode)(this.selectedMode[Info.ALARM /10])).getValue(index);
 
+        if(((AlarmMode)(this.selectedMode[Info.ALARM /10])).toggleAlarm(index)){
+            if(temp.enable){
+                runningAlarmList.add(temp);
+            }else{
+                runningAlarmList.remove(temp);
+            }
+        }
+
+    }
+
+    public boolean isAvailable(){
+        return ((ScheduleMode)(this.selectedMode[Info.SCHEDULE/10])).isAvailAdd(curTime, curSchedule);
+    }
 
     public boolean isRunningTimer() {
         return runningTimer;
@@ -203,8 +235,8 @@ public class ModeController {
         return recentSchedule;
     }
 
-    public boolean[] getRunningAlarm() {
-        return runningAlarm;
+    public ArrayList<Alarm> getRunningAlarmList() {
+        return runningAlarmList;
     }
 
     public Mode[] getSelectedMode() {

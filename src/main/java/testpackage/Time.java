@@ -103,7 +103,7 @@ public class Time {
         }
     }
 
-    public void valueDown(int pointer) {
+    public void valueDown(int mode, int pointer) {
 
         if (pointer == Info.TIME_POINTER_NULL) {//start timer
             this.second--;
@@ -149,7 +149,11 @@ public class Time {
 
                 case Info.TIME_POINTER_SECOND:
                     second--;
-                    if (second < 0) second = 59;
+                    if(mode==Info.SCHEDULESET){
+                        if(second < 0) second = 4;
+                    }else{
+                        if (second < 0) second = 59;
+                    }
                     break;
             }
         }

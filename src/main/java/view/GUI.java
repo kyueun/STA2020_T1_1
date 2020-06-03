@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
 public class GUI extends JFrame {
     private int input;
@@ -121,7 +122,7 @@ public class GUI extends JFrame {
         gridBagLayout.setConstraints(component, gridBagConstraints);
     }
 
-    public void display(int mode, Object[] objects) {
+    public void display(int mode, Object[] objects, Stack<Integer> beeplist) {
         // display
 //        System.out.println("Display is Called with mode: " + mode + ", object: " + object.toString());
     }

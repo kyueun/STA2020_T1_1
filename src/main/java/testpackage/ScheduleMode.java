@@ -13,7 +13,19 @@ public class ScheduleMode extends Mode {
         scheduleList = new ArrayList<Schedule>();
     }
 
+    public boolean isFull(){
+        if(scheduleList.size()==4) return true;
+        return false;
+    }
+
+    public ArrayList<Schedule> getList() {
+        return scheduleList;
+    }
+
     public Schedule getValue(int index) {
+        if(index==-1){
+            return new Schedule();
+        }
         return scheduleList.get(index);
     }
 
@@ -43,6 +55,24 @@ public class ScheduleMode extends Mode {
         return true;
     }
 
+    public boolean isAvailAdd(Time curTime, Schedule schedule) {
+        Schedule time = new Schedule();
+        time.scheduleTime = curTime;
+        time.scheduleType = schedule.scheduleTime.second; // 타입이 같은 임시 스케쥴을 생성
+
+        ArrayList temp = new ArrayList<Schedule>();
+        temp.add(time);
+        temp.add(schedule.scheduleTime);
+
+        Collections.sort(temp, new Sorting());
+
+        if(temp.get(0).equals(curTime)){ //스케쥴이 현재시간보다 미래인 경우만 추가 가능. 같을 땐 불가
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private void sortScheduleList(){
         Collections.sort(scheduleList, new Sorting());
     }
@@ -70,7 +100,7 @@ public class ScheduleMode extends Mode {
                                 return -1;
                             }
                             else if(o1.scheduleType == o1.scheduleType) {
-                                return -1;
+                                return 1;
                             }
                             else {
                                 return 1;

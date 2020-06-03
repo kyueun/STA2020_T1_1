@@ -17,7 +17,14 @@ public class AlarmMode extends Mode {
         return false;
     }
 
+    public ArrayList<Alarm> getList() {
+        return alarmList;
+    }
+
     public Alarm getValue(int index) {
+        if(index==-1){
+            return new Alarm();
+        }
         return alarmList.get(index);
     }
 

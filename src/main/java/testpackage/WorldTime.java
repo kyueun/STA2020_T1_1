@@ -7,26 +7,9 @@ import java.util.*;
  */
 public class WorldTime {
 
-    /**
-     * Default constructor
-     */
-    public WorldTime() {
+    public String cityInfo;
+
+    public WorldTime(String cityInfo) {
+        this.cityInfo = cityInfo;
     }
-
-    /**
-     * 
-     */
-    public Time worldTime;
-
-    /**
-     * 
-     */
-    public String cityName;
-
-
-    /**
-     * 
-     */
-
-
 }

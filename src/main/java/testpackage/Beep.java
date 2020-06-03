@@ -3,27 +3,22 @@ package testpackage;
 import java.util.*;
 
 public class Beep {
-    public Beep() {
-    }
-
     public int type;
+    public Stack<Integer> beepList;
 
-    public ArrayList<Integer> beepList;
-
-    /**
-     * @return
-     */
-    public boolean muteTopBeep() {
-        // TODO implement here
-        return false;
+    public Beep() {
+        beepList = new Stack<Integer>();
     }
 
-    /**
-     * @return
-     */
-    public void beepPopup() {
-        // TODO implement here
-        return;
+    public Stack<Integer> beepPopup(int type) { //beep 창 1개 추
+        beepList.push(type);
+
+        return beepList;
     }
 
+    public Stack<Integer> muteTopBeep() {
+        beepList.pop();
+
+        return beepList;
+    }
 }
