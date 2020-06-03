@@ -93,7 +93,11 @@ public class Time {
 
                 case Info.TIME_POINTER_SECOND:
                     second++;
-                    if (second > 59) second = 0;
+                    if(mode==Info.SCHEDULESET){
+                        if(second > 4) second = 0;
+                    }else{
+                        if (second > 59) second = 0;
+                    }
                     break;
             }
         }

@@ -3,13 +3,13 @@ package testpackage;
 import java.util.*;
 
 public class TimerMode extends Mode {
-    public TimerMode() {
-        this.timerTime = null;
-    }
-
     private Time timerTime;
 
-    public Time getValue(int index) {
+    public TimerMode() {
+        this.timerTime = new Time();
+    }
+
+    public Time getValue() {
         return this.timerTime;
     }
 

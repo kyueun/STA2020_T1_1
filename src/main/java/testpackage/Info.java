@@ -29,6 +29,11 @@ public class Info {
     final static int TIME_POINTER_MONTH = 5;
     final static int TIME_POINTER_DAY = 6;
 
+    final static int SCHEDULE_TYPE_CLA = 0;
+    final static int SCHEDULE_TYPE_MEE = 1;
+    final static int SCHEDULE_TYPE_EVE = 2;
+    final static int SCHEDULE_TYPE_ASL = 3;
+    final static int SCHEDULE_TYPE_ETC = 4;
 
     final static int DAY_OF_MONTH[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 }

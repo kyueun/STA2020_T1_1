@@ -3,13 +3,13 @@ package testpackage;
 import java.util.*;
 
 public class StopwatchMode extends Mode {
-    public StopwatchMode() {
-        this.stopwatchTime = null;
-    }
-
     private Time stopwatchTime;
 
-    public Time getValue(int index) {
+    public StopwatchMode() {
+        stopwatchTime = new Time();
+    }
+
+    public Time getValue() {
         return this.stopwatchTime;
     }
 

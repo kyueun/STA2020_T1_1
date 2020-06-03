@@ -7,20 +7,15 @@ import java.util.*;
  */
 public class Schedule {
 
-    /**
-     * Default constructor
-     */
+    public Time scheduleTime;
+    public int scheduleType;
+
     public Schedule() {
+        scheduleTime = new Time();
+        scheduleType = Info.SCHEDULE_TYPE_CLA;
     }
 
-    /**
-     * 
-     */
-    public Time scheduleTime;
 
-    /**
-     * 
-     */
-    public int scheduleType;
+
 
 }

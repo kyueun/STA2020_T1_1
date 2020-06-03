@@ -15,14 +15,12 @@ public class ModeController {
     private boolean[] runningAlarm;
     private Schedule recentSchedule;
 
-    private int curMode;
     private boolean[] selectedModeNum;
     private Mode[] selectedMode;
 
     private Beep beep;
 
     public ModeController(Time time, Mode[] modes) {
-        this.curMode = Info.TIMEKEEPING;
         this.curTime = time;
         this.selectedMode = new Mode[6];
         this.selectedModeNum = new boolean[6];
@@ -46,20 +44,31 @@ public class ModeController {
 
     public Time loadTime(int mode){
         switch (mode) {
-            case Info.TIMEKEEPING:
+            case Info.TIMEKEEPINGSET:
                 if (selectedModeNum[mode / 10]) {
                     return ((TimeKeepingMode) selectedMode[mode / 10]).getValue();
                 }
-
                 return null;
 
             case Info.TIMER:
                 if (this.selectedModeNum[mode / 10]) {
-                    return ((TimerMode) (this.selectedMode[mode / 10])).getValue(0);
+                    return ((TimerMode) (this.selectedMode[mode / 10])).getValue();
                 }
                 return null;
 
             case Info.STOPWATCH:
+                if (this.selectedModeNum[mode / 10]) {
+                    return ((StopwatchMode) (this.selectedMode[mode / 10])).getValue();
+                }
+                return null;
+
+            case Info.ALARMSET:
+                if (this.selectedModeNum[mode / 10]) {
+                    return this.selectedMode[mode / 10].getValue(0);
+                }
+                return null;
+
+            case Info.SCHEDULESET:
                 if (this.selectedModeNum[mode / 10]) {
                     return ((StopwatchMode) (this.selectedMode[mode / 10])).getValue(0);
                 }
@@ -73,33 +82,34 @@ public class ModeController {
     public void increaseTimeValue(int mode, int pointer){
         switch (mode) {
             case Info.TIMEKEEPING :
-                this.curTime.valueUp(curMode, pointer);
+                this.curTime.valueUp(mode, pointer);
                 break;
 
             case Info.TIMEKEEPINGSET :
-                this.curTime.valueUp(curMode, pointer);
+                this.curTime.valueUp(mode, pointer);
                 break;
 
             case Info.TIMER :
-                this.curTimer.valueUp(curMode, pointer);
+                this.curTimer.valueUp(mode, pointer);
                 break;
 
             case Info.STOPWATCH :
-                this.curStopwatch.valueUp(curMode, pointer);
+                this.curStopwatch.valueUp(mode, pointer);
                 break;
 
             case Info.ALARMSET :
-                this.curAlarm.alarmTime.valueUp(curMode, pointer);
+                this.curAlarm.alarmTime.valueUp(mode, pointer);
                 break;
 
             case Info.SCHEDULESET :
-                this.curSchedule.scheduleTime.valueUp(curMode, pointer);
+                this.curSchedule.scheduleTime.valueUp(mode, pointer);
+                this.curSchedule.scheduleType = this.curSchedule.scheduleTime.second;
                 break;
         }
     }
 
-    public void decreaseTimeValue(int pointer){
-        switch (curMode) {
+    public void decreaseTimeValue(int mode, int pointer){
+        switch (mode) {
             case Info.TIMEKEEPINGSET :
                 this.curTime.valueDown(pointer);
                 break;
@@ -136,23 +146,23 @@ public class ModeController {
     public void saveTimeValue(int index, int mode){
         switch (mode){
             case Info.TIMEKEEPINGSET :
-                ((TimeKeepingMode)(this.selectedMode[curMode/10])).saveValue(curTime);
+                ((TimeKeepingMode)(this.selectedMode[mode/10])).saveValue(curTime);
                 break;
 
             case Info.TIMER :
-                ((TimerMode)(this.selectedMode[curMode/10])).saveValue(curTimer);
+                ((TimerMode)(this.selectedMode[mode/10])).saveValue(curTimer);
                 break;
 
             case Info.STOPWATCH :
-                ((StopwatchMode)(this.selectedMode[curMode/10])).saveValue(curStopwatch);
+                ((StopwatchMode)(this.selectedMode[mode/10])).saveValue(curStopwatch);
                 break;
 
             case Info.ALARMSET :
-                ((AlarmMode)(this.selectedMode[curMode/10])).saveValue(index, curAlarm);
+                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm);
                 break;
 
             case Info.SCHEDULESET :
-                ((ScheduleMode)(this.selectedMode[curMode/10])).saveValue(index, curSchedule);
+                ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule);
                 break;
 
 
@@ -199,10 +209,6 @@ public class ModeController {
 
     public Mode[] getSelectedMode() {
         return selectedMode;
-    }
-
-    public int getCurMode() {
-        return curMode;
     }
 
     public boolean[] getSelectedModeNum() {

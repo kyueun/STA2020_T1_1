@@ -29,7 +29,7 @@ import java.util.*;
     private int input;
 
     public DWS () {
-
+        gui = new GUI();
         time = new Time();
         modes = new Mode[6];
 
@@ -72,6 +72,7 @@ import java.util.*;
                     input = this.gui.getInput();
                     if(input!=-1) flag = true;
                 }
+
             }while(Duration.between(timeStart, timeEnd).getSeconds()<1);
 
             if(input==-1) { //nothing in
@@ -123,10 +124,6 @@ import java.util.*;
         }
     }
 
-    public void setGui(GUI gui) {
-        this.gui = gui;
-    }
-
     public Object[] pressButtonA() {
             switch (mode) {
                 case Info.TIMEKEEPINGSET: //increase
@@ -164,12 +161,12 @@ import java.util.*;
             case Info.TIMEKEEPING: //enterSetting
                 mode = Info.TIMEKEEPINGSET;
                 pointer = Info.TIME_POINTER_HOUR;
-                return new Object[]{enterSettingMode()};
+                return new Object[]{enterSettingMode(), pointer};
 
             case Info.TIMEKEEPINGSET: //exitSetting
                 time = (Time) saveValue();
                 mode = Info.TIMEKEEPING;
-                return new Object[]{time};
+                return new Object[]{controller.getRecentSchedule(), time};
 
             case Info.TIMER:
 
@@ -269,8 +266,11 @@ import java.util.*;
 
     public Object[] pressLongButtonB() {
         switch(mode){
-            case Info.SCHEDULE:
-                break;
+            case Info.SCHEDULE: //enter setting
+                mode = Info.SCHEDULESET;
+                pointer = Info.TIME_POINTER_HOUR;
+                return new Object[]{enterSettingMode(), pointer};
+
             case Info.TIMER:
                 resetTimer();
                 break;
@@ -310,8 +310,15 @@ import java.util.*;
      */
     private Object enterSettingMode() {
         switch(mode){
-            case Info.TIMEKEEPING:
+            case Info.TIMEKEEPINGSET:
                 return controller.loadTime(mode);
+
+            case Info.ALARMSET:
+                return controller.load(mode);
+
+            case Info.SCHEDULESET:
+                return controller.loadTime(mode);
+
         }
 
         return null;
@@ -352,7 +359,7 @@ import java.util.*;
      * @return
      */
     private Object decreaseValue() {
-        controller.decreaseTimeValue(pointer);
+        controller.decreaseTimeValue(mode, pointer);
 
         switch (mode){
             case Info.TIMEKEEPINGSET:
@@ -422,7 +429,7 @@ import java.util.*;
 
         switch (mode){
             case Info.TIMEKEEPINGSET:
-                return ((TimeKeepingMode)controller.getSelectedMode()[controller.getCurMode()/10]).getValue();
+                return ((TimeKeepingMode)controller.getSelectedMode()[mode/10]).getValue();
 
 
         }
