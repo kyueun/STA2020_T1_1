@@ -1,6 +1,4 @@
-package testpackage;
-
-import java.util.*;
+package model;
 
 public class Time {
     public Time() {
@@ -11,6 +9,7 @@ public class Time {
         minute = 0;
         second = 0;
     }
+
     public int year;
     public int month;
     public int day;
@@ -18,49 +17,49 @@ public class Time {
     public int minute;
     public int second;
 
-    public void valueUp(int mode, int pointer){
+    public void valueUp(int mode, int pointer) {
 
-        if(pointer == Info.TIME_POINTER_NULL){
-            switch(mode){
+        if (pointer == Info.TIME_POINTER_NULL) {
+            switch (mode) {
                 case Info.TIMEKEEPING: //current time tic
                     this.second++;
-                    if(second==60) {
-                        second=0;
+                    if (second == 60) {
+                        second = 0;
                         minute++;
                     }
-                    if(minute==60){
-                        minute=0;
+                    if (minute == 60) {
+                        minute = 0;
                         hour++;
                     }
-                    if(hour==24){
-                        hour=0;
+                    if (hour == 24) {
+                        hour = 0;
                         day++;
                     }
-                    if(day>Info.DAY_OF_MONTH[month]){
-                        day=1;
+                    if (day > Info.DAY_OF_MONTH[month]) {
+                        day = 1;
                         month++;
                     }
-                    if(month==13) {
+                    if (month == 13) {
                         month = 1;
                         year++;
                     }
-                    if(year==2100){
-                        year=1900;
+                    if (year == 2100) {
+                        year = 1900;
                     }
                     break;
 
                 case Info.STOPWATCH: //start stopwatch
                     this.second++;
-                    if(second==60) {
-                        second=0;
+                    if (second == 60) {
+                        second = 0;
                         minute++;
                     }
-                    if(minute==60){
-                        minute=0;
+                    if (minute == 60) {
+                        minute = 0;
                         hour++;
                     }
-                    if(hour==24){
-                        hour=0;
+                    if (hour == 24) {
+                        hour = 0;
                     }
                     break;
             }

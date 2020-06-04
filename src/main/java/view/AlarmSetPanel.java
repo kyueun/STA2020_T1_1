@@ -6,14 +6,14 @@ import model.Time;
 import javax.swing.*;
 import java.awt.*;
 
-public class TimerPanel extends JPanel {
+public class AlarmSetPanel extends JPanel {
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     JLabel curTimeLabel = new JLabel();
-    TimerTimePanel timerTimePanel = new TimerTimePanel();
+    AlarmTimePanel alarmTimePanel = new AlarmTimePanel();
     MenuPanel menuPanel = new MenuPanel();
 
-    public TimerPanel() {
+    public AlarmSetPanel() {
         this.setLayout(gridBagLayout);
         this.setBackground(Color.WHITE);
 
@@ -25,59 +25,21 @@ public class TimerPanel extends JPanel {
         GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, curTimeLabel, 0, 0, 1, 1, 0.1, 0.1);
         this.add(curTimeLabel);
 
-        GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, timerTimePanel, 0, 1, 1, 2, 0.1, 0.2);
-        this.add(timerTimePanel);
+        GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, alarmTimePanel, 0, 1, 1, 2, 0.1, 0.2);
+        this.add(alarmTimePanel);
 
         GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, menuPanel, 0, 3, 1, 1, 0.1, 0.1);
         this.add(menuPanel);
     }
 
-    class TimePanel extends JPanel {
+    class AlarmTimePanel extends JPanel {
         JLabel hourLabel = new JLabel();
         JLabel minuteLabel = new JLabel();
         JLabel secondLabel = new JLabel();
         JLabel colon1 = new JLabel();
         JLabel colon2 = new JLabel();
 
-        public TimePanel() {
-            this.setLayout(new FlowLayout(FlowLayout.CENTER));
-            this.setBackground(Color.WHITE);
-
-            hourLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            hourLabel.setText("10");
-            hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(hourLabel);
-
-            colon1.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            colon1.setText(":");
-            colon1.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(colon1);
-
-            minuteLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            minuteLabel.setText("12");
-            minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(minuteLabel);
-
-            colon2.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            colon2.setText(":");
-            colon2.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(colon2);
-
-            secondLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            secondLabel.setText("40");
-            secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(secondLabel);
-        }
-    }
-
-    class TimerTimePanel extends JPanel {
-        JLabel hourLabel = new JLabel();
-        JLabel minuteLabel = new JLabel();
-        JLabel secondLabel = new JLabel();
-        JLabel colon1 = new JLabel();
-        JLabel colon2 = new JLabel();
-
-        public TimerTimePanel() {
+        public AlarmTimePanel() {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
@@ -110,21 +72,21 @@ public class TimerPanel extends JPanel {
 
     public void setDisplay(Object[] objects) {
         Time curTime = (Time) objects[0];
-        Time curTimer = (Time) objects[1];
+        Time curAlarmTime = (Time) objects[1];
         int pointer = (int) objects[2];
 
         JLabel[] labels = new JLabel[3];
         int idx = -1;
 
-        labels[0] = timerTimePanel.hourLabel;
-        labels[1] = timerTimePanel.minuteLabel;
-        labels[2] = timerTimePanel.secondLabel;
+        labels[0] = alarmTimePanel.hourLabel;
+        labels[1] = alarmTimePanel.minuteLabel;
+        labels[2] = alarmTimePanel.secondLabel;
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        timerTimePanel.hourLabel.setText(String.format("%02d", curTimer.hour));
-        timerTimePanel.minuteLabel.setText(String.format("%02d", curTimer.minute));
-        timerTimePanel.secondLabel.setText(String.format("%02d", curTimer.second));
+        alarmTimePanel.hourLabel.setText(String.format("%02d", curAlarmTime.hour));
+        alarmTimePanel.minuteLabel.setText(String.format("%02d", curAlarmTime.minute));
+        alarmTimePanel.secondLabel.setText(String.format("%02d", curAlarmTime.second));
 
         switch (pointer) {
             case Info.TIME_POINTER_NULL: // 0

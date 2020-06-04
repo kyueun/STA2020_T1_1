@@ -1,5 +1,4 @@
-package testpackage;
-import java.util.*;
+package model;
 
 /**
  * 

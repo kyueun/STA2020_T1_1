@@ -1,8 +1,4 @@
-package testpackage;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package model;
 
 public class TestClassTest {
 //

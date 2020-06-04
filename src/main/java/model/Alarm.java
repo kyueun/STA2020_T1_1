@@ -1,6 +1,4 @@
-package testpackage;
-
-import java.util.*;
+package model;
 
 public class Alarm {
     public Alarm() {
