@@ -97,10 +97,10 @@ public class ModeController {
         }
     }
 
-    public void increaseTimeValue(int mode, int pointer){
+    public void increaseTimeValue(int mode, int pointer, Time time){
         switch (mode) {
             case Info.TIMEKEEPING :
-                this.curTime.valueUp(mode, pointer);
+                time.valueUp(mode, pointer);
                 break;
 
             case Info.TIMEKEEPINGSET :

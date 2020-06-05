@@ -16,8 +16,8 @@ public class TimeKeepingMode extends Mode {
     }
 
     public Time saveValue(Time time) {
-        // TODO implement here
-        return null;
+        this.currentTime = time;
+        return this.currentTime;
     }
 
 }
