@@ -70,7 +70,7 @@ public class StopWatchPanel extends JPanel {
         }
     }
 
-    public void setDisplay(Object[] objects) {
+    public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
         Time curStopTime = (Time) objects[1];
 
@@ -79,5 +79,7 @@ public class StopWatchPanel extends JPanel {
         stopWatchTimePanel.hourLabel.setText(String.format("%02d", curStopTime.hour));
         stopWatchTimePanel.minuteLabel.setText(String.format("%02d", curStopTime.minute));
         stopWatchTimePanel.secondLabel.setText(String.format("%02d", curStopTime.second));
+
+        menuPanel.setDisplay(2, enableMode);
     }
 }

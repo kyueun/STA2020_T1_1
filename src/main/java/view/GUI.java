@@ -29,6 +29,7 @@ public class GUI extends JFrame {
     JButton buttonC = new JButton("C");
     JButton buttonD = new JButton("D");
     JPanel curMode;
+    Container container;
 
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -78,7 +79,7 @@ public class GUI extends JFrame {
         buttonC.setBounds(0, 300, 100, 100);
         buttonD.setBounds(500, 300, 100, 100);
 
-        Container container = this.getContentPane();
+        container = this.getContentPane();
         container.add(buttonA);
         container.add(buttonB);
         container.add(buttonC);
@@ -144,45 +145,54 @@ public class GUI extends JFrame {
         switch (mode) {
             case Info.TIMEKEEPING:
                 changePanel(0, 0); // timeKeepingPanel
-                timeKeepingPanel.setDisplay(objects);
+                timeKeepingPanel.setDisplay(objects, selected);
                 break;
             case Info.TIMEKEEPINGSET:
                 changePanel(0, 1); // tineKeepingSetPanel
-                timeKeepingSetPanel.setDisplay(objects);
+                timeKeepingSetPanel.setDisplay(objects, selected);
                 break;
             case Info.TIMER:
                 changePanel(1, 0);
-                timerPanel.setDisplay(objects);
+                timerPanel.setDisplay(objects, selected);
                 break;
             case Info.STOPWATCH:
                 changePanel(2, 0);
-                stopWatchPanel.setDisplay(objects);
+                stopWatchPanel.setDisplay(objects, selected);
                 break;
             case Info.ALARM:
                 changePanel(3, 0);
-                alarmListPanel.setDisplay(objects);
+                alarmListPanel.setDisplay(objects, selected);
                 break;
             case Info.ALARMSET:
                 changePanel(3, 1);
-                alarmSetPanel.setDisplay(objects);
+                alarmSetPanel.setDisplay(objects, selected);
                 break;
             case Info.WORLDTIME:
                 changePanel(4, 0);
-                worldTimePanel.setDisplay(objects);
+                worldTimePanel.setDisplay(objects, selected);
                 break;
             case Info.SCHEDULE:
                 changePanel(5, 0);
-                scheduleListPanel.setDisplay(objects);
+                scheduleListPanel.setDisplay(objects, selected);
                 break;
             case Info.SCHEDULESET:
                 changePanel(5, 1);
-                stopWatchPanel.setDisplay(objects);
+                stopWatchPanel.setDisplay(objects, selected);
                 break;
             case Info.SELECTMODE:
                 changePanel(6, 0);
                 selectModePanel.setDisplay(objects);
                 break;
+            default:
+                System.out.println("GUI: display() mode data Error!");
+        }
 
+        while (!beepList.empty()) {
+            BeepPanel beepPanel = new BeepPanel(beepList.pop());
+
+            beepPanel.setBorder(new LineBorder(Color.BLACK, 2));
+            beepPanel.setBounds(120, 100, 360, 280);
+            container.add(beepPanel);
         }
     }
 

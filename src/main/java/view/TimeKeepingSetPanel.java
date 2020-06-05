@@ -104,9 +104,10 @@ public class TimeKeepingSetPanel extends JPanel {
         }
     }
 
-    public void setDisplay(Object[] objects) {
+    public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
         int pointer = (int) objects[1];
+
         JLabel[] labels = new JLabel[6];
         int idx = -1;
 
@@ -164,5 +165,7 @@ public class TimeKeepingSetPanel extends JPanel {
                 }
             }
         }
+
+        menuPanel.setDisplay(0, enableMode);
     }
 }

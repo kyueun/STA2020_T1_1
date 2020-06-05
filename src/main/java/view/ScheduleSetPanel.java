@@ -87,7 +87,7 @@ public class ScheduleSetPanel extends JPanel {
         }
     }
 
-    public void setDisplay(Object[] objects) {
+    public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
         Schedule curSchedule = (Schedule) objects[1];
         int pointer = (int) objects[2];
@@ -169,5 +169,7 @@ public class ScheduleSetPanel extends JPanel {
                 }
             }
         }
+
+        menuPanel.setDisplay(5, enableMode);
     }
 }

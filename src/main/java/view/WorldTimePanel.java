@@ -73,7 +73,8 @@ public class WorldTimePanel extends JPanel {
         }
     }
 
-    public void setDisplay(Object[] objects) {
+    public void setDisplay(Object[] objects, boolean[] enableMode) {
 
+        menuPanel.setDisplay(4, enableMode);
     }
 }

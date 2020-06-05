@@ -70,7 +70,7 @@ public class TimerPanel extends JPanel {
         }
     }
 
-    public void setDisplay(Object[] objects) {
+    public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
         Time curTimer = (Time) objects[1];
         int pointer = (int) objects[2];
@@ -114,5 +114,7 @@ public class TimerPanel extends JPanel {
                 GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 75));
             }
         }
+
+        menuPanel.setDisplay(1, enableMode);
     }
 }
