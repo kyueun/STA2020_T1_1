@@ -58,7 +58,7 @@ public class ScheduleMode extends Mode {
     public boolean isAvailAdd(Time curTime, Schedule schedule) {
         Schedule time = new Schedule();
         time.scheduleTime = curTime;
-        time.scheduleType = schedule.scheduleTime.second; // 타입이 같은 임시 스케쥴을 생성
+        time.scheduleType = schedule.scheduleTime.second; // create same type temp Schedule
 
         ArrayList temp = new ArrayList<Schedule>();
         temp.add(time);
@@ -66,7 +66,7 @@ public class ScheduleMode extends Mode {
 
         Collections.sort(temp, new Sorting());
 
-        if(temp.get(0).equals(curTime)){ //스케쥴이 현재시간보다 미래인 경우만 추가 가능. 같을 땐 불가
+        if(temp.get(0).equals(curTime)){ // check schedule time
             return true;
         }else{
             return false;

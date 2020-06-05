@@ -10,7 +10,7 @@ public class Beep {
         beepList = new Stack<Integer>();
     }
 
-    public Stack<Integer> beepPopup(int type) { //beep 창 1개 추
+    public Stack<Integer> beepPopup(int type) { // 1 beep popup add
         beepList.push(type);
 
         return beepList;
