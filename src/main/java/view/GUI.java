@@ -188,12 +188,13 @@ public class GUI extends JFrame {
                 System.out.println("GUI: display() mode data Error!");
         }
 
-        while (!beepList.empty()) {
-            BeepPanel beepPanel = new BeepPanel(beepList.pop());
-
-            beepPanel.setBorder(new LineBorder(Color.BLACK, 2));
-            beepPanel.setBounds(120, 100, 360, 280);
-            container.add(beepPanel);
+        if (!beepList.empty()) {
+            for (int i = 0; i < beepList.size(); i++) {
+                BeepPanel beepPanel = new BeepPanel(beepList.get(i));
+                beepPanel.setBorder(new LineBorder(Color.BLACK, 2));
+                beepPanel.setBounds(120, 100, 360, 280);
+                container.add(beepPanel);
+            }
         }
     }
 
