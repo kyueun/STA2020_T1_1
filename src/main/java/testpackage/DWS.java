@@ -31,7 +31,7 @@ import java.util.*;
     private int input;
 
     public DWS () {
-        gui = new GUI();
+        //gui = new GUI();
         time = new Time();
         modes = new Mode[6];
 
@@ -52,23 +52,27 @@ import java.util.*;
 
     }
 
+    public void setGui(GUI gui) {
+        this.gui = gui;
+    }
+
     public void start() {
         LocalTime timeStart, timeEnd; //실제 1초 체
         boolean flag; //input 유
         int input; //input in gui
 
         timeStart = LocalTime.now();
-        Object[] screenValue = null; //display 할 값
+        Object[] screenValue = new Object[]{controller.getRecentSchedule(), time}; //display 할 값
 
         while(true) {
             input = -1;
             flag = false;
 
             controller.increaseTimeValue(Info.TIMEKEEPING, Info.TIME_POINTER_NULL);
-            if(controller.isRunningTimer()) controller.increaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
+            if(controller.isRunningTimer()) controller.decreaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
             if(controller.isRunningStopwatch()) controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL);
 
-            if(controller.getCurTimer().equals(new Time())){ //timer beep
+            if((controller.getCurTimer()!=null) && controller.getCurTimer().equals(new Time())){ //timer beep
                 beep.beepPopup(Info.BEEP_TYPE_TIMER);
             }
 
@@ -170,19 +174,20 @@ import java.util.*;
 
                 case Info.TIMER:
                     increaseValue();
-                    break;
+                    return new Object[]{time, controller.getCurTimer(), pointer};
 
                 case Info.ALARM:
-
-                    break;
+                    moveListPointer(1);
+                    return new Object[]{controller.getCurTime(), ((AlarmMode)controller.getSelectedMode()[Info.ALARM/10]).getList(), listPointer};
                 case Info.ALARMSET:
                     increaseValue();
                     return new Object[]{controller.getCurTime(), controller.getCurAlarm(), pointer};
 
                 case Info.SCHEDULE:
+                    moveListPointer(1);
+                    return new Object[]{controller.getCurTime(), ((ScheduleMode)controller.getSelectedMode()[Info.SCHEDULE/10]).getList(), listPointer};
 
-                    break;
-                case Info.SCHEDULESET:
+                    case Info.SCHEDULESET:
                     increaseValue();
                     return new Object[]{controller.getCurTime(), controller.getCurSchedule(), pointer};
 
@@ -210,14 +215,22 @@ import java.util.*;
                 return new Object[]{controller.getRecentSchedule(), time};
 
             case Info.TIMER:
+                if(controller.isRunningTimer()){
+                    controller.setRunningTimer(false);
+                }else{
+                    controller.setRunningTimer(true);
+                }
+               // controller.decreaseTimeValue(mode, Info.TIME_POINTER_NULL);
+                return new Object[]{time, controller.getCurTimer()};
 
-                //startTimer();
-                //pauseTimer();
-                break;
             case Info.STOPWATCH:
-                //startStopwatch();
-                //pauseStopwatch();
-                break;
+                if(controller.isRunningStopwatch()){
+                    controller.setRunningStopwatch(false);
+                }else{
+                    controller.setRunningStopwatch(true);
+                }
+                return new Object[]{time, controller.getCurStopwatch()};
+
             case Info.ALARM:
 
                 break;
@@ -257,25 +270,27 @@ import java.util.*;
 
             case Info.TIMER:
                 movePointer();
-                break;
-            case Info.ALARM:
+                return new Object[]{time, controller.getCurTimer(), pointer};
 
-                break;
+            case Info.ALARM:
+                moveListPointer(0);
+                return new Object[]{controller.getCurTime(), ((AlarmMode)controller.getSelectedMode()[Info.ALARM/10]).getList(), listPointer};
+
             case Info.ALARMSET:
                 decreaseValue();
                 return new Object[]{controller.getCurTime(), controller.getCurAlarm(), pointer};
 
-                break;
             case Info.SCHEDULE:
+                moveListPointer(0);
+                return new Object[]{controller.getCurTime(), ((ScheduleMode)controller.getSelectedMode()[Info.SCHEDULE/10]).getList(), listPointer};
 
-                break;
             case Info.SCHEDULESET:
                 decreaseValue();
                 return new Object[]{controller.getCurTime(), controller.getCurSchedule(), pointer};
 
                 case Info.SELECTMODE:
 
-                break;
+            //    break;
             default:
                 return null;
         }
@@ -338,13 +353,17 @@ import java.util.*;
 
     public Object[] pressLongButtonB() {
         switch(mode){
-            case Info.TIMER:
-                resetTimer();
-                break;
+            case Info.TIMER: //reset timer
+                if(!controller.isRunningTimer()){
+                    ((TimerMode) controller.getSelectedMode()[Info.TIMER/10]).saveValue(new Time());
+                }
+                return new Object[]{time, controller.getCurTimer()};
 
             case Info.STOPWATCH:
-                resetStopwatch();
-                break;
+                if(!controller.isRunningTimer()){
+                    ((StopwatchMode) controller.getSelectedMode()[Info.STOPWATCH/10]).saveValue(new Time());
+                }
+                return new Object[]{time, controller.getCurStopwatch()};
 
             case Info.ALARM: //enter setting - add alarm
                 if(((AlarmMode)controller.getSelectedMode()[Info.ALARM/10]).isFull()){
@@ -374,14 +393,6 @@ import java.util.*;
 
     public Object[] pressLongButtonC() {
         switch (mode) {
-            case Info.TIMER:
-                resetTimer();
-                return null;
-
-            case Info.STOPWATCH:
-                resetStopwatch();
-                return null;
-
             case Info.ALARM:
                 if (controller.deleteTime(mode, listPointer)) {
                     return new Object[]{controller.getCurTime(), ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
@@ -400,9 +411,11 @@ import java.util.*;
     }
 
     public Object[] pressLongButtonD() {
-        // TODO implement here
-
-        return null;
+        if(mode==Info.TIMEKEEPING){
+            mode=Info.SELECTMODE;
+            listPointer = Info.LIST_POINTER_1;
+        }
+        return new Object[]{controller.getSelectedModeNum()};
     }
 
     private Object enterSettingMode() {
@@ -445,16 +458,7 @@ import java.util.*;
         }
     }
 
-    /**
-     *
-     */
-    public void display() {
-        // TODO implement here
-    }
 
-    /**
-     * @return
-     */
     private Object decreaseValue() {
         controller.decreaseTimeValue(mode, pointer);
 
@@ -502,14 +506,30 @@ import java.util.*;
         }
     }
 
-    private void saveSchedule() {
-        // TODO implement here
-        return;
-    }
+    private void moveListPointer(int state) {
+        if(state==1){
+            listPointer++;
+        }else{
+            listPointer--;
+        }
 
-    private boolean deleteSchedule() {
-        // TODO implement here
-        return false;
+        switch (mode){
+            case Info.ALARM:
+                if(listPointer>Info.LIST_POINTER_3) listPointer = Info.LIST_POINTER_3;
+                else if(listPointer<Info.LIST_POINTER_0) listPointer = Info.LIST_POINTER_0;
+                break;
+
+            case Info.SCHEDULE:
+                if(listPointer>Info.LIST_POINTER_3) listPointer = Info.LIST_POINTER_3;
+                else if(listPointer<Info.LIST_POINTER_0) listPointer = Info.LIST_POINTER_0;
+                break;
+
+            case Info.SELECTMODE:
+                if(listPointer>Info.LIST_POINTER_5) listPointer = Info.LIST_POINTER_5;
+                else if(listPointer<Info.LIST_POINTER_1) listPointer = Info.LIST_POINTER_1;
+                break;
+        }
+        return;
     }
 
     private Object saveValue() {
@@ -536,53 +556,6 @@ import java.util.*;
         }
     }
 
-
-    private void startTimer() {
-        // TODO implement here
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private void pauseTimer() {
-        // TODO implement here
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private void resetTimer() {
-//        controller.saveTimeValue(new Time(), 0, Info.TIMER);
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private void startStopwatch() {
-        // TODO implement here
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private void pauseStopwatch() {
-        // TODO implement here
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private void resetStopwatch() {
-//        controller.saveTimeValue(new Time(), 0, Info.STOPWATCH);
-//        return;
-    }
-
-
     private void changeMode() {
        mode += 10;
        if(mode>Info.WORLDTIME) mode=Info.TIMEKEEPING;
@@ -591,10 +564,6 @@ import java.util.*;
     /**
      * @return
      */
-    private void moveListPointer() {
-        // TODO implement here
-        return;
-    }
 
     /**
      * @return

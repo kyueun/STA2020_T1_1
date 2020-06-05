@@ -17,7 +17,7 @@ public class TestClass {
 
         DWS dws = new DWS();
 
-        dws.setGui(new GUI());
+       dws.setGui(new GUI());
 
         dws.start();
     }

@@ -247,6 +247,54 @@ public class ModeController {
         return selectedModeNum;
     }
 
+    public void setCurTime(Time curTime) {
+        this.curTime = curTime;
+    }
+
+    public void setCurTimer(Time curTimer) {
+        this.curTimer = curTimer;
+    }
+
+    public void setCurStopwatch(Time curStopwatch) {
+        this.curStopwatch = curStopwatch;
+    }
+
+    public void setCurAlarm(Alarm curAlarm) {
+        this.curAlarm = curAlarm;
+    }
+
+    public void setCurSchedule(Schedule curSchedule) {
+        this.curSchedule = curSchedule;
+    }
+
+    public void setRunningTimer(boolean runningTimer) {
+        this.runningTimer = runningTimer;
+    }
+
+    public void setRunningStopwatch(boolean runningStopwatch) {
+        this.runningStopwatch = runningStopwatch;
+    }
+
+    public void setRunningAlarmList(ArrayList<Alarm> runningAlarmList) {
+        this.runningAlarmList = runningAlarmList;
+    }
+
+    public void setRecentSchedule(Schedule recentSchedule) {
+        this.recentSchedule = recentSchedule;
+    }
+
+    public void setSelectedModeNum(boolean[] selectedModeNum) {
+        this.selectedModeNum = selectedModeNum;
+    }
+
+    public void setSelectedMode(Mode[] selectedMode) {
+        this.selectedMode = selectedMode;
+    }
+
+    public void setBeep(Beep beep) {
+        this.beep = beep;
+    }
+
     public Beep getBeep() {
         return beep;
     }

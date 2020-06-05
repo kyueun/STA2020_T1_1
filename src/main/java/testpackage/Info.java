@@ -33,6 +33,8 @@ public class Info {
     final static int LIST_POINTER_1 = 1;
     final static int LIST_POINTER_2 = 2;
     final static int LIST_POINTER_3 = 3;
+    final static int LIST_POINTER_4 = 4;
+    final static int LIST_POINTER_5 = 5;
 
     final static int SCHEDULE_TYPE_CLA = 0;
     final static int SCHEDULE_TYPE_MEE = 1;
