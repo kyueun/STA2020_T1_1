@@ -79,32 +79,31 @@ public class AlarmListPanel extends JPanel {
         }
 
         int pointer = (int) objects[2];
+        int count = 0;
 
         String alarmEnable;
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        if ((alarmList != null) && (alarmList.size() != 0)) {
-            for (int i = 0; i < 4; i++) {
+        if (alarmList != null) {
+            for (int i = 0; i < alarmList.size(); i++) {
                 Alarm alarm = alarmList.get(i);
 
-                if (alarm != null) {
-                    if (alarm.enable) {
-                        alarmEnable = "[ON]";
-                    } else {
-                        alarmEnable = "[OFF]";
-                    }
-
-                    alarmLabels[i].setText(alarmEnable + " " + String.format("%02d", alarm.alarmTime.hour) + ":" + String.format("%02d", alarm.alarmTime.minute) + ":" + String.format("%02d", alarm.alarmTime.second));
+                if (alarm.enable) {
+                    alarmEnable = "[ON]";
                 } else {
-                    alarmLabels[i].setText("");
+                    alarmEnable = "[OFF]";
                 }
+                alarmLabels[i].setText(alarmEnable + " " + String.format("%02d", alarm.alarmTime.hour) + ":" + String.format("%02d", alarm.alarmTime.minute) + ":" + String.format("%02d", alarm.alarmTime.second));
+                count++;
             }
-        } else {
-            for (int i = 0; i < 4; i++) {
-                alarmLabels[i].setText("");
-            }
+
         }
+
+        for (int i = 0; i < 4 - count; i++) {
+            alarmLabels[count + i].setText("");
+        }
+
 
         // check pointer
         for (int i = 0; i < 4; i++) {

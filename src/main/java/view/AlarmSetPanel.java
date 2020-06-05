@@ -73,6 +73,7 @@ public class AlarmSetPanel extends JPanel {
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
         Time curAlarmTime = (Time) objects[1];
+       // System.out.println(curAlarmTime.day);
         int pointer = (int) objects[2];
 
         JLabel[] labels = new JLabel[3];
@@ -84,6 +85,8 @@ public class AlarmSetPanel extends JPanel {
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
+        System.out.println("alarm: " + curAlarmTime);
+        System.out.println("alarm: " + curAlarmTime.minute);
         alarmTimePanel.hourLabel.setText(String.format("%02d", curAlarmTime.hour));
         alarmTimePanel.minuteLabel.setText(String.format("%02d", curAlarmTime.minute));
         alarmTimePanel.secondLabel.setText(String.format("%02d", curAlarmTime.second));

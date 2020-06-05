@@ -30,5 +30,12 @@ public class Info {
     public final static int TIME_POINTER_MONTH = 5;
     public final static int TIME_POINTER_DAY = 6;
 
+    public final static int SCH_TYPE_CLA = 0;
+    public final static int SCH_TYPE_MET = 1;
+    public final static int SCH_TYPE_EVE = 2;
+    public final static int SCH_TYPE_ASL = 3;
+    public final static int SCH_TYPE_ETC = 4;
+
+
     public final static int DAY_OF_MONTH[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // Jan. check
 }

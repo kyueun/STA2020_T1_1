@@ -10,6 +10,8 @@ public class Schedule {
     public int scheduleType; // CLA: 0, MEE: 1, EVE: 2, ASL: 3, ETC: 4
 
     public Schedule() {
+        scheduleTime = new Time();
+        scheduleType = Info.SCH_TYPE_CLA;
     }
 
     public String getDayofWeek() {

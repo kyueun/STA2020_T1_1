@@ -25,7 +25,8 @@ public class ModeController {
         this.curTime = time;
         this.curTimer = new Time();
         this.curStopwatch = new Time();
-        //this.curAlarm = new Alarm();
+        this.curAlarm = new Alarm();
+        this.curSchedule = new Schedule();
 
         this.selectedMode = new Mode[6];
         this.selectedModeNum = new boolean[6];
@@ -164,14 +165,14 @@ public class ModeController {
                 break;
 
             case Info.ALARMSET :
-                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm);
+                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm.alarmTime);
                 if(((AlarmMode)(this.selectedMode[mode/10])).getValue(index).enable){
                     runningAlarmList.add(((AlarmMode)(this.selectedMode[mode/10])).getValue(index));
                 }
                 break;
 
             case Info.SCHEDULESET :
-                ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule);
+                ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule.scheduleTime);
                 break;
         }
     }
