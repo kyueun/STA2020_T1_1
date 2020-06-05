@@ -73,25 +73,35 @@ public class AlarmListPanel extends JPanel {
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
-        ArrayList<Alarm> alarmList = (ArrayList<Alarm>) objects[1];
+        ArrayList<Alarm> alarmList = null;
+        if (objects[1] != null) {
+            alarmList = (ArrayList<Alarm>) objects[1];
+        }
+
         int pointer = (int) objects[2];
 
         String alarmEnable;
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        for (int i = 0; i < 4; i++) {
-            Alarm alarm = alarmList.get(i);
+        if ((alarmList != null) && (alarmList.size() != 0)) {
+            for (int i = 0; i < 4; i++) {
+                Alarm alarm = alarmList.get(i);
 
-            if (alarm != null) {
-                if (alarm.enable) {
-                    alarmEnable = "[ON]";
+                if (alarm != null) {
+                    if (alarm.enable) {
+                        alarmEnable = "[ON]";
+                    } else {
+                        alarmEnable = "[OFF]";
+                    }
+
+                    alarmLabels[i].setText(alarmEnable + " " + String.format("%02d", alarm.alarmTime.hour) + ":" + String.format("%02d", alarm.alarmTime.minute) + ":" + String.format("%02d", alarm.alarmTime.second));
                 } else {
-                    alarmEnable = "[OFF]";
+                    alarmLabels[i].setText("");
                 }
-
-                alarmLabels[i].setText(alarmEnable + " " + String.format("%02d", alarm.alarmTime.hour) + ":" + String.format("%02d", alarm.alarmTime.minute) + ":" + String.format("%02d", alarm.alarmTime.second));
-            } else {
+            }
+        } else {
+            for (int i = 0; i < 4; i++) {
                 alarmLabels[i].setText("");
             }
         }

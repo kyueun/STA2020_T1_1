@@ -74,41 +74,50 @@ public class ScheduleListPanel extends JPanel {
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
-        ArrayList<Schedule> scheduleList = (ArrayList<Schedule>) objects[1];
+        ArrayList<Schedule> scheduleList = null;
+        if (objects[1] != null) {
+            scheduleList = (ArrayList<Schedule>) objects[1];
+        }
         int pointer = (int) objects[2];
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        for (int i = 0; i < 4; i++) {
-            Schedule schedule = scheduleList.get(i);
+        if ((scheduleList != null) && (scheduleList.size() != 0)) {
+            for (int i = 0; i < 4; i++) {
+                Schedule schedule = scheduleList.get(i);
 
-            if (schedule != null) {
-                String scheduleType;
+                if (schedule != null) {
+                    String scheduleType;
 
-                switch (schedule.scheduleType) {
-                    case 0:
-                        scheduleType = "CLA";
-                        break;
-                    case 1:
-                        scheduleType = "MEE";
-                        break;
-                    case 2:
-                        scheduleType = "EVE";
-                        break;
-                    case 3:
-                        scheduleType = "ASL";
-                        break;
-                    case 4:
-                        scheduleType = "ETC";
-                        break;
-                    default:
-                        scheduleType = "ERR";
-                        System.out.println("GUI: Schedule Type Error!");
-                        break;
+                    switch (schedule.scheduleType) {
+                        case 0:
+                            scheduleType = "CLA";
+                            break;
+                        case 1:
+                            scheduleType = "MEE";
+                            break;
+                        case 2:
+                            scheduleType = "EVE";
+                            break;
+                        case 3:
+                            scheduleType = "ASL";
+                            break;
+                        case 4:
+                            scheduleType = "ETC";
+                            break;
+                        default:
+                            scheduleType = "ERR";
+                            System.out.println("GUI: Schedule Type Error!");
+                            break;
+                    }
+
+                    scheduleLabels[i].setText(scheduleType + " " + schedule.scheduleTime.month + "." + schedule.scheduleTime.day + " " + schedule.getDayofWeek() + " " + schedule.scheduleTime.hour + ":" + schedule.scheduleTime.minute);
+                } else {
+                    scheduleLabels[i].setText("");
                 }
-
-                scheduleLabels[i].setText(scheduleType + " " + schedule.scheduleTime.month + "." + schedule.scheduleTime.day + " " + schedule.getDayofWeek() + " " + schedule.scheduleTime.hour + ":" + schedule.scheduleTime.minute);
-            } else {
+            }
+        } else {
+            for (int i = 0; i < 4; i++) {
                 scheduleLabels[i].setText("");
             }
         }
