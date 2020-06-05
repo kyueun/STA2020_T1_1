@@ -41,7 +41,7 @@ public class DWS {
         controller = new ModeController(t, modes);
 
         ((TimeKeepingMode) controller.getSelectedMode()[0]).saveValue(syncTime(time));
-        beep = new Beep();
+
 
         this.mode = Info.TIMEKEEPING;
 
@@ -50,6 +50,7 @@ public class DWS {
 
     public void setGui(GUI gui) {
         this.gui = gui;
+        beep = new Beep(gui);
     }
 
     public void start() {
@@ -71,16 +72,33 @@ public class DWS {
             if (controller.isRunningStopwatch())
                 controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL, null);
 
-            if ((controller.getCurTimer() != null) && controller.getCurTimer().equals(new Time())) { //timer beep
+            System.out.println("curtIMER= " + controller.getCurTimer().second);
+            System.out.println("TIME" + new Time().second);
+            if (controller.isRunningTimer() && (controller.getCurTimer() != null) && compareTime(controller.getCurTimer(), new Time())) { //timer beep
+                System.out.println("beep");
+
                 beep.beepPopup(Info.BEEP_TYPE_TIMER);
+                controller.setRunningTimer(false);
             }
 
-            Iterator<Alarm> itr = controller.getRunningAlarmList().iterator();
-            while (itr.hasNext()) { //alarm beep
-                if (itr.equals(time)) {
-                    beep.beepPopup(Info.BEEP_TYPE_ALARM);
+            if(controller.getRunningAlarmList().size()!=0){
+                Iterator<Alarm> itr = controller.getRunningAlarmList().iterator();
+
+                while (itr.hasNext()) { //alarm beep
+
+                    Alarm alarm = itr.next();
+                   // System.out.println("alarm: " + alarm.alarmTime.hour + "hour " + alarm.alarmTime.minute + "minute " + alarm.alarmTime.second);
+
+                    if (compareTime(alarm.alarmTime, time)) {
+                        System.out.println("itr2222asdfD");
+                        beep.beepPopup(Info.BEEP_TYPE_ALARM);
+                        break;
+                    }
+
                 }
             }
+
+
             System.out.println("TIme: " + time.year + "." + time.month + "." + time.day + " " + time.hour + ":" + time.minute + ":" + time.second);
 
             do {
@@ -93,7 +111,13 @@ public class DWS {
 
 
             } while (Duration.between(timeStart, timeEnd).getSeconds() < 1);
-            System.out.println("input= " + input);
+            System.out.println("input= " + input + "// list size= "+controller.getRunningAlarmList().size());
+
+            Iterator<Alarm> itr = controller.getRunningAlarmList().iterator();
+            System.out.print("AlarmList: ");
+            while(itr.hasNext()) System.out.print(itr.next().alarmTime.minute+ ", ");
+            System.out.println("--------------");
+
             if (input == -1) { //nothing in
                 if (!(mode == Info.TIMER && controller.isRunningTimer()) || !(mode == Info.STOPWATCH && controller.isRunningStopwatch()))
                     timeOut++;
@@ -151,7 +175,9 @@ public class DWS {
             } else { // button input exist
                 timeOut = 0;
 
+                System.out.println("beeplist size: " + beep.beepList.size());
                 if (!beep.beepList.empty()) {
+                    System.out.println("beeplist not empty");
                     beep.muteTopBeep();
                 } else {
                     switch (input) {
@@ -657,8 +683,16 @@ public class DWS {
         modes[1] = new TimerMode();
         modes[2] = new StopwatchMode();
         modes[3] = new AlarmMode();
-        modes[4] = new ScheduleMode();
-        modes[5] = new WorldTimeMode();
+        modes[4] = new WorldTimeMode();
+        modes[5] = new ScheduleMode();
+    }
+
+    private static boolean compareTime(Time t1, Time t2) {
+        if(t1.hour!=t2.hour) return false;
+        if(t1.minute!=t2.minute) return false;
+        if(t1.second!=t2.second) return false;
+
+        return true;
     }
 
 }

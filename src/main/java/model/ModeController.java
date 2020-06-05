@@ -19,7 +19,6 @@ public class ModeController {
     private boolean[] selectedModeNum;
     private Mode[] selectedMode;
 
-    private Beep beep;
 
     public ModeController(Time time, Mode[] modes) {
         this.curTime = time;
@@ -36,16 +35,14 @@ public class ModeController {
         this.runningAlarmList = new ArrayList<Alarm>();
 
         for(int i=0; i<4; i++){
-            this.selectedMode[i] = modes[i];
             this.selectedModeNum[i] = true;
         }
 
+        this.selectedMode = modes;
+
         for(int i=4; i<6; i++){
-            this.selectedMode[i] = null;
             this.selectedModeNum[i] = false;
         }
-
-        this.beep = new Beep();
     }
 
     public Time loadTime(int mode, int listPointer){
@@ -165,9 +162,10 @@ public class ModeController {
                 break;
 
             case Info.ALARMSET :
+                System.out.println("alarm2342: " + curAlarm.alarmTime.minute);
                 ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm.alarmTime);
-                if(((AlarmMode)(this.selectedMode[mode/10])).getValue(index).enable){
-                    runningAlarmList.add(((AlarmMode)(this.selectedMode[mode/10])).getValue(index));
+                if(curAlarm.enable){
+                    runningAlarmList.add(curAlarm);
                 }
                 break;
 
@@ -301,12 +299,5 @@ public class ModeController {
         this.selectedMode = selectedMode;
     }
 
-    public void setBeep(Beep beep) {
-        this.beep = beep;
-    }
-
-    public Beep getBeep() {
-        return beep;
-    }
 
 }

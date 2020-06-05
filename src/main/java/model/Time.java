@@ -35,10 +35,19 @@ public class Time {
                         hour = 0;
                         day++;
                     }
-                    if (day > Info.DAY_OF_MONTH[month]) {
-                        day = 1;
-                        month++;
+
+                    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+                        if (day > Info.DAY_OF_MONTHY[month]) {
+                            day = 1;
+                            month++;
+                        };
+                    } else {
+                        if (day > Info.DAY_OF_MONTH[month]) {
+                            day = 1;
+                            month++;
+                        }
                     }
+
                     if (month == 13) {
                         month = 1;
                         year++;
@@ -77,7 +86,11 @@ public class Time {
 
                 case Info.TIME_POINTER_DAY:
                     day++;
-                    if (day > Info.DAY_OF_MONTH[month]) day = 1;
+                    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+                        if (day > Info.DAY_OF_MONTHY[month]) day = 1;
+                    } else {
+                        if (day > Info.DAY_OF_MONTH[month]) day = 1;
+                    }
                     break;
 
                 case Info.TIME_POINTER_HOUR:
