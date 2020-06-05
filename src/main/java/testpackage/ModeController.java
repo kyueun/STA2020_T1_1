@@ -144,20 +144,7 @@ public class ModeController {
         }
     }
 
-    public void moveTimerPointer(int time_type){
-        //can't reach parent's time pointer.
 
-        //int curPointer = ((DWS)super).getPointer();
-        //curPointer++;
-        //if(time_type == 0){
-        //    curPointer %= 6;
-        //}
-        //else{
-        //    if(curPointer > 5) curPointer = 3;
-        //}
-        //
-        //((DWS)super).setPointer(curPointer);
-    }
 
     public void saveTimeValue(int index, int mode){
         switch (mode){
@@ -201,6 +188,17 @@ public class ModeController {
 
     public boolean isAvailable(){
         return ((ScheduleMode)(this.selectedMode[Info.SCHEDULE/10])).isAvailAdd(curTime, curSchedule);
+    }
+
+    public boolean canSelect() {
+        int count=0;
+        for(int i=0; i<6; i++){
+            if(selectedModeNum[i]){
+                count++;
+            }
+        }
+        if(count==4) return true;
+        else return false;
     }
 
     public boolean isRunningTimer() {

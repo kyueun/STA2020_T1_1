@@ -192,8 +192,9 @@ import java.util.*;
                     return new Object[]{controller.getCurTime(), controller.getCurSchedule(), pointer};
 
                 case Info.SELECTMODE:
+                    moveListPointer(1);
+                    return new Object[]{controller.getSelectedModeNum(), listPointer};
 
-                    break;
                 default:
                     break;
             }
@@ -251,8 +252,11 @@ import java.util.*;
                 return null;
 
             case Info.SELECTMODE:
+                boolean[] temp = controller.getSelectedModeNum();
+                temp[listPointer] = !temp[listPointer];
+                controller.setSelectedModeNum(temp);
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
 
-                break;
             default:
                 break;
         }
@@ -288,9 +292,10 @@ import java.util.*;
                 decreaseValue();
                 return new Object[]{controller.getCurTime(), controller.getCurSchedule(), pointer};
 
-                case Info.SELECTMODE:
+            case Info.SELECTMODE:
+                moveListPointer(0);
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
 
-            //    break;
             default:
                 return null;
         }
@@ -311,6 +316,13 @@ import java.util.*;
             case Info.SCHEDULESET: //move pointer
                 movePointer();
                 return new Object[]{controller.getCurTime(), controller.getCurSchedule(), pointer};
+
+            case Info.SELECTMODE:
+                if(controller.canSelect()){
+                    mode = Info.TIMEKEEPING;
+                    return new Object[]{controller.getRecentSchedule(), controller.getCurTime()};
+                }
+                else return new Object[]{controller.getSelectedMode()};
 
             default: //change mode
                 changeMode();
@@ -556,9 +568,15 @@ import java.util.*;
         }
     }
 
+    private void selectMode() {
+
+    }
+
     private void changeMode() {
-       mode += 10;
-       if(mode>Info.WORLDTIME) mode=Info.TIMEKEEPING;
+        do{
+            mode+=10;
+            if(mode>Info.WORLDTIME) mode=Info.TIMEKEEPING;
+        }while(!controller.getSelectedModeNum()[mode/10]);
     }
 
     private static void initTime(Time time){
