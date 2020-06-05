@@ -13,6 +13,7 @@ public class Info {
     public final static int SELECTMODE = 60;
     public final static int BEEP_TYPE_ALARM = 70, BEEP_TYPE_TIMER = 71;
 
+    public final static int LIST_POINTER_NULL = -1;
     public final static int LIST_POINTER_0 = 0;
     public final static int LIST_POINTER_1 = 1;
     public final static int LIST_POINTER_2 = 2;

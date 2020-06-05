@@ -72,6 +72,7 @@ public class TimerPanel extends JPanel {
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
+        System.out.println("timer: " + objects[1]);
         Time curTimer = (Time) objects[1];
         int pointer = (int) objects[2];
 

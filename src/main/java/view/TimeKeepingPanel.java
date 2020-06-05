@@ -70,8 +70,6 @@ public class TimeKeepingPanel extends JPanel {
             } else {
                 curScheduleLabel.setText("No Schedule");
             }
-
-
             curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
             curDateLabel.setText(String.format("%04d", curTime.year) + "." + String.format("%02d", curTime.month) + "." + String.format("%02d", curTime.day));
 

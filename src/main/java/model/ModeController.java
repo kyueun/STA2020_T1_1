@@ -23,6 +23,10 @@ public class ModeController {
 
     public ModeController(Time time, Mode[] modes) {
         this.curTime = time;
+        this.curTimer = new Time();
+        this.curStopwatch = new Time();
+        //this.curAlarm = new Alarm();
+
         this.selectedMode = new Mode[6];
         this.selectedModeNum = new boolean[6];
 
@@ -198,6 +202,14 @@ public class ModeController {
         }
         if(count==4) return true;
         else return false;
+    }
+
+    public void refreshMode(){
+        for(int i=0; i<6; i++){
+            if(!selectedModeNum[i]){
+                selectedMode[i] = new Mode();
+            }
+        }
     }
 
     public boolean isRunningTimer() {
