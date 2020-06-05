@@ -35,35 +35,47 @@ public class TimeKeepingPanel extends JPanel {
     }
 
     public void setDisplay(Object[] objects) {
-        Schedule recentSchedule = (Schedule) objects[0];
-        Time curTime = (Time) objects[1];
+        if (objects == null) {
+            System.out.println("GUI: objects is null");
+        } else {
+            Time curTime = (Time) objects[1];
 
-        String scheduleType;
+            if (objects[0] != null) {
+                Schedule recentSchedule = (Schedule) objects[0];
+                String scheduleType;
 
-        switch (recentSchedule.scheduleType) {
-            case 0:
-                scheduleType = "CLA";
-                break;
-            case 1:
-                scheduleType = "MEE";
-                break;
-            case 2:
-                scheduleType = "EVE";
-                break;
-            case 3:
-                scheduleType = "ASL";
-                break;
-            case 4:
-                scheduleType = "ETC";
-                break;
-            default:
-                scheduleType = "ERR";
-                System.out.println("GUI: Schedule Type Error!");
-                break;
+                switch (recentSchedule.scheduleType) {
+                    case 0:
+                        scheduleType = "CLA";
+                        break;
+                    case 1:
+                        scheduleType = "MEE";
+                        break;
+                    case 2:
+                        scheduleType = "EVE";
+                        break;
+                    case 3:
+                        scheduleType = "ASL";
+                        break;
+                    case 4:
+                        scheduleType = "ETC";
+                        break;
+                    default:
+                        scheduleType = "ERR";
+                        System.out.println("GUI: Schedule Type Error!");
+                        break;
+                }
+
+                curScheduleLabel.setText(scheduleType + " " + recentSchedule.scheduleTime.month + "." + recentSchedule.scheduleTime.day + " " + recentSchedule.getDayofWeek() + " " + recentSchedule.scheduleTime.hour + ":" + recentSchedule.scheduleTime.minute);
+            } else {
+                curScheduleLabel.setText("No Schedule");
+            }
+
+
+            curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
+            curDateLabel.setText(String.format("%04d", curTime.year) + "." + String.format("%02d", curTime.month) + "." + String.format("%02d", curTime.day));
         }
-
-        curScheduleLabel.setText(scheduleType + " " + recentSchedule.scheduleTime.month + "." + recentSchedule.scheduleTime.day + " " + recentSchedule.getDayofWeek() + " " + recentSchedule.scheduleTime.hour + ":" + recentSchedule.scheduleTime.minute);
-        curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
-        curDateLabel.setText(String.format("%04d", curTime.year) + "." + String.format("%02d", curTime.month) + "." + String.format("%02d", curTime.day));
     }
+
+
 }
