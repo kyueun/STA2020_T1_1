@@ -17,17 +17,17 @@ public class TimeKeepingPanel extends JPanel {
         this.setBackground(Color.WHITE);
 
         curScheduleLabel.setFont(new Font("SanSerif", Font.PLAIN, 25));
-        curScheduleLabel.setText("ETC 05.25 MON 13:30");
+        curScheduleLabel.setText("");
         curScheduleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curScheduleLabel);
 
         curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
-        curTimeLabel.setText("10:12:40");
+        curTimeLabel.setText("Loading...");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curTimeLabel);
 
         curDateLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
-        curDateLabel.setText("2020.01.01");
+        curDateLabel.setText("");
         curDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curDateLabel);
 
@@ -37,6 +37,7 @@ public class TimeKeepingPanel extends JPanel {
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         if (objects == null) {
             System.out.println("GUI: objects is null");
+            this.setVisible(false);
         } else {
             Time curTime = (Time) objects[1];
 

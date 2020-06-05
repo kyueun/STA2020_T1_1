@@ -451,9 +451,10 @@ public class DWS {
         if (mode == Info.TIMEKEEPING) {
             mode = Info.SELECTMODE;
             listPointer = Info.LIST_POINTER_1;
+            return new Object[]{controller.getSelectedModeNum(), listPointer};
         }
         System.out.println("DWS: long D, mode " + mode);
-        return new Object[]{controller.getSelectedModeNum(), Info.LIST_POINTER_NULL};
+        return new Object[]{controller.getRecentSchedule(), time};
     }
 
     private Object enterSettingMode() {

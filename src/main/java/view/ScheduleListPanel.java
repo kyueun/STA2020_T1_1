@@ -122,6 +122,15 @@ public class ScheduleListPanel extends JPanel {
             }
         }
 
+        // check pointer
+        for (int i = 0; i < 4; i++) {
+            if (i == pointer) {
+                scheduleLabels[i].setBackground(Color.LIGHT_GRAY);
+            } else {
+                scheduleLabels[i].setBackground(Color.WHITE);
+            }
+        }
+
         menuPanel.setDisplay(5, enableMode);
     }
 }

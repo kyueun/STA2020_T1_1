@@ -40,7 +40,6 @@ public class MenuPanel extends JPanel {
             }
         }
 
-
         for (int i = 0; i < 4; i++) {
             menuImgs[i] = new JLabel();
             this.add(menuImgs[i]);

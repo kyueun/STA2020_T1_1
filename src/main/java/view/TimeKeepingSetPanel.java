@@ -158,7 +158,7 @@ public class TimeKeepingSetPanel extends JPanel {
             if (i == idx) {
                 GUI.underline(labels[i]);
             } else {
-                if (i >= 0 || i <= 2) {
+                if ((i >= 0) && (i <= 2)) {
                     GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 75));
                 } else {
                     GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 50));

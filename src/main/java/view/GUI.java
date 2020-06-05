@@ -22,7 +22,7 @@ public class GUI extends JFrame {
     AlarmSetPanel alarmSetPanel = new AlarmSetPanel();
     WorldTimePanel worldTimePanel = new WorldTimePanel();
     ScheduleListPanel scheduleListPanel = new ScheduleListPanel();
-    SelectModePanel selectModePanel = new SelectModePanel();
+    SelectMenuPanel selectMenuPanel = new SelectMenuPanel();
     JPanel[][] modePanel = new JPanel[8][2];
     JButton buttonA = new JButton("A");
     JButton buttonB = new JButton("B");
@@ -54,8 +54,8 @@ public class GUI extends JFrame {
         modePanel[3][1] = alarmSetPanel; // fail
         modePanel[4][0] = worldTimePanel; // fail
         modePanel[5][0] = scheduleListPanel; // ..?
-        modePanel[6][0] = selectModePanel;
-        curMode = selectModePanel; // fail
+        modePanel[6][0] = selectMenuPanel;
+        curMode = selectMenuPanel; // fail
         modeX = 0;
         modeY = 0;
 
@@ -92,8 +92,9 @@ public class GUI extends JFrame {
                         modePanel[i][j].setVisible(true);
                         // System.out.println("GUI: " + modePanel[i][j].toString() + " true");
                     } else {
-                        modePanel[i][j].setVisible(false);
+
                     }
+                    modePanel[i][j].setVisible(false);
                     modePanel[i][j].setBorder(new LineBorder(Color.BLACK, 2));
                     modePanel[i][j].setBounds(100, 0, 400, 400);
                     container.add(modePanel[i][j]);
@@ -181,7 +182,7 @@ public class GUI extends JFrame {
                 break;
             case Info.SELECTMODE:
                 changePanel(6, 0);
-                selectModePanel.setDisplay(objects);
+                selectMenuPanel.setDisplay(objects);
                 break;
             default:
                 System.out.println("GUI: display() mode data Error!");

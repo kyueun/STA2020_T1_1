@@ -47,7 +47,7 @@ public class AlarmListPanel extends JPanel {
 
             alarmLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
             alarmLabels[0].setText("[OFF] 13:30:20");
-            alarmLabels[0].setBackground(Color.GRAY);
+            alarmLabels[0].setBackground(Color.LIGHT_GRAY);
             alarmLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[0]);
 
@@ -103,6 +103,15 @@ public class AlarmListPanel extends JPanel {
         } else {
             for (int i = 0; i < 4; i++) {
                 alarmLabels[i].setText("");
+            }
+        }
+
+        // check pointer
+        for (int i = 0; i < 4; i++) {
+            if (i == pointer) {
+                alarmLabels[i].setBackground(Color.LIGHT_GRAY);
+            } else {
+                alarmLabels[i].setBackground(Color.WHITE);
             }
         }
 
