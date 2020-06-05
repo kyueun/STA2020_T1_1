@@ -8,7 +8,6 @@ public class WorldTimePanel extends JPanel {
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     ListPanel listPanel;
     MenuPanel menuPanel = new MenuPanel();
-    JLabel curTimeLabel = new JLabel();
     JLabel newYorkTimeLabel = new JLabel();
     JLabel londonTimeLabel = new JLabel();
     JLabel parisTimeLabel = new JLabel();

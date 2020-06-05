@@ -1,25 +1,29 @@
 package view;
 
-import testpackage.DWS;
-import testpackage.Info;
+import adapter.MouseCustomAdapter;
+import model.Info;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 import java.util.Stack;
 
 public class GUI extends JFrame {
-    private int input;
-    int mode;
+    private static int input;
+    int modeX, modeY;
     TimeKeepingPanel timeKeepingPanel = new TimeKeepingPanel();
+    TimeKeepingSetPanel timeKeepingSetPanel = new TimeKeepingSetPanel();
     TimerPanel timerPanel = new TimerPanel();
     StopWatchPanel stopWatchPanel = new StopWatchPanel();
     AlarmListPanel alarmListPanel = new AlarmListPanel();
+    AlarmSetPanel alarmSetPanel = new AlarmSetPanel();
     WorldTimePanel worldTimePanel = new WorldTimePanel();
     ScheduleListPanel scheduleListPanel = new ScheduleListPanel();
-    JPanel[] modePanel = new JPanel[6];
+    SelectModePanel selectModePanel = new SelectModePanel();
+    JPanel[][] modePanel = new JPanel[8][2];
     JButton buttonA = new JButton("A");
     JButton buttonB = new JButton("B");
     JButton buttonC = new JButton("C");
@@ -34,12 +38,6 @@ public class GUI extends JFrame {
         this.setBounds(0, 0, 616, 439);
         this.setVisible(true);
 
-        DWS sys = new DWS();
-
-        int object;
-        int displayNum;
-        boolean pressed = false;
-
         System.out.println("please...");
 
         // Set Current Mode
@@ -47,14 +45,18 @@ public class GUI extends JFrame {
         // 1. timerPanel
         // 2. stopWatchPanel
         // 3. alarmListPanel
-        modePanel[0] = timeKeepingPanel;
-        modePanel[1] = timerPanel;
-        modePanel[2] = stopWatchPanel;
-        modePanel[3] = alarmListPanel;
-        modePanel[4] = worldTimePanel;
-        modePanel[5] = scheduleListPanel;
-        curMode = timeKeepingPanel;
-        mode = 0;
+        modePanel[0][0] = timeKeepingPanel;
+        modePanel[0][1] = timeKeepingSetPanel;
+        modePanel[1][0] = timerPanel; // fail
+        modePanel[2][0] = stopWatchPanel; // fail
+        modePanel[3][0] = alarmListPanel;
+        modePanel[3][1] = alarmSetPanel; // fail
+        modePanel[4][0] = worldTimePanel; // fail
+        modePanel[5][0] = scheduleListPanel; // ..?
+        modePanel[6][0] = selectModePanel;
+        curMode = selectModePanel; // fail
+        modeX = 0;
+        modeY = 0;
 
         // set layout
         this.setLayout(null);
@@ -82,33 +84,38 @@ public class GUI extends JFrame {
         container.add(buttonC);
         container.add(buttonD);
 
-        for (int i = 0; i < 6; i++) {
-            if (curMode == modePanel[i]) {
-                modePanel[i].setVisible(true);
-            } else {
-                modePanel[i].setVisible(false);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (modePanel[i][j] != null) {
+                    if (curMode == modePanel[i][j]) {
+                        modePanel[i][j].setVisible(true);
+                        // System.out.println("GUI: " + modePanel[i][j].toString() + " true");
+                    } else {
+                        modePanel[i][j].setVisible(false);
+                    }
+                    modePanel[i][j].setBorder(new LineBorder(Color.BLACK, 2));
+                    modePanel[i][j].setBounds(100, 0, 400, 400);
+                    container.add(modePanel[i][j]);
+                }
             }
-            modePanel[i].setBorder(new LineBorder(Color.BLACK, 2));
-            modePanel[i].setBounds(100, 0, 400, 400);
-            container.add(modePanel[i]);
         }
 
         // Set Button Listener
-        buttonA.addActionListener(new ButtonAListener());
-        buttonB.addActionListener(new ButtonBListener());
-        buttonC.addActionListener(new ButtonCListener());
-        buttonD.addActionListener(new ButtonDListener());
+        buttonA.addMouseListener(new ButtonAListener());
+        buttonB.addMouseListener(new ButtonBListener());
+        buttonC.addMouseListener(new ButtonCListener());
+        buttonD.addMouseListener(new ButtonDListener());
 
         // set exit button
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public int getInput() {
+    public static int getInput() {
         return input;
     }
 
-    public void setInput(int input) {
-        this.input = input;
+    public static void setInput(int input) {
+        GUI.input = input;
     }
 
     public static void setComponentLayout(GridBagLayout gridBagLayout, GridBagConstraints gridBagConstraints, JComponent component, int x, int y, int weight, int height, double weightx, double weighty) {
@@ -122,55 +129,138 @@ public class GUI extends JFrame {
         gridBagLayout.setConstraints(component, gridBagConstraints);
     }
 
-    public void display(int mode, Object[] objects, Stack<Integer> beeplist) {
-        // display
-//        System.out.println("Display is Called with mode: " + mode + ", object: " + object.toString());
+    public static void underline(JLabel label) {
+        Font font = label.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        label.setFont(font.deriveFont(attributes));
     }
 
-    public void changePanel() {
-        curMode.setVisible(false);
-        if (mode == 5) {
-            this.mode = 0;
-        } else {
-            this.mode++;
+    public static void deleteUnderline(JLabel label, Font font) {
+        label.setFont(font);
+    }
+
+    public void display(int mode, Object[] objects, Stack<Integer> beepList) {
+        switch (mode) {
+            case Info.TIMEKEEPING:
+                changePanel(0, 0); // timeKeepingPanel
+                timeKeepingPanel.setDisplay(objects);
+                break;
+            case Info.TIMEKEEPINGSET:
+                changePanel(0, 1); // tineKeepingSetPanel
+                timeKeepingSetPanel.setDisplay(objects);
+                break;
+            case Info.TIMER:
+                changePanel(1, 0);
+                timerPanel.setDisplay(objects);
+                break;
+            case Info.STOPWATCH:
+                changePanel(2, 0);
+                stopWatchPanel.setDisplay(objects);
+                break;
+            case Info.ALARM:
+                changePanel(3, 0);
+                alarmListPanel.setDisplay(objects);
+                break;
+            case Info.ALARMSET:
+                changePanel(3, 1);
+                alarmSetPanel.setDisplay(objects);
+                break;
+            case Info.WORLDTIME:
+                changePanel(4, 0);
+                // setDisplay(objects);
+                break;
+            case Info.SCHEDULE:
+                changePanel(5, 0);
+                scheduleListPanel.setDisplay(objects);
+                break;
+            case Info.SCHEDULESET:
+                changePanel(5, 1);
+                stopWatchPanel.setDisplay(objects);
+                break;
+            case Info.SELECTMODE:
+                changePanel(6, 0);
+                selectModePanel.setDisplay(objects);
+                break;
+
         }
-        curMode = modePanel[this.mode];
+    }
+
+    public void changePanel(int idx1, int idx2) {
+        curMode.setVisible(false);
+        this.modeX = idx1;
+        this.modeY = idx2;
+        curMode = modePanel[this.modeX][this.modeY];
         curMode.setVisible(true);
     }
 
-    class ButtonAListener implements ActionListener {
+    class ButtonAListener extends MouseCustomAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void shortClick(MouseEvent e) {
             if (e.getSource() == buttonA) {
-                System.out.println("Button A is clicked!");
+                System.out.println("GUI: short A");
+                GUI.setInput(Info.A);
+            }
+        }
+
+        @Override
+        public void longClick(MouseEvent e) {
+            if (e.getSource() == buttonA) {
+                System.out.println("GUI: long A");
             }
         }
     }
 
-    class ButtonBListener implements ActionListener {
+    class ButtonBListener extends MouseCustomAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void shortClick(MouseEvent e) {
             if (e.getSource() == buttonB) {
-                System.out.println("Button B is clicked!");
+                System.out.println("GUI: short B");
+                GUI.setInput(Info.B);
+            }
+        }
+
+        @Override
+        public void longClick(MouseEvent e) {
+            if (e.getSource() == buttonB) {
+                System.out.println("GUI: long B");
+                GUI.setInput(Info.LONGB);
             }
         }
     }
 
-    class ButtonCListener implements ActionListener {
+    class ButtonCListener extends MouseCustomAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void shortClick(MouseEvent e) {
             if (e.getSource() == buttonC) {
-                System.out.println("Button C is clicked!");
+                System.out.println("GUI: short C");
+                GUI.setInput(Info.C);
+            }
+        }
+
+        @Override
+        public void longClick(MouseEvent e) {
+            if (e.getSource() == buttonC) {
+                System.out.println("GUI: long C");
+                GUI.setInput(Info.LONGC);
             }
         }
     }
 
-    class ButtonDListener implements ActionListener {
+    class ButtonDListener extends MouseCustomAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void shortClick(MouseEvent e) {
             if (e.getSource() == buttonD) {
-                System.out.println("Button D is clicked!");
-                changePanel();
+                System.out.println("GUI: short D");
+                GUI.setInput(Info.D);
+            }
+        }
+
+        @Override
+        public void longClick(MouseEvent e) {
+            if (e.getSource() == buttonD) {
+                System.out.println("GUI: long D");
+                GUI.setInput(Info.LONGD);
             }
         }
     }

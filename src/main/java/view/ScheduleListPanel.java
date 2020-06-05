@@ -1,7 +1,12 @@
 package view;
 
+import model.Alarm;
+import model.Schedule;
+import model.Time;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ScheduleListPanel extends JPanel {
     GridBagLayout gridBagLayout = new GridBagLayout();
@@ -13,6 +18,7 @@ public class ScheduleListPanel extends JPanel {
     JLabel schedule2Label = new JLabel();
     JLabel schedule3Label = new JLabel();
     JLabel schedule4Label = new JLabel();
+    JLabel[] scheduleLabels = {schedule1Label, schedule2Label, schedule3Label, schedule4Label};
 
     public ScheduleListPanel() {
         listPanel = new ListPanel();
@@ -40,29 +46,72 @@ public class ScheduleListPanel extends JPanel {
             this.setLayout(new GridLayout(4, 1));
             this.setBackground(Color.WHITE);
 
-            schedule1Label.setFont(new Font("SanSerif", Font.PLAIN, 30));
-            schedule1Label.setText("ETC 05.25 MON 13:30:20");
-            schedule1Label.setBackground(Color.GRAY);
-            schedule1Label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(schedule1Label);
+            scheduleLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[0].setText("ETC 05.25 MON 13:30:20");
+            scheduleLabels[0].setBackground(Color.GRAY);
+            scheduleLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(scheduleLabels[0]);
 
-            schedule2Label.setFont(new Font("SanSerif", Font.PLAIN, 30));
-            schedule2Label.setText("CLA 05.27 WED 15:20:42");
-            schedule2Label.setBackground(Color.WHITE);
-            schedule2Label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(schedule2Label);
+            scheduleLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[1].setText("CLA 05.27 WED 15:20:42");
+            scheduleLabels[1].setBackground(Color.WHITE);
+            scheduleLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(scheduleLabels[1]);
 
-            schedule3Label.setFont(new Font("SanSerif", Font.PLAIN, 30));
-            schedule3Label.setText("");
-            schedule3Label.setBackground(Color.WHITE);
-            schedule3Label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(schedule3Label);
+            scheduleLabels[2].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[2].setText("");
+            scheduleLabels[2].setBackground(Color.WHITE);
+            scheduleLabels[2].setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(scheduleLabels[2]);
 
-            schedule4Label.setFont(new Font("SanSerif", Font.PLAIN, 30));
-            schedule4Label.setText("");
-            schedule4Label.setBackground(Color.WHITE);
-            schedule4Label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(schedule4Label);
+            scheduleLabels[3].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[3].setText("");
+            scheduleLabels[3].setBackground(Color.WHITE);
+            scheduleLabels[3].setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(scheduleLabels[3]);
         }
+    }
+
+    public void setDisplay(Object[] objects) {
+        Time curTime = (Time) objects[0];
+        ArrayList<Schedule> scheduleList = (ArrayList<Schedule>) objects[1];
+        int pointer = (int) objects[2];
+
+        curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
+
+        for (int i = 0; i < 4; i++) {
+            Schedule schedule = scheduleList.get(i);
+
+            if (schedule != null) {
+                String scheduleType;
+
+                switch (schedule.scheduleType) {
+                    case 0:
+                        scheduleType = "CLA";
+                        break;
+                    case 1:
+                        scheduleType = "MEE";
+                        break;
+                    case 2:
+                        scheduleType = "EVE";
+                        break;
+                    case 3:
+                        scheduleType = "ASL";
+                        break;
+                    case 4:
+                        scheduleType = "ETC";
+                        break;
+                    default:
+                        scheduleType = "ERR";
+                        System.out.println("GUI: Schedule Type Error!");
+                        break;
+                }
+
+                scheduleLabels[i].setText(scheduleType + " " + schedule.scheduleTime.month + "." + schedule.scheduleTime.day + " " + schedule.getDayofWeek() + " " + schedule.scheduleTime.hour + ":" + schedule.scheduleTime.minute);
+            } else {
+                scheduleLabels[i].setText("");
+            }
+        }
+
     }
 }

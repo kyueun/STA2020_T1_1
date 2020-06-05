@@ -1,4 +1,4 @@
-package testpackage;
+package model;
 
 import sun.java2d.pipe.SpanShapeRenderer;
 

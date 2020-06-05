@@ -1,5 +1,8 @@
 package view;
 
+import model.Schedule;
+import model.Time;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +17,7 @@ public class TimeKeepingPanel extends JPanel {
         this.setBackground(Color.WHITE);
 
         curScheduleLabel.setFont(new Font("SanSerif", Font.PLAIN, 25));
-        curScheduleLabel.setText("ETC 05.25 MON 13:30:20");
+        curScheduleLabel.setText("ETC 05.25 MON 13:30");
         curScheduleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curScheduleLabel);
 
@@ -29,5 +32,38 @@ public class TimeKeepingPanel extends JPanel {
         this.add(curDateLabel);
 
         this.add(menuPanel);
+    }
+
+    public void setDisplay(Object[] objects) {
+        Schedule recentSchedule = (Schedule) objects[0];
+        Time curTime = (Time) objects[1];
+
+        String scheduleType;
+
+        switch (recentSchedule.scheduleType) {
+            case 0:
+                scheduleType = "CLA";
+                break;
+            case 1:
+                scheduleType = "MEE";
+                break;
+            case 2:
+                scheduleType = "EVE";
+                break;
+            case 3:
+                scheduleType = "ASL";
+                break;
+            case 4:
+                scheduleType = "ETC";
+                break;
+            default:
+                scheduleType = "ERR";
+                System.out.println("GUI: Schedule Type Error!");
+                break;
+        }
+
+        curScheduleLabel.setText(scheduleType + " " + recentSchedule.scheduleTime.month + "." + recentSchedule.scheduleTime.day + " " + recentSchedule.getDayofWeek() + " " + recentSchedule.scheduleTime.hour + ":" + recentSchedule.scheduleTime.minute);
+        curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
+        curDateLabel.setText(String.format("%04d", curTime.year) + "." + String.format("%02d", curTime.month) + "." + String.format("%02d", curTime.day));
     }
 }
