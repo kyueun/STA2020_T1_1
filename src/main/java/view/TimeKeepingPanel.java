@@ -35,6 +35,7 @@ public class TimeKeepingPanel extends JPanel {
     }
 
     public void setDisplay(Object[] objects) {
+        System.out.println("objects: " + objects);
         Schedule recentSchedule = (Schedule) objects[0];
         Time curTime = (Time) objects[1];
 

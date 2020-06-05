@@ -145,6 +145,7 @@ public class DWS {
                     }
                 }
             }
+            System.out.println("obecjts: " + screenValue);
             this.gui.display(mode, screenValue, beep.beepList); // (Required) modify object
 
             this.gui.setInput(-1);
@@ -559,7 +560,7 @@ public class DWS {
     private void changeMode() {
         do {
             mode += 10;
-            if (mode > Info.WORLDTIME) mode = Info.TIMEKEEPING;
+            if (mode > Info.SCHEDULE) mode = Info.TIMEKEEPING;
         } while (!controller.getSelectedModeNum()[mode / 10]);
 
     }
