@@ -7,8 +7,8 @@ public class Info {
     final static int TIMER = 10;
     final static int STOPWATCH = 20;
     final static int ALARM = 30, ALARMSET = 31;
-    final static int SCHEDULE = 40, SCHEDULESET = 41;
-    final static int WORLDTIME = 50;
+    final static int WORLDTIME = 40;
+    final static int SCHEDULE = 50, SCHEDULESET = 51;
 
     final static int SELECTMODE = 60;
     final static int BEEPALARM = 70, BEEPTIMER = 71;

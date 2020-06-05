@@ -204,7 +204,7 @@ import java.util.*;
      * @return
      */
     public Object[] pressButtonB() {
-        switch(mode){
+        switch(mode) {
             case Info.TIMEKEEPING: //enterSetting
                 mode = Info.TIMEKEEPINGSET;
                 pointer = Info.TIME_POINTER_HOUR;
@@ -216,38 +216,36 @@ import java.util.*;
                 return new Object[]{controller.getRecentSchedule(), time};
 
             case Info.TIMER:
-                if(controller.isRunningTimer()){
+                if (controller.isRunningTimer()) {
                     controller.setRunningTimer(false);
-                }else{
+                } else {
                     controller.setRunningTimer(true);
                 }
-               // controller.decreaseTimeValue(mode, Info.TIME_POINTER_NULL);
+                // controller.decreaseTimeValue(mode, Info.TIME_POINTER_NULL);
                 return new Object[]{time, controller.getCurTimer()};
 
             case Info.STOPWATCH:
-                if(controller.isRunningStopwatch()){
+                if (controller.isRunningStopwatch()) {
                     controller.setRunningStopwatch(false);
-                }else{
+                } else {
                     controller.setRunningStopwatch(true);
                 }
                 return new Object[]{time, controller.getCurStopwatch()};
 
-            case Info.ALARM:
-
-                break;
             case Info.ALARMSET:
+                mode = Info.ALARM;
+                return new Object[]{controller.getCurTime(), ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList()};
 
-                break;
             case Info.SCHEDULE: //enter setting - modify schedule
                 mode = Info.SCHEDULESET;
                 pointer = Info.TIME_POINTER_HOUR;
                 return new Object[]{enterSettingMode(), pointer};
 
             case Info.SCHEDULESET:
-                if(controller.isAvailable()){
+                if (controller.isAvailable()) {
                     Schedule temp = (Schedule) saveValue();
                     mode = Info.SCHEDULE;
-                    return new Object[]{controller.getCurTime(), ((ScheduleMode)controller.getSelectedMode()[Info.SCHEDULE/10]).getList()};
+                    return new Object[]{controller.getCurTime(), ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList()};
                 }
                 return null;
 
@@ -258,9 +256,8 @@ import java.util.*;
                 return new Object[]{controller.getSelectedModeNum(), listPointer};
 
             default:
-                break;
+                return null;
         }
-        return null;
     }
 
     /**
@@ -372,7 +369,7 @@ import java.util.*;
                 return new Object[]{time, controller.getCurTimer()};
 
             case Info.STOPWATCH:
-                if(!controller.isRunningTimer()){
+                if(!controller.isRunningStopwatch()){
                     ((StopwatchMode) controller.getSelectedMode()[Info.STOPWATCH/10]).saveValue(new Time());
                 }
                 return new Object[]{time, controller.getCurStopwatch()};
