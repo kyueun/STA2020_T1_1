@@ -29,7 +29,7 @@ public class WorldTimeMode extends Mode {
         SimpleDateFormat tokyo = new SimpleDateFormat("HH:mm:ss");
         tokyo.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
 
-        worldTimeList.add(new WorldTime("[GMT-5][New _ork] " + newyork.format(date)));
+        worldTimeList.add(new WorldTime("[GMT-5][New York] " + newyork.format(date)));
         worldTimeList.add(new WorldTime("[GMT+0][London] " + london.format(date)));
         worldTimeList.add(new WorldTime("[GMT+2][Paris] " + paris.format(date)));
         worldTimeList.add(new WorldTime("[GMT+2][Rome] " + rome.format(date)));

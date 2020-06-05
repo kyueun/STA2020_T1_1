@@ -1,7 +1,10 @@
 package view;
 
+import model.WorldTime;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WorldTimePanel extends JPanel {
     GridBagLayout gridBagLayout = new GridBagLayout();
@@ -74,6 +77,14 @@ public class WorldTimePanel extends JPanel {
     }
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
+        ArrayList<WorldTime> worldTimeList = (ArrayList<WorldTime>) objects[0];
+
+        newYorkTimeLabel.setText(worldTimeList.get(0).cityInfo);
+        londonTimeLabel.setText(worldTimeList.get(1).cityInfo);
+        parisTimeLabel.setText(worldTimeList.get(2).cityInfo);
+        romeTimeLabel.setText(worldTimeList.get(3).cityInfo);
+        beijingTimeLabel.setText(worldTimeList.get(4).cityInfo);
+        tokyoTimeLabel.setText(worldTimeList.get(5).cityInfo);
 
         menuPanel.setDisplay(4, enableMode);
     }
