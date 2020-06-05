@@ -13,13 +13,6 @@ public class Info {
     final static int SELECTMODE = 60;
     final static int BEEPALARM = 70, BEEPTIMER = 71;
 
-//    final static int TIME_TYPE_CURRENT_TIME = 0;
-//    final static int TIME_TYPE_TIMER = 1;
-//    final static int TIME_TYPE_STOPWATCH = 2;
-//    final static int TIME_TYPE_CURRENT_TIME = 0;
-//    final static int TIME_TYPE_TIMER = 1;
-//    final static int TIME_TYPE_STOPWATCH = 2;
-
     final static int TIME_POINTER_NULL = 0;
     final static int TIME_POINTER_HOUR = 1;
     final static int TIME_POINTER_MINUTE = 2;

@@ -561,34 +561,6 @@ import java.util.*;
        if(mode>Info.WORLDTIME) mode=Info.TIMEKEEPING;
     }
 
-    /**
-     * @return
-     */
-
-    /**
-     * @return
-     */
-    private void saveMode() {
-        // TODO implement here
-        return;
-    }
-
-    /**
-     * @return
-     */
-    private boolean selectMode() {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    private void muteBeep() {
-        // TODO implement here
-        return;
-    }
-
     private static void initTime(Time time){
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy:MM:dd:HH:mm:ss");
         Date date = new Date();

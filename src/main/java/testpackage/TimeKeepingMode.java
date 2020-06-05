@@ -13,19 +13,10 @@ public class TimeKeepingMode extends Mode {
         this.currentTime = time;
     }
 
-    /**
-     * @param int index 
-     * @return
-     */
     public Time getValue() {
         return this.currentTime;
     }
 
-    /**
-     * @param int index 
-     * @param Time time 
-     * @return
-     */
     public Time saveValue(Time time) {
         // TODO implement here
         return null;
