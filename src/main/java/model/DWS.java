@@ -362,7 +362,10 @@ public class DWS {
 
                     mode = Info.TIMEKEEPING;
                     return new Object[]{controller.getRecentSchedule(), time};
-                } else return new Object[]{controller.getSelectedMode(), Info.LIST_POINTER_NULL};
+                } else {
+                    mode = Info.SELECTMODE;
+                    return new Object[]{controller.getSelectedModeNum(), listPointer};
+                }
 
             default: //change mode
                 changeMode();
@@ -588,6 +591,7 @@ public class DWS {
         }
         return;
     }
+
 
     private Object saveValue() {
         controller.saveTimeValue(listPointer, mode);
