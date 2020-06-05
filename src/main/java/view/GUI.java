@@ -140,7 +140,7 @@ public class GUI extends JFrame {
         label.setFont(font);
     }
 
-    public void display(int mode, Object[] objects, Stack<Integer> beepList) {
+    public void display(int mode, Object[] objects, Stack<Integer> beepList, boolean[] selected) {
         switch (mode) {
             case Info.TIMEKEEPING:
                 changePanel(0, 0); // timeKeepingPanel
@@ -168,7 +168,7 @@ public class GUI extends JFrame {
                 break;
             case Info.WORLDTIME:
                 changePanel(4, 0);
-                // setDisplay(objects);
+                worldTimePanel.setDisplay(objects);
                 break;
             case Info.SCHEDULE:
                 changePanel(5, 0);

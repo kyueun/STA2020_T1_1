@@ -34,7 +34,7 @@ public class SelectModePanel extends JPanel {
             menuModelabels[i].setFont(new Font("SanSerif", Font.PLAIN, 25));
             menuModelabels[i].setIcon(icons[i]);
             menuModelabels[i].setBackground(Color.WHITE);
-            menuModelabels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            menuModelabels[i].setHorizontalAlignment(SwingConstants.LEFT);
 
             this.add(menuModelabels[i]);
         }

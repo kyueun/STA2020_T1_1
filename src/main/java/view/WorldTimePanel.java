@@ -72,4 +72,8 @@ public class WorldTimePanel extends JPanel {
             this.add(tokyoTimeLabel);
         }
     }
+
+    public void setDisplay(Object[] objects) {
+
+    }
 }

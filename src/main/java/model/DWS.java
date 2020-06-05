@@ -145,7 +145,7 @@ public class DWS {
                     }
                 }
             }
-            this.gui.display(mode, screenValue, beep.beepList); // (Required) modify object
+            this.gui.display(mode, screenValue, beep.beepList, controller.getSelectedModeNum()); // (Required) modify object
 
             this.gui.setInput(-1);
             timeStart = timeEnd;
