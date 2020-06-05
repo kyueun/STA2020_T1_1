@@ -75,6 +75,7 @@ public class AlarmListPanel extends JPanel {
         Time curTime = (Time) objects[0];
         ArrayList<Alarm> alarmList = (ArrayList<Alarm>) objects[1];
         int pointer = (int) objects[2];
+        boolean[] enableMode = (boolean[]) objects[3];
 
         String alarmEnable;
 
@@ -96,5 +97,6 @@ public class AlarmListPanel extends JPanel {
             }
         }
 
+        menuPanel.setDisplay(3, enableMode);
     }
 }

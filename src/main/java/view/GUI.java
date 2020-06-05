@@ -168,7 +168,7 @@ public class GUI extends JFrame {
                 break;
             case Info.WORLDTIME:
                 changePanel(4, 0);
-                // setDisplay(objects);
+                worldTimePanel.setDisplay(objects);
                 break;
             case Info.SCHEDULE:
                 changePanel(5, 0);

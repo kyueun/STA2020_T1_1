@@ -39,6 +39,7 @@ public class TimeKeepingPanel extends JPanel {
             System.out.println("GUI: objects is null");
         } else {
             Time curTime = (Time) objects[1];
+            boolean[] enableMode = (boolean[]) objects[2];
 
             if (objects[0] != null) {
                 Schedule recentSchedule = (Schedule) objects[0];
@@ -72,6 +73,8 @@ public class TimeKeepingPanel extends JPanel {
             }
             curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
             curDateLabel.setText(String.format("%04d", curTime.year) + "." + String.format("%02d", curTime.month) + "." + String.format("%02d", curTime.day));
+
+            menuPanel.setDisplay(3, enableMode);
         }
     }
 

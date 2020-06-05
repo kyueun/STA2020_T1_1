@@ -32,44 +32,6 @@ public class TimerPanel extends JPanel {
         this.add(menuPanel);
     }
 
-    class TimePanel extends JPanel {
-        JLabel hourLabel = new JLabel();
-        JLabel minuteLabel = new JLabel();
-        JLabel secondLabel = new JLabel();
-        JLabel colon1 = new JLabel();
-        JLabel colon2 = new JLabel();
-
-        public TimePanel() {
-            this.setLayout(new FlowLayout(FlowLayout.CENTER));
-            this.setBackground(Color.WHITE);
-
-            hourLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            hourLabel.setText("10");
-            hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(hourLabel);
-
-            colon1.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            colon1.setText(":");
-            colon1.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(colon1);
-
-            minuteLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            minuteLabel.setText("12");
-            minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(minuteLabel);
-
-            colon2.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            colon2.setText(":");
-            colon2.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(colon2);
-
-            secondLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
-            secondLabel.setText("40");
-            secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(secondLabel);
-        }
-    }
-
     class TimerTimePanel extends JPanel {
         JLabel hourLabel = new JLabel();
         JLabel minuteLabel = new JLabel();
@@ -129,7 +91,7 @@ public class TimerPanel extends JPanel {
 
         switch (pointer) {
             case Info.TIME_POINTER_NULL: // 0
-                System.out.println("GUI: Pointer Error! (Null)");
+                System.out.println("GUI: Timer Not Setting Mode");
                 break;
             case Info.TIME_POINTER_HOUR: // 1
                 idx = 0;

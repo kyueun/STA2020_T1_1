@@ -178,7 +178,7 @@ public class DWS {
                     }
                 }
             }
-            System.out.println("screenValue: " + screenValue);
+
             this.gui.display(mode, screenValue, beep.beepList, controller.getSelectedModeNum()); // (Required) modify object
 
             this.gui.setInput(-1);
