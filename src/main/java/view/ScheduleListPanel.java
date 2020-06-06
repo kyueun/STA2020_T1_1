@@ -1,6 +1,7 @@
 package view;
 
 import model.Alarm;
+import model.Info;
 import model.Schedule;
 import model.Time;
 
@@ -94,19 +95,19 @@ public class ScheduleListPanel extends JPanel {
                     String scheduleType;
 
                     switch (schedule.scheduleType) {
-                        case 0:
+                        case Info.SCH_TYPE_CLA:
                             scheduleType = "CLA";
                             break;
-                        case 1:
+                        case Info.SCH_TYPE_MET:
                             scheduleType = "MEE";
                             break;
-                        case 2:
+                        case Info.SCH_TYPE_EVE:
                             scheduleType = "EVE";
                             break;
-                        case 3:
+                        case Info.SCH_TYPE_ASL:
                             scheduleType = "ASL";
                             break;
-                        case 4:
+                        case Info.SCH_TYPE_ETC:
                             scheduleType = "ETC";
                             break;
                         default:
