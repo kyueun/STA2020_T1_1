@@ -1,10 +1,6 @@
 package model;
 
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 public class WorldTimeMode extends Mode {
