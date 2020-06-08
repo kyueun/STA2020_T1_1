@@ -35,15 +35,17 @@ public class SchelduleModeTest {
 
     @Test
     public void isAvailableAdd(){
-        Time curTime = new Time();
-        curTime.hour = 1;
+        Time tmpTime = new Time();
+        tmpTime.month = 1;
+        tmpTime.day = 1;
+        tmpTime.hour = 1;
 
-        Schedule schedule = new Schedule();
-        assertFalse(scheduleMode.isAvailAdd(curTime, schedule));
+        Schedule schedule = new Schedule(); //01.01 00:00:00
+        assertFalse(scheduleMode.isAvailAdd(tmpTime, schedule));
 
         Schedule schedule2 = new Schedule();
-        schedule2.scheduleTime.hour = 2;
-        assertEquals(true, scheduleMode.isAvailAdd(curTime, schedule2));
+        schedule2.scheduleTime.hour = 2;    //01.01 02:00:00
+        assertTrue(scheduleMode.isAvailAdd(tmpTime, schedule2));
     }
 
     @Test
