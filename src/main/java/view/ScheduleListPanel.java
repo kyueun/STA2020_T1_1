@@ -55,7 +55,7 @@ public class ScheduleListPanel extends JPanel {
             this.add(scheduleLabels[0]);
 
             scheduleLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
-            scheduleLabels[1].setText("CLA 05.27 WED 15:20:42");
+            scheduleLabels[1].setText("CLA 05.27 15:20:42");
             scheduleLabels[1].setOpaque(true);
             scheduleLabels[1].setBackground(Color.WHITE);
             scheduleLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,51 +84,51 @@ public class ScheduleListPanel extends JPanel {
             scheduleList = (ArrayList<Schedule>) objects[1];
         }
         int pointer = (int) objects[2];
+        int count = 0;
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        if ((scheduleList != null) && (scheduleList.size() != 0)) {
-            for (int i = 0; i < 4; i++) {
+        if (scheduleList != null) {
+            for (int i = 0; i < scheduleList.size(); i++) {
                 Schedule schedule = scheduleList.get(i);
 
-                if (schedule != null) {
-                    String scheduleType;
+                String scheduleType;
 
-                    switch (schedule.scheduleType) {
-                        case Info.SCH_TYPE_CLA:
-                            scheduleType = "CLA";
-                            break;
-                        case Info.SCH_TYPE_MET:
-                            scheduleType = "MEE";
-                            break;
-                        case Info.SCH_TYPE_EVE:
-                            scheduleType = "EVE";
-                            break;
-                        case Info.SCH_TYPE_ASL:
-                            scheduleType = "ASL";
-                            break;
-                        case Info.SCH_TYPE_ETC:
-                            scheduleType = "ETC";
-                            break;
-                        default:
-                            scheduleType = "ERR";
-                            System.out.println("GUI: Schedule Type Error!");
-                            break;
-                    }
-
-                    scheduleLabels[i].setText(scheduleType + " " + schedule.scheduleTime.month + "." + schedule.scheduleTime.day + " " + schedule.getDayofWeek() + " " + schedule.scheduleTime.hour + ":" + schedule.scheduleTime.minute);
-                } else {
-                    scheduleLabels[i].setText("");
+                switch (schedule.scheduleType) {
+                    case Info.SCH_TYPE_CLA:
+                        scheduleType = "CLA";
+                        break;
+                    case Info.SCH_TYPE_MET:
+                        scheduleType = "MEE";
+                        break;
+                    case Info.SCH_TYPE_EVE:
+                        scheduleType = "EVE";
+                        break;
+                    case Info.SCH_TYPE_ASL:
+                        scheduleType = "ASL";
+                        break;
+                    case Info.SCH_TYPE_ETC:
+                        scheduleType = "ETC";
+                        break;
+                    default:
+                        scheduleType = "ERR";
+                        System.out.println("GUI: Schedule Type Error!");
+                        break;
                 }
-            }
-        } else {
-            for (int i = 0; i < 4; i++) {
-                scheduleLabels[i].setText("");
+
+                scheduleLabels[i].setText(scheduleType + " " + String.format("%02d", schedule.scheduleTime.month) + "." +  String.format("%02d", schedule.scheduleTime.day) + " " + String.format("%02d", schedule.scheduleTime.hour) + ":" + String.format("%02d", schedule.scheduleTime.minute));
+                count++;
             }
         }
 
+        for (int i = 0; i < 4 - count; i++) {
+            scheduleLabels[count + i].setText("");
+        }
+
         // check pointer
-        for (int i = 0; i < 4; i++) {
+        for (
+                int i = 0;
+                i < 4; i++) {
             if (i == pointer) {
                 scheduleLabels[i].setBackground(Color.LIGHT_GRAY);
             } else {

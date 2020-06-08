@@ -59,6 +59,7 @@ public class ScheduleSetPanel extends JPanel {
         JLabel schTypeLabel = new JLabel();
         JLabel monthLabel = new JLabel();
         JLabel dayLabel = new JLabel();
+        JLabel spaceLabel = new JLabel();
         JLabel dot1 = new JLabel();
 
         public SchDatePanel() {
@@ -66,9 +67,14 @@ public class ScheduleSetPanel extends JPanel {
             this.setBackground(Color.WHITE);
 
             schTypeLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
-            schTypeLabel.setText("CLA ");
+            schTypeLabel.setText("CLA");
             schTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(schTypeLabel);
+
+            spaceLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            spaceLabel.setText(" ");
+            spaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(spaceLabel);
 
             monthLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
             monthLabel.setText("01");
@@ -102,22 +108,22 @@ public class ScheduleSetPanel extends JPanel {
 
         switch (curSchedule.second) {
             case Info.SCH_TYPE_CLA:
-                scheduleType = "CLA ";
+                scheduleType = "CLA";
                 break;
             case Info.SCH_TYPE_MET:
-                scheduleType = "MEE ";
+                scheduleType = "MEE";
                 break;
             case Info.SCH_TYPE_EVE:
-                scheduleType = "EVE ";
+                scheduleType = "EVE";
                 break;
             case Info.SCH_TYPE_ASL:
-                scheduleType = "ASL ";
+                scheduleType = "ASL";
                 break;
             case Info.SCH_TYPE_ETC:
-                scheduleType = "ETC ";
+                scheduleType = "ETC";
                 break;
             default:
-                scheduleType = "ERR ";
+                scheduleType = "ERR";
                 System.out.println("GUI: Schedule Type Error!");
                 break;
         }
