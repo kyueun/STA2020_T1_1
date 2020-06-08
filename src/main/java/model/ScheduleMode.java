@@ -61,8 +61,8 @@ public class ScheduleMode extends Mode {
         time.scheduleType = schedule.scheduleTime.second; // create same type temp Schedule
 
         ArrayList temp = new ArrayList<Schedule>();
-        temp.add(time);
         temp.add(schedule);
+        temp.add(time);
 
         Collections.sort(temp, new Sorting());
 
