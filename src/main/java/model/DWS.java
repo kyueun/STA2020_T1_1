@@ -109,8 +109,10 @@ public class DWS {
             System.out.print("AlarmList: ");
             while(itr.hasNext()) System.out.print(itr.next().alarmTime.minute+ ", ");
             System.out.println("--------------");
-            ((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).updateWorldTime();
 
+            if(controller.getSelectedModeNum()[Info.WORLDTIME / 10]) {
+                ((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).updateWorldTime();
+            }
             if (input == -1) { //nothing in
                 if (!(mode == Info.TIMER && controller.isRunningTimer()) || !(mode == Info.STOPWATCH && controller.isRunningStopwatch()))
                     timeOut++;
