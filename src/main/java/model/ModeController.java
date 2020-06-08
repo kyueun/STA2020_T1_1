@@ -66,6 +66,7 @@ public class ModeController {
                 return null;
 
             case Info.ALARMSET:
+                System.out.println("loadtime listpointer: " + listPointer);
                 if (this.selectedModeNum[mode / 10]) {
                     return ((AlarmMode)this.selectedMode[mode / 10]).getValue(listPointer).alarmTime;
                 }
@@ -163,25 +164,31 @@ public class ModeController {
 
             case Info.ALARMSET :
                 System.out.println("alarm2342: " + curAlarm.alarmTime.minute);
-                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, clone(curAlarm.alarmTime));
-                if(curAlarm.enable){
-                    runningAlarmList.add(curAlarm);
+                Alarm alarm = ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm.alarmTime);
+                if(index==-1){
+                    runningAlarmList.add(alarm);
                 }
+                curAlarm = new Alarm();
                 break;
 
             case Info.SCHEDULESET :
                 ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule.scheduleTime);
+                curSchedule.scheduleTime = new Time();
                 break;
         }
     }
 
     public void toggleAlarm(int index){
         Alarm temp = ((AlarmMode)(this.selectedMode[Info.ALARM /10])).getValue(index);
+        System.out.println("toggle at first");
 
         if(((AlarmMode)(this.selectedMode[Info.ALARM /10])).toggleAlarm(index)){
+            System.out.println("toggle");
             if(temp.enable){
+                System.out.println("enable");
                 runningAlarmList.add(temp);
             }else{
+                System.out.println("disable");
                 runningAlarmList.remove(temp);
             }
         }

@@ -44,8 +44,6 @@ public class DWS {
 
 
         this.mode = Info.TIMEKEEPING;
-
-        //  gui.setListener("A", pressButtonA());
     }
 
     public void setGui(GUI gui) {
@@ -72,8 +70,6 @@ public class DWS {
             if (controller.isRunningStopwatch())
                 controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL, null);
 
-            System.out.println("curtIMER= " + controller.getCurTimer().second);
-            System.out.println("TIME" + new Time().second);
             if (controller.isRunningTimer() && (controller.getCurTimer() != null) && compareTime(controller.getCurTimer(), new Time())) { //timer beep
                 System.out.println("beep");
 
@@ -87,14 +83,10 @@ public class DWS {
                 while (itr.hasNext()) { //alarm beep
 
                     Alarm alarm = itr.next();
-                   // System.out.println("alarm: " + alarm.alarmTime.hour + "hour " + alarm.alarmTime.minute + "minute " + alarm.alarmTime.second);
-
                     if (compareTime(alarm.alarmTime, time)) {
-                        System.out.println("itr2222asdfD");
                         beep.beepPopup(Info.BEEP_TYPE_ALARM);
                         break;
                     }
-
                 }
             }
 
@@ -153,7 +145,7 @@ public class DWS {
                         break;
 
                     case Info.ALARMSET:
-                        screenValue = new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
+                        screenValue = new Object[]{time,controller.getCurAlarm().alarmTime, pointer};
                         break;
 
                     case Info.SCHEDULE:
@@ -231,6 +223,7 @@ public class DWS {
 
             case Info.ALARM:
                 moveListPointer(1);
+
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
 
             case Info.ALARMSET:
@@ -292,17 +285,20 @@ public class DWS {
                 return new Object[]{time, controller.getCurStopwatch()};
 
             case Info.ALARM: //enter setting - modify alarm
+                System.out.println("prees listpointer: " + listPointer);
                 if (((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList().size() == 0) {
                     return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                 }
                 mode = Info.ALARMSET;
                 pointer = Info.TIME_POINTER_HOUR;
+                controller.setCurAlarm(((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getValue(listPointer));
                 return new Object[]{time, enterSettingMode(), pointer};
 
             case Info.ALARMSET:
                 System.out.println("DWS: Save Alarm");
                 saveValue();
                 mode = Info.ALARM;
+                listPointer = Info.LIST_POINTER_0;
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), Info.LIST_POINTER_0};
 
             case Info.SCHEDULE: //enter setting - modify schedule
@@ -317,7 +313,8 @@ public class DWS {
                 if (controller.isAvailable()) {
                     saveValue();
                     mode = Info.SCHEDULE;
-                    return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_NULL};
+                    listPointer = Info.LIST_POINTER_0;
+                    return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_0};
                 }
                 return new Object[]{time, controller.getCurSchedule(), pointer};
 
@@ -426,12 +423,12 @@ public class DWS {
     }
 
     public Object[] pressLongButtonA() {
+        System.out.println("LONGA");
         switch (mode) {
             case Info.ALARM:
-                if (((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).toggleAlarm(listPointer)) {
-                    return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
-                }
-                return null;
+                System.out.println("alarm");
+                controller.toggleAlarm(listPointer);
+                return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
 
             default:
                 return null;
@@ -460,7 +457,7 @@ public class DWS {
                 } else {
                     mode = Info.ALARMSET;
                     pointer = Info.TIME_POINTER_HOUR;
-                    listPointer = -1;
+                    listPointer = -1; //add
                     return new Object[]{time, enterSettingMode(), pointer};
                 }
 
@@ -470,7 +467,7 @@ public class DWS {
                 } else {
                     mode = Info.SCHEDULESET;
                     pointer = Info.TIME_POINTER_HOUR;
-                    listPointer = -1;
+                    listPointer = -1; //add
                     return new Object[]{time, enterSettingMode(), pointer};
                 }
 
@@ -506,7 +503,7 @@ public class DWS {
             return new Object[]{controller.getSelectedModeNum(), listPointer};
         }
         System.out.println("DWS: long D, mode " + mode);
-        return new Object[]{controller.getRecentSchedule(), time};
+        return null;
     }
 
     private Object enterSettingMode() {
@@ -516,6 +513,7 @@ public class DWS {
                 return controller.loadTime(mode, -1);
 
             case Info.ALARMSET:
+                System.out.println("entersetting: " + listPointer);
                 return controller.loadTime(mode, listPointer);
 
             case Info.SCHEDULESET:

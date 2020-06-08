@@ -220,6 +220,7 @@ public class GUI extends JFrame {
         public void longClick(MouseEvent e) {
             if (e.getSource() == buttonA) {
                 System.out.println("GUI: long A");
+                GUI.setInput(Info.LONGA);
             }
         }
     }
