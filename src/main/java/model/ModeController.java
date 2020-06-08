@@ -165,9 +165,8 @@ public class ModeController {
                 break;
 
             case Info.ALARMSET :
-                System.out.println("alarm2342: " + curAlarm.alarmTime.minute);
                 Alarm alarm = ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm.alarmTime);
-                if(index==-1){
+                if(index==-1){ //add alarm
                     runningAlarmList.add(alarm);
                 }
                 curAlarm = new Alarm();
@@ -175,7 +174,7 @@ public class ModeController {
 
             case Info.SCHEDULESET :
                 ((ScheduleMode)(this.selectedMode[mode/10])).saveValue(index, curSchedule.scheduleTime);
-                curSchedule.scheduleTime = new Time();
+                curSchedule = new Schedule();
                 break;
         }
     }

@@ -1,40 +1,44 @@
 package model;
 
+import sun.java2d.pipe.SpanShapeRenderer;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class WorldTimeMode extends Mode {
 
-    private ArrayList<WorldTime> worldTimeList;
+    private WorldTime[] worldTimeList;
+    private SimpleDateFormat[] countries;
+
 
     public WorldTimeMode() {
-        worldTimeList = new ArrayList<WorldTime>();
-
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        SimpleDateFormat newyork = new SimpleDateFormat("HH:mm:ss");
-        newyork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        SimpleDateFormat london = new SimpleDateFormat("HH:mm:ss");
-        london.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-        SimpleDateFormat paris = new SimpleDateFormat("HH:mm:ss");
-        paris.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-        SimpleDateFormat rome = new SimpleDateFormat("HH:mm:ss");
-        rome.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
-        SimpleDateFormat shanghai = new SimpleDateFormat("HH:mm:ss");
-        shanghai.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-        SimpleDateFormat tokyo = new SimpleDateFormat("HH:mm:ss");
-        tokyo.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
-
-        worldTimeList.add(new WorldTime("[GMT-5][New York] " + newyork.format(date)));
-        worldTimeList.add(new WorldTime("[GMT+0][London] " + london.format(date)));
-        worldTimeList.add(new WorldTime("[GMT+2][Paris] " + paris.format(date)));
-        worldTimeList.add(new WorldTime("[GMT+2][Rome] " + rome.format(date)));
-        worldTimeList.add(new WorldTime("[GMT+8][Shanghai] " + shanghai.format(date)));
-        worldTimeList.add(new WorldTime("[GMT+9][Tokyo] " + tokyo.format(date)));
+        worldTimeList = new WorldTime[6];
+        countries = new SimpleDateFormat[6];
+        for(int i=0; i<6; i++) countries[i] = new SimpleDateFormat("HH:mm:ss");
     }
 
-    public ArrayList<WorldTime> getValue() {
+    public WorldTime[] getValue() {
         return worldTimeList;
+    }
+
+    public void updateWorldTime() {
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        countries[0].setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        countries[1].setTimeZone(TimeZone.getTimeZone("Europe/London"));
+        countries[2].setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        countries[3].setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
+        countries[4].setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        countries[5].setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+
+        worldTimeList[0] = new WorldTime("[GMT-5][New York] " + countries[0].format(date));
+        worldTimeList[1] = new WorldTime("[GMT+0][London] " + countries[1].format(date));
+        worldTimeList[2] = new WorldTime("[GMT+2][Paris] " + countries[2].format(date));
+        worldTimeList[3] = new WorldTime("[GMT+2][Rome] " + countries[3].format(date));
+        worldTimeList[4] = new WorldTime("[GMT+8][Shanghai] " + countries[4].format(date));
+        worldTimeList[5] = new WorldTime("[GMT+9][Tokyo] " + countries[5].format(date));
+
     }
 
 }

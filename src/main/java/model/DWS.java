@@ -108,6 +108,7 @@ public class DWS {
             System.out.print("AlarmList: ");
             while(itr.hasNext()) System.out.print(itr.next().alarmTime.minute+ ", ");
             System.out.println("--------------");
+            ((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).updateWorldTime();
 
             if (input == -1) { //nothing in
                 if (!(mode == Info.TIMER && controller.isRunningTimer()) || !(mode == Info.STOPWATCH && controller.isRunningStopwatch()))
@@ -139,7 +140,6 @@ public class DWS {
                         break;
 
                     case Info.ALARM:
-
                         screenValue = new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                         break;
 
@@ -306,6 +306,7 @@ public class DWS {
                 }
                 mode = Info.SCHEDULESET;
                 pointer = Info.TIME_POINTER_HOUR;
+                controller.setCurSchedule(((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getValue(listPointer));
                 return new Object[]{time, enterSettingMode(), pointer};
 
             case Info.SCHEDULESET:
@@ -412,7 +413,7 @@ public class DWS {
                         return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), Info.LIST_POINTER_0};
 
                     case Info.SCHEDULE:
-                        return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_NULL};
+                        return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_0};
 
                     case Info.WORLDTIME:
                         return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -512,7 +513,6 @@ public class DWS {
                 return controller.loadTime(mode, -1);
 
             case Info.ALARMSET:
-                System.out.println("entersetting: " + listPointer);
                 return controller.loadTime(mode, listPointer);
 
             case Info.SCHEDULESET:

@@ -77,14 +77,14 @@ public class WorldTimePanel extends JPanel {
     }
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
-        ArrayList<WorldTime> worldTimeList = (ArrayList<WorldTime>) objects[0];
+        WorldTime[] worldTimeList = (WorldTime[]) objects[0];
 
-        newYorkTimeLabel.setText(worldTimeList.get(0).cityInfo);
-        londonTimeLabel.setText(worldTimeList.get(1).cityInfo);
-        parisTimeLabel.setText(worldTimeList.get(2).cityInfo);
-        romeTimeLabel.setText(worldTimeList.get(3).cityInfo);
-        beijingTimeLabel.setText(worldTimeList.get(4).cityInfo);
-        tokyoTimeLabel.setText(worldTimeList.get(5).cityInfo);
+        newYorkTimeLabel.setText(worldTimeList[0].cityInfo);
+        londonTimeLabel.setText(worldTimeList[1].cityInfo);
+        parisTimeLabel.setText(worldTimeList[2].cityInfo);
+        romeTimeLabel.setText(worldTimeList[3].cityInfo);
+        beijingTimeLabel.setText(worldTimeList[4].cityInfo);
+        tokyoTimeLabel.setText(worldTimeList[5].cityInfo);
 
         menuPanel.setDisplay(4, enableMode);
     }
