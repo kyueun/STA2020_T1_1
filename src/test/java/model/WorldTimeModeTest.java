@@ -14,6 +14,7 @@ public class WorldTimeModeTest {
 
     @Test
     public void makeWorldTimeMode(){
+        worldTimeMode.updateWorldTime();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         SimpleDateFormat tmp = new SimpleDateFormat("HH:mm:ss");
