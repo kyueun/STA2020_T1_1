@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Stack;
 
@@ -31,6 +32,7 @@ public class GUI extends JFrame {
     JButton buttonD = new JButton("D");
     JPanel curMode;
     Container container;
+    ArrayList<BeepPanel> beepPanels = new ArrayList<BeepPanel>();
 
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -151,6 +153,11 @@ public class GUI extends JFrame {
     }
 
     public void display(int mode, Object[] objects, Stack<Integer> beepList, boolean[] selected) {
+        for (int i = 0; i < beepPanels.size(); i++) {
+            beepPanels.get(i).setVisible(false);
+            container.remove(beepPanels.get(i));
+        }
+
         switch (mode) {
             case Info.TIMEKEEPING:
                 changePanel(0, 0); // timeKeepingPanel
@@ -199,6 +206,7 @@ public class GUI extends JFrame {
         if (!beepList.empty()) {
             for (int i = 0; i < beepList.size(); i++) {
                 BeepPanel beepPanel = new BeepPanel(beepList.get(i));
+                beepPanels.add(beepPanel);
                 beepPanel.setBorder(new LineBorder(Color.BLACK, 2));
                 beepPanel.setBounds(120, 100, 360, 280);
                 beepPanel.setVisible(true);
