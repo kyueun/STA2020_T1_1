@@ -22,6 +22,7 @@ public class GUI extends JFrame {
     AlarmSetPanel alarmSetPanel = new AlarmSetPanel();
     WorldTimePanel worldTimePanel = new WorldTimePanel();
     ScheduleListPanel scheduleListPanel = new ScheduleListPanel();
+    ScheduleSetPanel scheduleSetPanel = new ScheduleSetPanel();
     SelectMenuPanel selectMenuPanel = new SelectMenuPanel();
     JPanel[][] modePanel = new JPanel[8][2];
     JButton buttonA = new JButton("A");
@@ -48,12 +49,19 @@ public class GUI extends JFrame {
         // 3. alarmListPanel
         modePanel[0][0] = timeKeepingPanel;
         modePanel[0][1] = timeKeepingSetPanel;
-        modePanel[1][0] = timerPanel; // fail
-        modePanel[2][0] = stopWatchPanel; // fail
+
+        modePanel[1][0] = timerPanel;
+
+        modePanel[2][0] = stopWatchPanel;
+
         modePanel[3][0] = alarmListPanel;
-        modePanel[3][1] = alarmSetPanel; // fail
-        modePanel[4][0] = worldTimePanel; // fail
-        modePanel[5][0] = scheduleListPanel; // ..?
+        modePanel[3][1] = alarmSetPanel;
+
+        modePanel[4][0] = worldTimePanel;
+
+        modePanel[5][0] = scheduleListPanel;
+        modePanel[5][1] = scheduleSetPanel;
+
         modePanel[6][0] = selectMenuPanel;
         curMode = selectMenuPanel; // fail
         modeX = 0;
