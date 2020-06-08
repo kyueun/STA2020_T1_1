@@ -16,7 +16,7 @@ public class TimeKeepingPanel extends JPanel {
         this.setLayout(new GridLayout(4, 1));
         this.setBackground(Color.WHITE);
 
-        curScheduleLabel.setFont(new Font("SanSerif", Font.PLAIN, 25));
+        curScheduleLabel.setFont(new Font("SanSerif", Font.PLAIN, 30));
         curScheduleLabel.setText("");
         curScheduleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curScheduleLabel);
@@ -67,7 +67,7 @@ public class TimeKeepingPanel extends JPanel {
                         break;
                 }
 
-                curScheduleLabel.setText(scheduleType + " " + String.format("%02", recentSchedule.scheduleTime.month) + "." + String.format("%02d", recentSchedule.scheduleTime.day) + " " + String.format("%02d", recentSchedule.scheduleTime.hour) + ":" + String.format("%02d", recentSchedule.scheduleTime.minute));
+                curScheduleLabel.setText(scheduleType + " " + String.format("%02d", recentSchedule.scheduleTime.month) + "." + String.format("%02d", recentSchedule.scheduleTime.day) + " " + String.format("%02d", recentSchedule.scheduleTime.hour) + ":" + String.format("%02d", recentSchedule.scheduleTime.minute));
             } else {
                 curScheduleLabel.setText("No Schedule");
             }
