@@ -47,24 +47,28 @@ public class AlarmListPanel extends JPanel {
 
             alarmLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
             alarmLabels[0].setText("[OFF] 13:30:20");
+            alarmLabels[0].setOpaque(true);
             alarmLabels[0].setBackground(Color.LIGHT_GRAY);
             alarmLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[0]);
 
             alarmLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
             alarmLabels[1].setText("[OFF] 13:20:42");
+            alarmLabels[1].setOpaque(true);
             alarmLabels[1].setBackground(Color.WHITE);
             alarmLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[1]);
 
             alarmLabels[2].setFont(new Font("SanSerif", Font.PLAIN, 30));
             alarmLabels[2].setText("");
+            alarmLabels[2].setOpaque(true);
             alarmLabels[2].setBackground(Color.WHITE);
             alarmLabels[2].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[2]);
 
             alarmLabels[3].setFont(new Font("SanSerif", Font.PLAIN, 30));
             alarmLabels[3].setText("");
+            alarmLabels[3].setOpaque(true);
             alarmLabels[3].setBackground(Color.WHITE);
             alarmLabels[3].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[3]);
@@ -106,6 +110,7 @@ public class AlarmListPanel extends JPanel {
 
 
         // check pointer
+        System.out.println("GUI: pointer is " + pointer);
         for (int i = 0; i < 4; i++) {
             if (i == pointer) {
                 alarmLabels[i].setBackground(Color.LIGHT_GRAY);

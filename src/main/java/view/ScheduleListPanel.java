@@ -1,6 +1,7 @@
 package view;
 
 import model.Alarm;
+import model.Info;
 import model.Schedule;
 import model.Time;
 
@@ -48,24 +49,28 @@ public class ScheduleListPanel extends JPanel {
 
             scheduleLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
             scheduleLabels[0].setText("ETC 05.25 MON 13:30:20");
+            scheduleLabels[0].setOpaque(true);
             scheduleLabels[0].setBackground(Color.GRAY);
             scheduleLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[0]);
 
             scheduleLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
             scheduleLabels[1].setText("CLA 05.27 WED 15:20:42");
+            scheduleLabels[1].setOpaque(true);
             scheduleLabels[1].setBackground(Color.WHITE);
             scheduleLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[1]);
 
             scheduleLabels[2].setFont(new Font("SanSerif", Font.PLAIN, 30));
             scheduleLabels[2].setText("");
+            scheduleLabels[2].setOpaque(true);
             scheduleLabels[2].setBackground(Color.WHITE);
             scheduleLabels[2].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[2]);
 
             scheduleLabels[3].setFont(new Font("SanSerif", Font.PLAIN, 30));
             scheduleLabels[3].setText("");
+            scheduleLabels[3].setOpaque(true);
             scheduleLabels[3].setBackground(Color.WHITE);
             scheduleLabels[3].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[3]);
@@ -90,19 +95,19 @@ public class ScheduleListPanel extends JPanel {
                     String scheduleType;
 
                     switch (schedule.scheduleType) {
-                        case 0:
+                        case Info.SCH_TYPE_CLA:
                             scheduleType = "CLA";
                             break;
-                        case 1:
+                        case Info.SCH_TYPE_MET:
                             scheduleType = "MEE";
                             break;
-                        case 2:
+                        case Info.SCH_TYPE_EVE:
                             scheduleType = "EVE";
                             break;
-                        case 3:
+                        case Info.SCH_TYPE_ASL:
                             scheduleType = "ASL";
                             break;
-                        case 4:
+                        case Info.SCH_TYPE_ETC:
                             scheduleType = "ETC";
                             break;
                         default:

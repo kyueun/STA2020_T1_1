@@ -62,11 +62,11 @@ public class ScheduleMode extends Mode {
 
         ArrayList temp = new ArrayList<Schedule>();
         temp.add(time);
-        temp.add(schedule.scheduleTime);
+        temp.add(schedule);
 
         Collections.sort(temp, new Sorting());
 
-        if(temp.get(0).equals(curTime)){ // check schedule time
+        if(temp.get(0).equals(time)){ // check schedule time
             return true;
         }else{
             return false;
