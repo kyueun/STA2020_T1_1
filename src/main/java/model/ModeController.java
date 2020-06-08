@@ -222,7 +222,7 @@ public class ModeController {
         else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==1) {
             recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
         }
-        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>1) {
+        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>=1) {
             if(time.month>=recentSchedule.scheduleTime.month && time.day>=recentSchedule.scheduleTime.day &&
                     time.hour>=recentSchedule.scheduleTime.hour && time.minute>=recentSchedule.scheduleTime.minute) {
                 ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().remove(0);
