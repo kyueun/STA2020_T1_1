@@ -23,6 +23,16 @@ public class SchelduleModeTest {
         assertEquals(Info.SCH_TYPE_CLA, tmpSchedule.scheduleType);
         assertEquals(1, scheduleMode.getList().size());
     }
+    
+    @Test
+    public void modifySchedule(){
+        Time tmp = new Time();
+        Schedule tmpSchedule = scheduleMode.saveValue(-1, tmp);
+
+        tmpSchedule.scheduleTime.hour = 1;
+        Schedule tmpSchedule2 =  (Schedule)scheduleMode.saveValue(0, tmpSchedule);
+        assertEquals(1, tmpSchedule2.scheduleTime.hour);
+    }
 
     @Test
     public void deleteSchedule(){
