@@ -82,22 +82,26 @@ public class ModeControllerTest {
         modeCon.increaseTimeValue(Info.TIMEKEEPINGSET, Info.TIME_POINTER_HOUR, null);
         assertEquals(0, modeCon.getCurTime().hour);
 
+        testTime.hour = 23;
         modeCon.setCurTimer(testTime);
         modeCon.increaseTimeValue(Info.TIMER, Info.TIME_POINTER_HOUR, null);
         assertEquals(0, modeCon.getCurTimer().hour);
 
+        testTime.hour = 23;
         Alarm testAlarm = new Alarm();
         testAlarm.alarmTime = testTime;
         modeCon.setCurAlarm(testAlarm);
         modeCon.increaseTimeValue(Info.ALARMSET, Info.TIME_POINTER_HOUR, null);
         assertEquals(0, modeCon.getCurAlarm().alarmTime.hour);
 
+        testTime.hour = 23;
         Schedule testSchedule = new Schedule();
         testSchedule.scheduleTime = testTime;
         modeCon.setCurSchedule(testSchedule);
         modeCon.increaseTimeValue(Info.SCHEDULESET, Info.TIME_POINTER_HOUR, null);
         assertEquals(0, modeCon.getCurSchedule().scheduleTime.hour);
 
+        testTime.hour = 23;
         modeCon.setCurStopwatch(testTime);
         modeCon.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL, null);
         assertEquals(0, testTime.hour);
@@ -129,18 +133,22 @@ public class ModeControllerTest {
         modeCon.decreaseTimeValue(Info.TIMEKEEPINGSET, Info.TIME_POINTER_HOUR);
         assertEquals(23, modeCon.getCurTime().hour);
 
+        testTime.hour = 0;
         Alarm testAlarm = new Alarm();
         testAlarm.alarmTime = testTime;
         modeCon.setCurAlarm(testAlarm);
         modeCon.decreaseTimeValue(Info.ALARMSET, Info.TIME_POINTER_HOUR);
         assertEquals(23, modeCon.getCurAlarm().alarmTime.hour);
 
+        testTime.hour = 0;
         Schedule testSchedule = new Schedule();
         testSchedule.scheduleTime = testTime;
         modeCon.setCurSchedule(testSchedule);
         modeCon.decreaseTimeValue(Info.SCHEDULESET, Info.TIME_POINTER_HOUR);
         assertEquals(23, modeCon.getCurSchedule().scheduleTime.hour);
 
+        testTime.hour = 0;
+        testTime.minute = 0;
         testTime.second = 2;
         modeCon.setCurTimer(testTime);
         modeCon.decreaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
@@ -209,5 +217,4 @@ public class ModeControllerTest {
         modeCon.setSelectedModeNum(tmpModes3);
         assertFalse(modeCon.canSelect());
     }
-
 }
