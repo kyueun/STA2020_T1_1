@@ -67,7 +67,6 @@ public class ModeController {
                 return null;
 
             case Info.ALARMSET:
-                System.out.println("loadtime listpointer: " + listPointer);
                 if (this.selectedModeNum[mode / 10]) {
                     return ((AlarmMode)this.selectedMode[mode / 10]).getValue(listPointer).alarmTime;
                 }
@@ -182,15 +181,11 @@ public class ModeController {
 
     public void toggleAlarm(int index){
         Alarm temp = ((AlarmMode)(this.selectedMode[Info.ALARM /10])).getValue(index);
-        System.out.println("toggle at first");
 
         if(((AlarmMode)(this.selectedMode[Info.ALARM /10])).toggleAlarm(index)){
-            System.out.println("toggle");
             if(temp.enable){
-                System.out.println("enable");
                 runningAlarmList.add(temp);
             }else{
-                System.out.println("disable");
                 runningAlarmList.remove(temp);
             }
         }
@@ -319,18 +314,4 @@ public class ModeController {
     public void setSelectedMode(Mode[] selectedMode) {
         this.selectedMode = selectedMode;
     }
-
-    private static Time clone(Time time) {
-        Time t = new Time();
-        t.year = time.year;
-        t.month = time.month;
-        t.day = time.day;
-        t.hour = time.hour;
-        t.minute = time.minute;
-        t.second = time.second;
-
-        return t;
-    }
-
-
 }

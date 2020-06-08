@@ -1,8 +1,6 @@
 package model;
 
-/**
- * 
- */
+
 public class Mode {
 
     public Mode() {

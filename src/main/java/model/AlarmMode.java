@@ -23,10 +23,8 @@ public class AlarmMode extends Mode {
 
     public Alarm getValue(int index) {
         if(index==-1){
-            System.out.println("index=-1");
             return new Alarm();
         }
-        System.out.println("alarmList[movelist]="+alarmList.get(index).alarmTime.minute);
         return alarmList.get(index);
     }
 
@@ -36,7 +34,6 @@ public class AlarmMode extends Mode {
             temp.alarmTime = time;
             alarmList.add(temp);
             sortAlarmList();
-            System.out.println("save value at alarmMode: "+alarmList.get(0).alarmTime.minute);
 
             return temp;
         }else { //modify alarm
@@ -58,11 +55,9 @@ public class AlarmMode extends Mode {
 
     public boolean toggleAlarm(int index) {
         if(alarmList.size()==0){
-            System.out.println("??????size=0?????");
             return false;
         }
 
-        System.out.println("toggle alarm at alarmMode");
         alarmList.get(index).enable = !alarmList.get(index).enable;
 
         return true;

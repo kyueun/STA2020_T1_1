@@ -1,8 +1,6 @@
 package model;
 
-/**
- * 
- */
+
 public class WorldTime {
 
     public String cityInfo;

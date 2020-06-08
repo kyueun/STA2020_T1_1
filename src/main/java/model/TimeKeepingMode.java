@@ -1,8 +1,6 @@
 package model;
 
-/**
- * 
- */
+
 public class TimeKeepingMode extends Mode {
 
     private Time currentTime;

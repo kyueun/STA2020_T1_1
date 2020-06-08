@@ -2,9 +2,7 @@ package model;
 
 import java.util.*;
 
-/**
- * 
- */
+
 public class ScheduleMode extends Mode {
 
     private ArrayList<Schedule> scheduleList;
