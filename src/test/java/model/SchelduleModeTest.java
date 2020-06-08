@@ -70,5 +70,17 @@ public class SchelduleModeTest {
         //checking schedules are in regular order.
         for(int i=0; i<4; i++)
             assertEquals(i+1, scheduleMode.getList().get(i).scheduleTime.hour);
+
+        //delete
+        assertTrue(scheduleMode.deleteValue(0));
+        for(int i=1; i<4; i++)
+            assertEquals(i+1, scheduleMode.getList().get(i-1).scheduleTime.hour);
+
+        //modify
+        Time tmpTime = new Time();
+        tmpTime.hour = 6;
+        Schedule tmpSchedule = scheduleMode.saveValue(1, tmpTime);
+        for(int i=1; i<4; i++)
+            assertEquals(i*2, scheduleMode.getList().get(i-1).scheduleTime.hour);
     }
 }
