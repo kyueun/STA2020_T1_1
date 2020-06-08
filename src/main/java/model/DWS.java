@@ -64,6 +64,7 @@ public class DWS {
             flag = false;
 
             controller.increaseTimeValue(Info.TIMEKEEPING, Info.TIME_POINTER_NULL, time);
+            if(controller.getSelectedModeNum()[Info.SCHEDULE/10]) controller.calculateSchedule(time);
             if (controller.isRunningTimer()) controller.decreaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
             if (controller.isRunningStopwatch())
                 controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL, null);
@@ -294,7 +295,8 @@ public class DWS {
 
             case Info.ALARM: //enter setting - modify alarm
                 System.out.println("prees listpointer: " + listPointer);
-                if (((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList().size() == 0) {
+                if (((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList().size() == 0 ||
+                        listPointer >= ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList().size()) {
                     return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                 }
                 mode = Info.ALARMSET;
@@ -310,7 +312,8 @@ public class DWS {
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), Info.LIST_POINTER_0};
 
             case Info.SCHEDULE: //enter setting - modify schedule
-                if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList().size() == 0) {
+                if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList().size()==0 ||
+                        listPointer >= ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList().size()) {
                     return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
                 }
                 mode = Info.SCHEDULESET;
@@ -460,7 +463,8 @@ public class DWS {
 
             case Info.ALARM:
                 System.out.println("alarm");
-                if(((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0)
+                if(((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0 &&
+                        listPointer < ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList().size())
                     controller.toggleAlarm(listPointer);
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[mode / 10]).getList(), listPointer};
 
@@ -559,7 +563,9 @@ public class DWS {
                 return new Object[]{time, controller.getCurStopwatch()};
 
             case Info.ALARM:
-                if (((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0 && controller.deleteTime(mode, listPointer)) {
+                if (((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0 &&
+                        listPointer < ((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()
+                        && controller.deleteTime(mode, listPointer)) {
                     return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                 }
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
@@ -568,7 +574,9 @@ public class DWS {
                 return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
             case Info.SCHEDULE:
-                if (controller.deleteTime(mode, listPointer)) {
+                if (((ScheduleMode) controller.getSelectedMode()[mode / 10]).getList().size()>0 &&
+                        listPointer < ((ScheduleMode) controller.getSelectedMode()[mode / 10]).getList().size()
+                        && controller.deleteTime(mode, listPointer)) {
                     return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
                 }
                 return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};

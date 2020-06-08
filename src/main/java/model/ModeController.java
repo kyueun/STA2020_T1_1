@@ -33,6 +33,7 @@ public class ModeController {
         this.runningTimer = false;
         this.runningStopwatch = false;
         this.runningAlarmList = new ArrayList<Alarm>();
+        this.recentSchedule = null;
 
         for(int i=0; i<4; i++){
             this.selectedModeNum[i] = true;
@@ -219,6 +220,23 @@ public class ModeController {
         }
     }
 
+    public void calculateSchedule(Time time){
+        if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==1) {
+            recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
+        }
+        if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>1) {
+            if(time.month==recentSchedule.scheduleTime.month && time.day==recentSchedule.scheduleTime.day &&
+                    time.hour==recentSchedule.scheduleTime.hour && time.minute==recentSchedule.scheduleTime.minute) {
+                ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().remove(0);
+                recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
+
+                this.calculateSchedule(time);
+            }
+
+            else recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
+        }
+    }
+
     public boolean isRunningTimer() {
         return runningTimer;
     }
@@ -289,14 +307,6 @@ public class ModeController {
 
     public void setRunningStopwatch(boolean runningStopwatch) {
         this.runningStopwatch = runningStopwatch;
-    }
-
-    public void setRunningAlarmList(ArrayList<Alarm> runningAlarmList) {
-        this.runningAlarmList = runningAlarmList;
-    }
-
-    public void setRecentSchedule(Schedule recentSchedule) {
-        this.recentSchedule = recentSchedule;
     }
 
     public void setSelectedModeNum(boolean[] selectedModeNum) {

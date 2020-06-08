@@ -11,6 +11,8 @@ public class Schedule {
 
     public Schedule() {
         scheduleTime = new Time();
+        scheduleTime.month = 1;
+        scheduleTime.day = 1;
         scheduleType = Info.SCH_TYPE_CLA;
     }
 }
