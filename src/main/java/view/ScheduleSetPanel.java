@@ -89,7 +89,7 @@ public class ScheduleSetPanel extends JPanel {
 
     public void setDisplay(Object[] objects, boolean[] enableMode) {
         Time curTime = (Time) objects[0];
-        Schedule curSchedule = (Schedule) objects[1];
+        Time curSchedule = (Time) objects[1];
         int pointer = (int) objects[2];
 
         String scheduleType;
@@ -100,20 +100,20 @@ public class ScheduleSetPanel extends JPanel {
 
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
-        switch (curSchedule.scheduleType) {
-            case 0:
+        switch (curSchedule.second) {
+            case Info.SCH_TYPE_CLA:
                 scheduleType = "CLA ";
                 break;
-            case 1:
+            case Info.SCH_TYPE_MET:
                 scheduleType = "MEE ";
                 break;
-            case 2:
+            case Info.SCH_TYPE_EVE:
                 scheduleType = "EVE ";
                 break;
-            case 3:
+            case Info.SCH_TYPE_ASL:
                 scheduleType = "ASL ";
                 break;
-            case 4:
+            case Info.SCH_TYPE_ETC:
                 scheduleType = "ETC ";
                 break;
             default:
@@ -122,12 +122,12 @@ public class ScheduleSetPanel extends JPanel {
                 break;
         }
 
-        curSchTimePanel.hourLabel.setText(String.format("%02d", curSchedule.scheduleTime.hour));
-        curSchTimePanel.minuteLabel.setText(String.format("%02d", curSchedule.scheduleTime.minute));
+        curSchTimePanel.hourLabel.setText(String.format("%02d", curSchedule.hour));
+        curSchTimePanel.minuteLabel.setText(String.format("%02d", curSchedule.minute));
 
         curSchDatePanel.schTypeLabel.setText(scheduleType);
-        curSchDatePanel.monthLabel.setText(String.format("%02d", curSchedule.scheduleTime.month));
-        curSchDatePanel.dayLabel.setText(String.format("%02d", curSchedule.scheduleTime.day));
+        curSchDatePanel.monthLabel.setText(String.format("%02d", curSchedule.month));
+        curSchDatePanel.dayLabel.setText(String.format("%02d", curSchedule.day));
 
         switch (pointer) {
             case Info.TIME_POINTER_NULL: // 0
@@ -160,7 +160,7 @@ public class ScheduleSetPanel extends JPanel {
         labels[4] = curSchDatePanel.dayLabel;
 
         // check pointer
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i == idx) {
                 GUI.underline(labels[i]);
             } else {
