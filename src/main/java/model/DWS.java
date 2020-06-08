@@ -226,6 +226,9 @@ public class DWS {
                 increaseValue();
                 return new Object[]{time, controller.getCurTimer(), pointer};
 
+            case Info.STOPWATCH:
+                return new Object[]{time, controller.getCurStopwatch()};
+
             case Info.ALARM:
                 moveListPointer(1);
 
@@ -325,7 +328,7 @@ public class DWS {
                     listPointer = Info.LIST_POINTER_0;
                     return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_0};
                 }
-                return new Object[]{time, controller.getCurSchedule(), pointer};
+                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -456,17 +459,18 @@ public class DWS {
 
             case Info.ALARM:
                 System.out.println("alarm");
-                controller.toggleAlarm(listPointer);
+                if(((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0)
+                    controller.toggleAlarm(listPointer);
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[mode / 10]).getList(), listPointer};
 
             case Info.ALARMSET:
-                return new Object[]{time, controller.getCurAlarm(), pointer};
+                return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
             case Info.SCHEDULE:
                     return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[mode/10]).getList(), listPointer};
 
             case Info.SCHEDULESET:
-                    return new Object[]{time, controller.getCurSchedule(), pointer};
+                    return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -511,7 +515,7 @@ public class DWS {
                 }
 
             case Info.ALARMSET:
-                return new Object[]{time, controller.getCurAlarm(), pointer};
+                return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
             case Info.SCHEDULE: //enter setting - add schedule
                 if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).isFull()) {
@@ -524,7 +528,7 @@ public class DWS {
                 }
 
             case Info.SCHEDULESET:
-                return new Object[]{time, controller.getCurSchedule(), pointer};
+                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -552,13 +556,13 @@ public class DWS {
                 return new Object[]{time, controller.getCurStopwatch()};
 
             case Info.ALARM:
-                if (controller.deleteTime(mode, listPointer)) {
+                if (((AlarmMode) controller.getSelectedMode()[mode / 10]).getList().size()>0 && controller.deleteTime(mode, listPointer)) {
                     return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                 }
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
 
             case Info.ALARMSET:
-                return new Object[]{time, controller.getCurAlarm(), pointer};
+                return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
             case Info.SCHEDULE:
                 if (controller.deleteTime(mode, listPointer)) {
@@ -567,7 +571,7 @@ public class DWS {
                 return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
 
             case Info.SCHEDULESET:
-                return new Object[]{time, controller.getCurSchedule(), pointer};
+                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -599,13 +603,13 @@ public class DWS {
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
 
             case Info.ALARMSET:
-                return new Object[]{time, controller.getCurAlarm(), pointer};
+                return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
             case Info.SCHEDULE:
                 return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
 
             case Info.SCHEDULESET:
-                return new Object[]{time, controller.getCurSchedule(), pointer};
+                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
