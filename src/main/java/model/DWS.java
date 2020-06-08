@@ -21,10 +21,7 @@ public class DWS {
     private ModeController controller;
     private Time time;
 
-    int timeStart, timeEnd;
     int timeOut;
-
-    private int input;
 
     public DWS() {
 
@@ -351,6 +348,7 @@ public class DWS {
         switch (mode) {
             case Info.TIMEKEEPING:
                 return new Object[]{controller.getRecentSchedule(), time};
+
             case Info.TIMEKEEPINGSET: //decrease
                 decreaseValue();
                 return new Object[]{controller.getCurTime(), pointer};
@@ -358,6 +356,9 @@ public class DWS {
             case Info.TIMER:
                 movePointer();
                 return new Object[]{time, controller.getCurTimer(), pointer};
+
+            case Info.STOPWATCH:
+                return new Object[]{time, controller.getCurStopwatch()};
 
             case Info.ALARM:
                 moveListPointer(0);
@@ -484,6 +485,19 @@ public class DWS {
 
     public Object[] pressLongButtonB() {
         switch (mode) {
+            case Info.SCHEDULE: //enter setting - add schedule
+                if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).isFull()) {
+                    return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_NULL};
+                } else {
+                    mode = Info.SCHEDULESET;
+                    pointer = Info.TIME_POINTER_HOUR;
+                    listPointer = -1; //add
+                    return new Object[]{time, enterSettingMode(), pointer};
+                }
+
+            case Info.SCHEDULESET:
+                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
+
             case Info.TIMEKEEPING:
                 return new Object[]{controller.getRecentSchedule(), time};
 
@@ -517,18 +531,7 @@ public class DWS {
             case Info.ALARMSET:
                 return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
 
-            case Info.SCHEDULE: //enter setting - add schedule
-                if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).isFull()) {
-                    return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_NULL};
-                } else {
-                    mode = Info.SCHEDULESET;
-                    pointer = Info.TIME_POINTER_HOUR;
-                    listPointer = -1; //add
-                    return new Object[]{time, enterSettingMode(), pointer};
-                }
 
-            case Info.SCHEDULESET:
-                return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
@@ -707,7 +710,7 @@ public class DWS {
                 break;
 
             case Info.SCHEDULESET:
-                if (pointer > Info.TIME_POINTER_SCHETYPE) pointer = Info.TIME_POINTER_MONTH;
+                if (pointer == Info.TIME_POINTER_YEAR) pointer = Info.TIME_POINTER_MONTH;
                 else if (pointer > Info.TIME_POINTER_DAY) pointer = Info.TIME_POINTER_HOUR;
                 break;
         }
@@ -798,7 +801,6 @@ public class DWS {
 
     private static void initMode(Mode modes[], Time time) {
         modes[0] = new TimeKeepingMode(time);
-        //  modes[0] =  (TimeKeepingMode)modes[0];
         modes[1] = new TimerMode();
         modes[2] = new StopwatchMode();
         modes[3] = new AlarmMode();
