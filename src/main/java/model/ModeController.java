@@ -240,6 +240,7 @@ public class ModeController {
             }
 
             if(fast) {
+                ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().remove(0);
                 recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
                 this.calculateSchedule(time);
             }
