@@ -193,7 +193,7 @@ public class GUI extends JFrame {
                 break;
             case Info.SCHEDULESET:
                 changePanel(5, 1);
-                stopWatchPanel.setDisplay(objects, selected);
+                scheduleSetPanel.setDisplay(objects, selected);
                 break;
             case Info.SELECTMODE:
                 changePanel(6, 0);

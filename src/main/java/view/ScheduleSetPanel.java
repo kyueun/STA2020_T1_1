@@ -96,6 +96,8 @@ public class ScheduleSetPanel extends JPanel {
         JLabel[] labels = new JLabel[5];
         int idx = -1;
 
+        System.out.println("GUI: Schedule Set Panel, pointer(" + pointer + ")");
+
         curTimeLabel.setText(String.format("%02d", curTime.hour) + ":" + String.format("%02d", curTime.minute) + ":" + String.format("%02d", curTime.second));
 
         switch (curSchedule.scheduleType) {
