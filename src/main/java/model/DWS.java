@@ -85,7 +85,6 @@ public class DWS {
                     Alarm alarm = itr.next();
                     if (compareTime(alarm.alarmTime, time)) {
                         beep.beepPopup(Info.BEEP_TYPE_ALARM);
-                        break;
                     }
                 }
             }

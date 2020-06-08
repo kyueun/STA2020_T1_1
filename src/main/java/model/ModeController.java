@@ -89,6 +89,8 @@ public class ModeController {
                 return ((ScheduleMode)this.selectedMode[mode / 10]).deleteValue(index);
 
             case Info.ALARM:
+                Alarm tempAlarm = ((AlarmMode)this.selectedMode[mode / 10]).getValue(index);
+                runningAlarmList.remove(tempAlarm);
                 return ((AlarmMode)this.selectedMode[mode / 10]).deleteValue(index);
 
             default:
