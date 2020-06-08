@@ -280,6 +280,10 @@ public class DWS {
                     controller.setRunningTimer(false);
                 } else {
                     pointer = Info.TIME_POINTER_NULL;
+                    if(controller.getCurTimer().hour==0 && controller.getCurTimer().minute==0
+                    && controller.getCurTimer().second==0){ //if timer 0, no start
+                        return new Object[]{time, controller.getCurTimer(), Info.TIME_POINTER_NULL};
+                    }
                     controller.setRunningTimer(true);
                 }
                 // controller.decreaseTimeValue(mode, Info.TIME_POINTER_NULL);
@@ -534,8 +538,6 @@ public class DWS {
 
             case Info.ALARMSET:
                 return new Object[]{time, controller.getCurAlarm().alarmTime, pointer};
-
-
 
             case Info.WORLDTIME:
                 return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};

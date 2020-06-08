@@ -96,10 +96,10 @@ public class ScheduleMode extends Mode {
                             return -1;
                         }
                         else if(o1.scheduleTime.minute == o2.scheduleTime.minute) {
-                            if(o1.scheduleType < o1.scheduleType) {
+                            if(o1.scheduleType < o2.scheduleType) {
                                 return -1;
                             }
-                            else if(o1.scheduleType == o1.scheduleType) {
+                            else if(o1.scheduleType == o2.scheduleType) {
                                 return 1;
                             }
                             else {
