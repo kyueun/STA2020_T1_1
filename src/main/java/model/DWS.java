@@ -64,7 +64,9 @@ public class DWS {
             flag = false;
 
             controller.increaseTimeValue(Info.TIMEKEEPING, Info.TIME_POINTER_NULL, time);
-            if(controller.getSelectedModeNum()[Info.SCHEDULE/10]) controller.calculateSchedule(time);
+            if(controller.getSelectedModeNum()[Info.SCHEDULE/10] &&
+                    ((ScheduleMode)controller.getSelectedMode()[Info.SCHEDULE/10]).getList().size()>0)
+                controller.calculateSchedule(time);
             if (controller.isRunningTimer()) controller.decreaseTimeValue(Info.TIMER, Info.TIME_POINTER_NULL);
             if (controller.isRunningStopwatch())
                 controller.increaseTimeValue(Info.STOPWATCH, Info.TIME_POINTER_NULL, null);

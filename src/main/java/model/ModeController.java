@@ -219,30 +219,32 @@ public class ModeController {
         if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==0) {
             recentSchedule = null;
         }
-        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==1) {
+        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>=1) {
             recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
-        }
-        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>1) {
+
             boolean fast = false; //true= if current time faster than recent schedule
             if(time.month>recentSchedule.scheduleTime.month) fast = true;
-            else if(time.month>recentSchedule.scheduleTime.month) fast = false;
+            else if(time.month<recentSchedule.scheduleTime.month) fast = false;
             else {
                 if(time.day>recentSchedule.scheduleTime.day) fast = true;
-                else if(time.day>recentSchedule.scheduleTime.day) fast = false;
+                else if(time.day<recentSchedule.scheduleTime.day) fast = false;
                 else {
                     if(time.hour>recentSchedule.scheduleTime.hour) fast = true;
-                    else if(time.hour>recentSchedule.scheduleTime.hour) fast = false;
+                    else if(time.hour<recentSchedule.scheduleTime.hour) fast = false;
                     else {
                         if(time.minute>=recentSchedule.scheduleTime.minute) fast = true;
-                        else if(time.minute>recentSchedule.scheduleTime.minute) fast = false;
+                        else if(time.minute<recentSchedule.scheduleTime.minute) fast = false;
                     }
                 }
             }
 
             if(fast) {
                 ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().remove(0);
-                recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
-                this.calculateSchedule(time);
+                if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>0) {
+                    recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
+                    this.calculateSchedule(time);
+                }
+                else recentSchedule = null;
             }
 
             else recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
