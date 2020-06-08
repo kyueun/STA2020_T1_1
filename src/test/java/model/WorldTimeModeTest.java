@@ -14,6 +14,7 @@ public class WorldTimeModeTest {
 
     @Test
     public void makeWorldTimeMode(){
+        worldTimeMode.updateWorldTime();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         SimpleDateFormat tmp = new SimpleDateFormat("HH:mm:ss");
@@ -29,7 +30,7 @@ public class WorldTimeModeTest {
 
         for(int i=0; i<6; i++) {
             tmp.setTimeZone(TimeZone.getTimeZone(worldName[i]));
-            String worldTimeValue = worldTimeMode.getValue().get(i).cityInfo;
+            String worldTimeValue = worldTimeMode.getValue()[i].cityInfo;
             worldTimeValue.substring(worldTimeValue.length() - 8);
             assertEquals(tmp.format(date), worldTimeValue.substring(worldTimeValue.length() - 8));
         }
