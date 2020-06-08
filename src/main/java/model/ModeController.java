@@ -219,10 +219,9 @@ public class ModeController {
         if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==0) {
             recentSchedule = null;
         }
-        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==1) {
+        else if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>=1) {
             recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
-        }
-        if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>=1) {
+
             boolean fast = false; //true= if current time faster than recent schedule
             if(time.month>recentSchedule.scheduleTime.month) fast = true;
             else if(time.month<recentSchedule.scheduleTime.month) fast = false;
@@ -235,6 +234,7 @@ public class ModeController {
                     else {
                         if(time.minute>=recentSchedule.scheduleTime.minute) fast = true;
                         else fast = false;
+
                     }
                 }
             }
@@ -243,12 +243,11 @@ public class ModeController {
             if(fast) {
                 ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().remove(0);
 
-               if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()==0){
-                   recentSchedule = null;
-               }else{
-                   recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
-               }
-                this.calculateSchedule(time);
+                if(((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().size()>0) {
+                    recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
+                    this.calculateSchedule(time);
+                }
+                else recentSchedule = null;
             }
 
             else recentSchedule = ((ScheduleMode)selectedMode[Info.SCHEDULE / 10]).getList().get(0);
