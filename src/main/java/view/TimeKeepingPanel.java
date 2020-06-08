@@ -67,7 +67,7 @@ public class TimeKeepingPanel extends JPanel {
                         break;
                 }
 
-                curScheduleLabel.setText(scheduleType + " " + recentSchedule.scheduleTime.month + "." + recentSchedule.scheduleTime.day + " " + recentSchedule.scheduleTime.hour + ":" + recentSchedule.scheduleTime.minute);
+                curScheduleLabel.setText(scheduleType + " " + String.format("%02", recentSchedule.scheduleTime.month) + "." + String.format("%02d", recentSchedule.scheduleTime.day) + " " + String.format("%02d", recentSchedule.scheduleTime.hour) + ":" + String.format("%02d", recentSchedule.scheduleTime.minute));
             } else {
                 curScheduleLabel.setText("No Schedule");
             }
