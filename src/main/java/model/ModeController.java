@@ -163,7 +163,7 @@ public class ModeController {
 
             case Info.ALARMSET :
                 System.out.println("alarm2342: " + curAlarm.alarmTime.minute);
-                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, curAlarm.alarmTime);
+                ((AlarmMode)(this.selectedMode[mode/10])).saveValue(index, clone(curAlarm.alarmTime));
                 if(curAlarm.enable){
                     runningAlarmList.add(curAlarm);
                 }
@@ -297,6 +297,18 @@ public class ModeController {
 
     public void setSelectedMode(Mode[] selectedMode) {
         this.selectedMode = selectedMode;
+    }
+
+    private static Time clone(Time time) {
+        Time t = new Time();
+        t.year = time.year;
+        t.month = time.month;
+        t.day = time.day;
+        t.hour = time.hour;
+        t.minute = time.minute;
+        t.second = time.second;
+
+        return t;
     }
 
 
