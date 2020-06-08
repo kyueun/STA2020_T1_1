@@ -3,6 +3,7 @@ package model;
 import view.AlarmListPanel;
 import view.GUI;
 
+import java.lang.invoke.WrongMethodTypeException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -212,6 +213,9 @@ public class DWS {
 
     public Object[] pressButtonA() {
         switch (mode) {
+            case Info.TIMEKEEPING:
+                return new Object[]{controller.getRecentSchedule(), time};
+
             case Info.TIMEKEEPINGSET: //increase
                 increaseValue();
                 return new Object[]{controller.getCurTime(), pointer};
@@ -236,6 +240,9 @@ public class DWS {
             case Info.SCHEDULESET:
                 increaseValue();
                 return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
 
             case Info.SELECTMODE:
                 moveListPointer(1);
@@ -318,6 +325,9 @@ public class DWS {
                 }
                 return new Object[]{time, controller.getCurSchedule(), pointer};
 
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
             case Info.SELECTMODE:
                 boolean[] temp = controller.getSelectedModeNum();
                 temp[listPointer] = !temp[listPointer];
@@ -334,6 +344,8 @@ public class DWS {
         System.out.println("DWS: short C, mode " + mode);
 
         switch (mode) {
+            case Info.TIMEKEEPING:
+                return new Object[]{controller.getRecentSchedule(), time};
             case Info.TIMEKEEPINGSET: //decrease
                 decreaseValue();
                 return new Object[]{controller.getCurTime(), pointer};
@@ -357,6 +369,9 @@ public class DWS {
             case Info.SCHEDULESET:
                 decreaseValue();
                 return new Object[]{time, controller.getCurSchedule().scheduleTime, pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
 
             case Info.SELECTMODE:
                 moveListPointer(0);
@@ -425,11 +440,37 @@ public class DWS {
     public Object[] pressLongButtonA() {
         System.out.println("LONGA");
         switch (mode) {
+            case Info.TIMEKEEPING:
+                return new Object[]{controller.getRecentSchedule(), time};
+
+            case Info.TIMEKEEPINGSET:
+                return new Object[]{controller.getCurTime(), pointer};
+
+            case Info.TIMER:
+                return new Object[]{time, controller.getCurTimer(), pointer};
+
+            case Info.STOPWATCH:
+                return new Object[]{time, controller.getCurStopwatch()};
+
             case Info.ALARM:
                 System.out.println("alarm");
                 controller.toggleAlarm(listPointer);
-                return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
+                return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[mode / 10]).getList(), listPointer};
 
+            case Info.ALARMSET:
+                return new Object[]{time, controller.getCurAlarm(), pointer};
+
+            case Info.SCHEDULE:
+                    return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[mode/10]).getList(), listPointer};
+
+            case Info.SCHEDULESET:
+                    return new Object[]{time, controller.getCurSchedule(), pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
+            case Info.SELECTMODE:
+                    return new Object[]{controller.getSelectedModeNum(), listPointer};
             default:
                 return null;
         }
@@ -437,6 +478,12 @@ public class DWS {
 
     public Object[] pressLongButtonB() {
         switch (mode) {
+            case Info.TIMEKEEPING:
+                return new Object[]{controller.getRecentSchedule(), time};
+
+            case Info.TIMEKEEPINGSET:
+                return new Object[]{controller.getCurTime(), pointer};
+
             case Info.TIMER: //reset timer
                 if (!controller.isRunningTimer()) {
                     controller.setCurTimer(new Time());
@@ -461,6 +508,9 @@ public class DWS {
                     return new Object[]{time, enterSettingMode(), pointer};
                 }
 
+            case Info.ALARMSET:
+                return new Object[]{time, controller.getCurAlarm(), pointer};
+
             case Info.SCHEDULE: //enter setting - add schedule
                 if (((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).isFull()) {
                     return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), Info.LIST_POINTER_NULL};
@@ -471,6 +521,14 @@ public class DWS {
                     return new Object[]{time, enterSettingMode(), pointer};
                 }
 
+            case Info.SCHEDULESET:
+                return new Object[]{time, controller.getCurSchedule(), pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
+            case Info.SELECTMODE:
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
             default:
                 break;
         }
@@ -479,11 +537,26 @@ public class DWS {
 
     public Object[] pressLongButtonC() {
         switch (mode) {
+            case Info.TIMEKEEPING:
+                return new Object[]{controller.getRecentSchedule(), time};
+
+            case Info.TIMEKEEPINGSET:
+                return new Object[]{controller.getCurTime(), pointer};
+
+            case Info.TIMER:
+                return new Object[]{time, controller.getCurTimer(), pointer};
+
+            case Info.STOPWATCH:
+                return new Object[]{time, controller.getCurStopwatch()};
+
             case Info.ALARM:
                 if (controller.deleteTime(mode, listPointer)) {
                     return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
                 }
                 return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
+
+            case Info.ALARMSET:
+                return new Object[]{time, controller.getCurAlarm(), pointer};
 
             case Info.SCHEDULE:
                 if (controller.deleteTime(mode, listPointer)) {
@@ -491,18 +564,57 @@ public class DWS {
                 }
                 return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
 
+            case Info.SCHEDULESET:
+                return new Object[]{time, controller.getCurSchedule(), pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
+            case Info.SELECTMODE:
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
         }
         System.out.println("DWS: long C, mode " + mode);
         return null;
     }
 
     public Object[] pressLongButtonD() {
-        if (mode == Info.TIMEKEEPING) {
-            mode = Info.SELECTMODE;
-            listPointer = Info.LIST_POINTER_1;
-            return new Object[]{controller.getSelectedModeNum(), listPointer};
+        switch(mode){
+            case Info.TIMEKEEPING:
+                mode = Info.SELECTMODE;
+                listPointer = Info.LIST_POINTER_1;
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
+
+            case Info.TIMEKEEPINGSET:
+                return new Object[]{controller.getCurTime(), pointer};
+
+            case Info.TIMER:
+                return new Object[]{time, controller.getCurTimer(), pointer};
+
+            case Info.STOPWATCH:
+                return new Object[]{time, controller.getCurStopwatch()};
+
+            case Info.ALARM:
+                return new Object[]{time, ((AlarmMode) controller.getSelectedMode()[Info.ALARM / 10]).getList(), listPointer};
+
+            case Info.ALARMSET:
+                return new Object[]{time, controller.getCurAlarm(), pointer};
+
+            case Info.SCHEDULE:
+                return new Object[]{time, ((ScheduleMode) controller.getSelectedMode()[Info.SCHEDULE / 10]).getList(), listPointer};
+
+            case Info.SCHEDULESET:
+                return new Object[]{time, controller.getCurSchedule(), pointer};
+
+            case Info.WORLDTIME:
+                return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
+            case Info.SELECTMODE:
+                return new Object[]{controller.getSelectedModeNum(), listPointer};
+
+            default:
+                break;
         }
-        System.out.println("DWS: long D, mode " + mode);
+
         return null;
     }
 
