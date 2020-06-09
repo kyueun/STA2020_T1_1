@@ -16,17 +16,7 @@ test{
     useJUnit()
     ignoreFailures = true
 }
-checkstyle {
-    toolVersion = "8.32"
-    ignoreFailures = true
-}
-pmd {
-    consoleOutput = true
-    ignoreFailures = true
-    toolVersion = "6.21.0"
-    rulePriority = 5
-    ruleSets = ["category/java/bestpractices.xml"]
-}
+
 jar {
     manifest {
         attributes 'Main-Class': 'TestClass'
