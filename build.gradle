@@ -29,6 +29,6 @@ pmd {
 }
 jar {
     manifest {
-        attributes 'Main-Class': '메인 메소드를 포함하는 Class명(확장자 제외)'
+        attributes 'Main-Class': TestClass
     }
 }
