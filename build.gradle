@@ -29,6 +29,6 @@ pmd {
 }
 jar {
     manifest {
-        attributes 'Main-Class': TestClass
+        attributes 'Main-Class': "TestClass"
     }
 }
