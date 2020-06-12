@@ -77,11 +77,21 @@ public class Time {
                 case Info.TIME_POINTER_YEAR:
                     year++;
                     if (year > 2099) year = 1900;
+                    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) && month==2) {
+                        if (day > Info.DAY_OF_MONTHY[month]) day = Info.DAY_OF_MONTHY[month];
+                    } else if (!(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) && month==2) {
+                        if (day > Info.DAY_OF_MONTH[month]) day = Info.DAY_OF_MONTH[month];
+                    }
                     break;
 
                 case Info.TIME_POINTER_MONTH:
                     month++;
                     if (month > 12) month = 1;
+                    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+                        if (day > Info.DAY_OF_MONTHY[month]) day = Info.DAY_OF_MONTHY[month];
+                    } else {
+                        if (day > Info.DAY_OF_MONTH[month]) day = Info.DAY_OF_MONTH[month];
+                    }
                     break;
 
                 case Info.TIME_POINTER_DAY:
