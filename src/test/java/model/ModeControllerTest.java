@@ -191,18 +191,6 @@ public class ModeControllerTest {
         assertEquals(1, ((ScheduleMode)(modeCon.getSelectedMode()[Info.SCHEDULESET/10])).getValue(0).scheduleTime.hour);
     }
 
-    //@Test
-    //public void toggleAlarm(){
-    //    modeController.saveTimeValue(-1, Info.ALARMSET);
-    //    assertNotNull(modeController.loadTime(Info.ALARMSET, 0));
-    //
-    //    modeController.toggleAlarm(0);
-    //    assertTrue(modeController.getRunningAlarmList().isEmpty());
-    //
-    //    modeController.toggleAlarm(0);
-    //    assertEquals(1, modeController.getRunningAlarmList().size());
-    //}
-
     @Test
     public void canSelect(){
         boolean[] tmpModes = {true, true, false, false, true, true};

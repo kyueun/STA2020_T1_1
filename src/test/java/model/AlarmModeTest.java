@@ -21,6 +21,60 @@ public class AlarmModeTest {
     }
 
     @Test
+    public void validHourAlarmMode(){
+        AlarmMode alarmMode = new AlarmMode();
+        Alarm alarm = new Alarm();
+        alarm.alarmTime = new Time();
+        alarmMode.getList().add(alarm);
+        alarmMode.saveValue(0, new Time());
+
+        alarmMode.getList().get(0).alarmTime.hour=23;
+        alarmMode.getValue(0).alarmTime.valueUp(Info.ALARMSET, Info.TIME_POINTER_HOUR);
+
+        assertEquals(0, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.hour);
+
+        alarmMode.getList().get(0).alarmTime.hour=0;
+        alarmMode.getValue(0).alarmTime.valueDown(Info.ALARMSET, Info.TIME_POINTER_HOUR);
+        assertEquals(23, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.hour);
+    }
+
+    @Test
+    public void validMinuteAlarmMode(){
+        AlarmMode alarmMode = new AlarmMode();
+        Alarm alarm = new Alarm();
+        alarm.alarmTime = new Time();
+        alarmMode.getList().add(alarm);
+        alarmMode.saveValue(0, new Time());
+
+        alarmMode.getList().get(0).alarmTime.minute=59;
+        alarmMode.getValue(0).alarmTime.valueUp(Info.ALARMSET, Info.TIME_POINTER_MINUTE);
+
+        assertEquals(0, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.minute);
+
+        alarmMode.getList().get(0).alarmTime.minute=0;
+        alarmMode.getValue(0).alarmTime.valueDown(Info.ALARMSET, Info.TIME_POINTER_MINUTE);
+        assertEquals(59, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.minute);
+    }
+
+    @Test
+    public void validSecondAlarmMode(){
+        AlarmMode alarmMode = new AlarmMode();
+        Alarm alarm = new Alarm();
+        alarm.alarmTime = new Time();
+        alarmMode.getList().add(alarm);
+        alarmMode.saveValue(0, new Time());
+
+        alarmMode.getList().get(0).alarmTime.second=59;
+        alarmMode.getValue(0).alarmTime.valueUp(Info.ALARMSET, Info.TIME_POINTER_SECOND);
+
+        assertEquals(0, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.second);
+
+        alarmMode.getList().get(0).alarmTime.second=0;
+        alarmMode.getValue(0).alarmTime.valueDown(Info.ALARMSET, Info.TIME_POINTER_SECOND);
+        assertEquals(59, alarmMode.saveValue(0, alarm.alarmTime).alarmTime.second);
+    }
+
+    @Test
     public void modifyAlarm(){
         Time tmp = new Time();
         alarmMode.saveValue(-1, tmp);
