@@ -20,7 +20,7 @@ public class SchelduleModeTest {
         Schedule tmpSchedule = scheduleMode.saveValue(-1, tmp);
 
         assertEquals(tmp, tmpSchedule.scheduleTime);
-        assertEquals(Info.SCH_TYPE_CLA, tmpSchedule.scheduleType);
+        assertEquals(Info.SCH_TYPE_ASL, tmpSchedule.scheduleType);
         assertEquals(1, scheduleMode.getList().size());
     }
 

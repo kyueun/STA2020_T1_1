@@ -209,47 +209,47 @@ public class ModeControllerTest {
     @Test
     public void ScheduleTest1_2(){
         Time curTime = new Time();
-        curTime.year = 2020;
-        curTime.month= 6;
+        curTime.year = 1900;
+        curTime.month= 1;
         curTime.day = 1;
 
         Schedule tmpschedule1 = new Schedule();
-        tmpschedule1.scheduleTime.year = 2020;
-        tmpschedule1.scheduleTime.month = 6;
-        tmpschedule1.scheduleTime.day = 10;
+        tmpschedule1.scheduleTime.year = 1900;
+        tmpschedule1.scheduleTime.month = 1;
+        tmpschedule1.scheduleTime.day = 3;
         modeCon.setCurSchedule(tmpschedule1);
         modeCon.saveTimeValue(-1, Info.SCHEDULESET);
         modeCon.calculateSchedule(curTime);
-        assertEquals(10, modeCon.getRecentSchedule().scheduleTime.day);
+        assertEquals(3, modeCon.getRecentSchedule().scheduleTime.day);
 
         Schedule tmpschedule2 = new Schedule();
-        tmpschedule2.scheduleTime.year = 2020;
-        tmpschedule2.scheduleTime.month = 6;
-        tmpschedule2.scheduleTime.day = 9;
+        tmpschedule2.scheduleTime.year = 1900;
+        tmpschedule2.scheduleTime.month = 1;
+        tmpschedule2.scheduleTime.day = 2;
         modeCon.setCurSchedule(tmpschedule2);
         modeCon.saveTimeValue(-1, Info.SCHEDULESET);
         modeCon.calculateSchedule(curTime);
-        assertEquals(9, modeCon.getRecentSchedule().scheduleTime.day);
+        assertEquals(2, modeCon.getRecentSchedule().scheduleTime.day);
 
         Schedule tmpschedule3 = new Schedule();
-        tmpschedule3.scheduleTime.year = 2020;
-        tmpschedule3.scheduleTime.month = 6;
-        tmpschedule3.scheduleTime.day = 11;
+        tmpschedule3.scheduleTime.year = 1900;
+        tmpschedule3.scheduleTime.month = 1;
+        tmpschedule3.scheduleTime.day = 4;
         modeCon.setCurSchedule(tmpschedule3);
         modeCon.saveTimeValue(-1, Info.SCHEDULESET);
         modeCon.calculateSchedule(curTime);
-        assertEquals(9, modeCon.getRecentSchedule().scheduleTime.day);
+        assertEquals(2, modeCon.getRecentSchedule().scheduleTime.day);
 
-        assertEquals(9, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleTime.day);
-        assertEquals(10, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleTime.day);
-        assertEquals(11, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleTime.day);
+        assertEquals(2, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleTime.day);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleTime.day);
+        assertEquals(4, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleTime.day);
 
-        curTime.day = 10;
+        curTime.day = 3;
         modeCon.calculateSchedule(curTime);
-        assertEquals(11, modeCon.getRecentSchedule().scheduleTime.day);
+        assertEquals(4, modeCon.getRecentSchedule().scheduleTime.day);
 
         //Test 5-2
-        curTime.day = 11;
+        curTime.day = 4;
         modeCon.calculateSchedule(curTime);
         assertNull(modeCon.getRecentSchedule());
     }
