@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 abstract public class MouseCustomAdapter extends MouseAdapter {
     private long mousePressedTime;
-    private long delay = 2000;
+    private long delay = 1000;
     private Timer flashTimer;
 
     public MouseCustomAdapter() {
