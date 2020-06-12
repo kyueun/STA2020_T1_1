@@ -209,7 +209,9 @@ public class DWS {
                 return new Object[]{controller.getCurTime(), pointer};
 
             case Info.TIMER:
-                increaseValue();
+                if(!controller.isRunningTimer()) {
+                    increaseValue();
+                }
                 return new Object[]{time, controller.getCurTimer(), pointer};
 
             case Info.STOPWATCH:
@@ -338,7 +340,9 @@ public class DWS {
                 return new Object[]{controller.getCurTime(), pointer};
 
             case Info.TIMER:
-                movePointer();
+                if(!controller.isRunningTimer()){
+                    movePointer();
+                }
                 return new Object[]{time, controller.getCurTimer(), pointer};
 
             case Info.STOPWATCH:
