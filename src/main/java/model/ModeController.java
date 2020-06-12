@@ -86,6 +86,7 @@ public class ModeController {
     public boolean deleteTime(int mode, int index){
         switch(mode){
             case Info.SCHEDULE:
+                //Schedule tempSchedule = ((ScheduleMode)this.selectedMode[mode / 10]).getValue(index);
                 return ((ScheduleMode)this.selectedMode[mode / 10]).deleteValue(index);
 
             case Info.ALARM:
@@ -210,7 +211,30 @@ public class ModeController {
     public void refreshMode(){
         for(int i=0; i<6; i++){
             if(!selectedModeNum[i]){
-                selectedMode[i] = new Mode();
+                switch(i){
+                    case 1:
+                        selectedMode[i] = new TimerMode();
+                        break;
+
+                    case 2:
+                        selectedMode[i] = new StopwatchMode();
+                        break;
+
+                    case 3:
+                        selectedMode[i] = new AlarmMode();
+                        break;
+
+                    case 4:
+                        selectedMode[i] = new WorldTimeMode();
+                        break;
+
+                    case 5:
+                        selectedMode[i] = new ScheduleMode();
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
     }
