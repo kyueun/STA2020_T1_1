@@ -1,6 +1,5 @@
 package model;
 
-import view.BeepPanel;
 import view.GUI;
 
 import java.util.*;
