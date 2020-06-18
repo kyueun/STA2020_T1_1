@@ -205,4 +205,87 @@ public class ModeControllerTest {
         modeCon.setSelectedModeNum(tmpModes3);
         assertFalse(modeCon.canSelect());
     }
+
+    @Test
+    public void ListingScheduleTest(){
+        Time curTime = new Time();
+        curTime.year = 1900;
+        curTime.month= 1;
+        curTime.day = 1;
+
+        //Test Number 1-1, in Add Schedule
+        Schedule tmpschedule1 = new Schedule();
+        tmpschedule1.scheduleTime.month = 1;
+        tmpschedule1.scheduleTime.day = 3;
+        tmpschedule1.scheduleTime.second = Info.SCH_TYPE_CLA;
+        modeCon.setCurSchedule(tmpschedule1);
+        modeCon.saveTimeValue(-1, Info.SCHEDULESET);
+        modeCon.calculateSchedule(curTime);
+
+        Schedule tmpschedule2 = new Schedule();
+        tmpschedule2.scheduleTime.month = 1;
+        tmpschedule2.scheduleTime.day = 2;
+        modeCon.setCurSchedule(tmpschedule2);
+        modeCon.saveTimeValue(-1, Info.SCHEDULESET);
+        modeCon.calculateSchedule(curTime);
+
+        Schedule tmpschedule3 = new Schedule();
+        tmpschedule3.scheduleTime.month = 2;
+        tmpschedule3.scheduleTime.day = 1;
+        modeCon.setCurSchedule(tmpschedule3);
+        modeCon.saveTimeValue(-1, Info.SCHEDULESET);
+        modeCon.calculateSchedule(curTime);
+
+        Schedule tmpschedule4 = new Schedule();
+        tmpschedule4.scheduleTime.month = 1;
+        tmpschedule4.scheduleTime.day = 3;
+        modeCon.setCurSchedule(tmpschedule4);
+        modeCon.saveTimeValue(-1, Info.SCHEDULESET);
+        modeCon.calculateSchedule(curTime);
+
+        assertEquals(2, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleTime.day);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleTime.day);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleTime.day);
+        assertEquals(1, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(3).scheduleTime.day);
+        assertEquals(Info.SCH_TYPE_ASL, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleType);
+        assertEquals(Info.SCH_TYPE_CLA, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleType);
+
+        //Test Number 5-1
+        assertEquals(2, modeCon.getRecentSchedule().scheduleTime.day);
+
+        //Test Number 1-1, in Modify Schedule
+        boolean[] tmpModes = {true, true, false, false, true, true};
+        modeCon.setSelectedModeNum(tmpModes);
+        Schedule tmpschedule5 = new Schedule();
+        tmpschedule5.scheduleTime = modeCon.loadTime(Info.SCHEDULESET, 0);  //Test Number 3-1
+        tmpschedule5.scheduleTime.day = 5;
+        modeCon.setCurSchedule(tmpschedule5);
+        modeCon.saveTimeValue(0, Info.SCHEDULESET);
+        modeCon.calculateSchedule(curTime);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleTime.day);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleTime.day);
+        assertEquals(5, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleTime.day);
+        assertEquals(1, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(3).scheduleTime.day);
+        assertEquals(Info.SCH_TYPE_ASL, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleType);
+        assertEquals(Info.SCH_TYPE_CLA, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleType);
+
+        //Test Number 5-3
+        assertEquals(3, modeCon.getRecentSchedule().scheduleTime.day);
+
+        //Test Number 1-1, in Delete Schedule
+        modeCon.deleteTime(Info.SCHEDULE, 1);
+        assertEquals(3, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(0).scheduleTime.day);
+        assertEquals(5, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(1).scheduleTime.day);
+        assertEquals(1, ((ScheduleMode)modeCon.getSelectedMode()[Info.SCHEDULE/10]).getList().get(2).scheduleTime.day);
+
+        //Test Number 1-2, 1-4
+        curTime.day = 3;
+        modeCon.calculateSchedule(curTime);
+        assertEquals(5, modeCon.getRecentSchedule().scheduleTime.day);
+
+        //Test Number 5-2
+        curTime.month = 2;
+        modeCon.calculateSchedule(curTime);
+        assertNull(modeCon.getRecentSchedule());
+    }
 }

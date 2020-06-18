@@ -16,16 +16,18 @@ public class SchelduleModeTest {
 }
     @Test
     public void setSchedule(){
+        //Test Number 2-1, 2-2
         Time tmp = new Time();
         Schedule tmpSchedule = scheduleMode.saveValue(-1, tmp);
 
         assertEquals(tmp, tmpSchedule.scheduleTime);
-        assertEquals(Info.SCH_TYPE_CLA, tmpSchedule.scheduleType);
+        assertEquals(Info.SCH_TYPE_ASL, tmpSchedule.scheduleType);
         assertEquals(1, scheduleMode.getList().size());
     }
 
     @Test
     public void modifySchedule(){
+        //Test Number 3-2
         Time tmp = new Time();
         Schedule tmpSchedule = scheduleMode.saveValue(-1, tmp);
 
@@ -36,15 +38,21 @@ public class SchelduleModeTest {
 
     @Test
     public void deleteSchedule(){
+        //Test Number 4-2
         assertFalse(scheduleMode.deleteValue(0));
 
+        //Test Number 4-1
         Time tmp = new Time();
         Schedule tmpSchedule = scheduleMode.saveValue(-1, tmp);
         assertTrue(scheduleMode.deleteValue(0));
+
+        //Test Number 4-2
+        assertFalse(scheduleMode.deleteValue(0));
     }
 
     @Test
     public void isAvailableAdd(){
+        //Test Number 2-3, 3-3
         Time tmpTime = new Time();
         tmpTime.month = 1;
         tmpTime.day = 1;
@@ -60,28 +68,26 @@ public class SchelduleModeTest {
 
     @Test
     public void sortSchedule() {
-        //insert schedules in reverse order. (4,3,2,1)
+        //Test Number 1-1 in Add Schedule: insert schedules in reverse order. (4,3,2,1)
         for (int i = 0; i < 4; i++) {
             Time tmpTime = new Time();
             tmpTime.hour = 4 - i;
             scheduleMode.saveValue(-1, tmpTime);
         }
 
-        //checking schedules are in regular order.
         for(int i=0; i<4; i++)
             assertEquals(i+1, scheduleMode.getList().get(i).scheduleTime.hour);
 
-        //delete(Test 1-1)
+        //Test Number 1-1 in Delete Schedule
         assertTrue(scheduleMode.deleteValue(2));
         for(int i=0; i<3; i++) {
             if(i<2)
                 assertEquals(i+1, scheduleMode.getList().get(i).scheduleTime.hour);
             else
                 assertEquals(i+2, scheduleMode.getList().get(i).scheduleTime.hour);
-
         }
 
-        //modify(Test 1-1)
+        //Test Number 1-1 in Modify Schedule
         Time temp1 = new Time();
         Time temp2 = new Time();
         temp1.hour = 6;
@@ -90,11 +96,5 @@ public class SchelduleModeTest {
         scheduleMode.saveValue(0, temp2);
         for(int i=0; i<3; i++)
             assertEquals((i+1)*2, scheduleMode.getList().get(i).scheduleTime.hour);
-
-        //same Schedule Add(Test 1-3)
-        Schedule tempSch1 = scheduleMode.getList().get(1);
-        scheduleMode.saveValue(-1, tempSch1.scheduleTime);
-
-        assertEquals(tempSch1, scheduleMode.getList().get(1));
     }
 }
