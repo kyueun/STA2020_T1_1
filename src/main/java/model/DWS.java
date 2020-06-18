@@ -43,7 +43,7 @@ public class DWS {
 
     public void setGui(GUI gui) {
         this.gui = gui;
-        beep = new Beep(gui);
+        beep = new Beep();
     }
 
     public void start() {
@@ -95,9 +95,7 @@ public class DWS {
 
 
             } while (Duration.between(timeStart, timeEnd).getSeconds() < 1);
-
-            Iterator<Alarm> itr = controller.getRunningAlarmList().iterator();
-
+            
             if(controller.getSelectedModeNum()[Info.WORLDTIME / 10]) {
                 ((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).updateWorldTime();
             }
