@@ -8,7 +8,7 @@ public class Beep {
     public int type;
     public Stack<Integer> beepList;
 
-    public Beep(GUI gui) {
+    public Beep() {
         beepList = new Stack<Integer>();
     }
 
