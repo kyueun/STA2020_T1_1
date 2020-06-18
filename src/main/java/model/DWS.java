@@ -95,7 +95,7 @@ public class DWS {
 
 
             } while (Duration.between(timeStart, timeEnd).getSeconds() < 1);
-            
+
             if(controller.getSelectedModeNum()[Info.WORLDTIME / 10]) {
                 ((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).updateWorldTime();
             }

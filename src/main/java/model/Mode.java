@@ -1,7 +1,7 @@
 package model;
 
 
-public class Mode {
+public abstract class Mode {
 
     public Mode() {
     }
@@ -10,14 +10,11 @@ public class Mode {
 
     }
 
-    public Object getValue(int index) {
-        // TODO implement here
+    public Object getValue() {
         return null;
     }
 
-    public Object saveValue(int index, Object object) {
-        // TODO implement here
+    public Object saveValue() {
         return null;
     }
-
 }
