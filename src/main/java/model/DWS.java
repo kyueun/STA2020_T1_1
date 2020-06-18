@@ -720,7 +720,6 @@ public class DWS {
                 else if (listPointer < Info.LIST_POINTER_1) listPointer = Info.LIST_POINTER_1;
                 break;
         }
-        return;
     }
 
 
