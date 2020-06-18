@@ -148,6 +148,9 @@ public class DWS {
                     case Info.SELECTMODE:
                         screenValue = new Object[]{controller.getSelectedModeNum(), listPointer};
                         break;
+
+                    default:
+                        break;
                 }
             } else { // button input exist
                 timeOut = 0;
@@ -419,6 +422,9 @@ public class DWS {
 
                     case Info.WORLDTIME:
                         return new Object[]{((WorldTimeMode) controller.getSelectedMode()[Info.WORLDTIME / 10]).getValue()};
+
+                    default:
+                        break;
                 }
                 return null;
         }
@@ -563,6 +569,9 @@ public class DWS {
 
             case Info.SELECTMODE:
                 return new Object[]{controller.getSelectedModeNum(), listPointer};
+
+            default:
+                break;
         }
         return null;
     }
@@ -694,6 +703,9 @@ public class DWS {
                 if (pointer == Info.TIME_POINTER_YEAR) pointer = Info.TIME_POINTER_MONTH;
                 else if (pointer > Info.TIME_POINTER_DAY) pointer = Info.TIME_POINTER_HOUR;
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -718,6 +730,9 @@ public class DWS {
             case Info.SELECTMODE:
                 if (listPointer > Info.LIST_POINTER_5) listPointer = Info.LIST_POINTER_5;
                 else if (listPointer < Info.LIST_POINTER_1) listPointer = Info.LIST_POINTER_1;
+                break;
+
+            default:
                 break;
         }
     }
