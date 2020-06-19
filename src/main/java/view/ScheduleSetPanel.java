@@ -17,7 +17,7 @@ public class ScheduleSetPanel extends JPanel {
         this.setLayout(new GridLayout(4, 1));
         this.setBackground(Color.WHITE);
 
-        curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
+        curTimeLabel.setFont(GUI.font40);
         curTimeLabel.setText("10:12:40");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curTimeLabel);
@@ -38,17 +38,17 @@ public class ScheduleSetPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
-            hourLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            hourLabel.setFont(GUI.font75);
             hourLabel.setText("10");
             hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(hourLabel);
 
-            colon1.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            colon1.setFont(GUI.font75);
             colon1.setText(":");
             colon1.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(colon1);
 
-            minuteLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            minuteLabel.setFont(GUI.font75);
             minuteLabel.setText("12");
             minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(minuteLabel);
@@ -66,27 +66,27 @@ public class ScheduleSetPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
-            schTypeLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            schTypeLabel.setFont(GUI.font50);
             schTypeLabel.setText("CLA");
             schTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(schTypeLabel);
 
-            spaceLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            spaceLabel.setFont(GUI.font50);
             spaceLabel.setText(" ");
             spaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(spaceLabel);
 
-            monthLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            monthLabel.setFont(GUI.font50);
             monthLabel.setText("01");
             monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(monthLabel);
 
-            dot1.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            dot1.setFont(GUI.font50);
             dot1.setText(".");
             dot1.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(dot1);
 
-            dayLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            dayLabel.setFont(GUI.font50);
             dayLabel.setText("01");
             dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(dayLabel);
@@ -171,9 +171,9 @@ public class ScheduleSetPanel extends JPanel {
                 GUI.underline(labels[i]);
             } else {
                 if ((i == 0) || (i == 1)) {
-                    GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 75));
+                    GUI.deleteUnderline(labels[i], GUI.font75);
                 } else {
-                    GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 50));
+                    GUI.deleteUnderline(labels[i], GUI.font50);
                 }
             }
         }

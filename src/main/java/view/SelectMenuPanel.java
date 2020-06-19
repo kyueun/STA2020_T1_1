@@ -46,7 +46,7 @@ public class SelectMenuPanel extends JPanel {
                 icons[i][j] = new ImageIcon(changedImg);
             }
 
-            menuModelabels[i].setFont(new Font("SanSerif", Font.PLAIN, 25));
+            menuModelabels[i].setFont(GUI.font25);
             menuModelabels[i].setIcon(icons[i][0]);
             menuModelabels[i].setOpaque(true);
             menuModelabels[i].setBackground(Color.WHITE);

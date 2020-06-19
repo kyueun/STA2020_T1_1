@@ -16,17 +16,17 @@ public class TimeKeepingPanel extends JPanel {
         this.setLayout(new GridLayout(4, 1));
         this.setBackground(Color.WHITE);
 
-        curScheduleLabel.setFont(new Font("SanSerif", Font.PLAIN, 30));
+        curScheduleLabel.setFont(GUI.font30);
         curScheduleLabel.setText("");
         curScheduleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curScheduleLabel);
 
-        curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+        curTimeLabel.setFont(GUI.font75);
         curTimeLabel.setText("Loading...");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curTimeLabel);
 
-        curDateLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+        curDateLabel.setFont(GUI.font50);
         curDateLabel.setText("");
         curDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(curDateLabel);
