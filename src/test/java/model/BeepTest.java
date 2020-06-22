@@ -9,14 +9,14 @@ public class BeepTest {
 
     @Test
     public void Beep(){
-        Beep beep = new Beep(null);
+        Beep beep = new Beep();
         assertEquals(1, beep.beepPopup(Info.ALARM).size());
         assertEquals(2, beep.beepPopup(Info.TIMER).size());
     }
 
     @Test
     public void MuteBeep(){
-        Beep beep = new Beep(null);
+        Beep beep = new Beep();
         assertEquals(1, beep.beepPopup(Info.ALARM).size());
         assertEquals(2, beep.beepPopup(Info.TIMER).size());
         assertEquals(1, beep.muteTopBeep().size());
