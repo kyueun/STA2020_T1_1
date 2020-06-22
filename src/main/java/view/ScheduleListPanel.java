@@ -29,7 +29,7 @@ public class ScheduleListPanel extends JPanel {
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
 
-        curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
+        curTimeLabel.setFont(GUI.font40);
         curTimeLabel.setText("10 : 12 : 40");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, curTimeLabel, 0, 0, 1, 1, 0.1, 0.1);
@@ -47,28 +47,28 @@ public class ScheduleListPanel extends JPanel {
             this.setLayout(new GridLayout(4, 1));
             this.setBackground(Color.WHITE);
 
-            scheduleLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[0].setFont(GUI.font30);
             scheduleLabels[0].setText("ETC 05.25 MON 13:30:20");
             scheduleLabels[0].setOpaque(true);
             scheduleLabels[0].setBackground(Color.GRAY);
             scheduleLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[0]);
 
-            scheduleLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[1].setFont(GUI.font30);
             scheduleLabels[1].setText("CLA 05.27 15:20:42");
             scheduleLabels[1].setOpaque(true);
             scheduleLabels[1].setBackground(Color.WHITE);
             scheduleLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[1]);
 
-            scheduleLabels[2].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[2].setFont(GUI.font30);
             scheduleLabels[2].setText("");
             scheduleLabels[2].setOpaque(true);
             scheduleLabels[2].setBackground(Color.WHITE);
             scheduleLabels[2].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scheduleLabels[2]);
 
-            scheduleLabels[3].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            scheduleLabels[3].setFont(GUI.font30);
             scheduleLabels[3].setText("");
             scheduleLabels[3].setOpaque(true);
             scheduleLabels[3].setBackground(Color.WHITE);

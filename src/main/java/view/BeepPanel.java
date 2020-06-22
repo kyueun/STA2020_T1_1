@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class BeepPanel extends JPanel {
     int type;
-    String imgPaths1;
-    String imgPaths2;
+    String imgPaths1 = "./resource/alarm1.png";
+    String imgPaths2 = "./resource/timer1.png";
     ImageIcon icons1 = new ImageIcon();
     ImageIcon icons2 = new ImageIcon();
     JLabel iconLabel = new JLabel();
@@ -22,7 +22,7 @@ public class BeepPanel extends JPanel {
 
         this.add(iconLabel);
 
-        typeLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+        typeLabel.setFont(GUI.font75);
         typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(typeLabel);
 

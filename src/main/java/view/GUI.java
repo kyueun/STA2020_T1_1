@@ -14,6 +14,11 @@ import java.util.Stack;
 
 public class GUI extends JFrame {
     private static int input;
+    public static Font font25 = new Font("SanSerif", Font.PLAIN, 25);
+    public static Font font30 = new Font("SanSerif", Font.PLAIN, 30);
+    public static Font font40 = new Font("SanSerif", Font.PLAIN, 40);
+    public static Font font50 = new Font("SanSerif", Font.PLAIN, 50);
+    public static Font font75 = new Font("SanSerif", Font.PLAIN, 75);
     int modeX, modeY;
     TimeKeepingPanel timeKeepingPanel = new TimeKeepingPanel();
     TimeKeepingSetPanel timeKeepingSetPanel = new TimeKeepingSetPanel();
@@ -79,10 +84,10 @@ public class GUI extends JFrame {
         buttonC.setBackground(Color.WHITE);
         buttonD.setBackground(Color.WHITE);
 
-        buttonA.setFont(new Font("SanSerif", Font.PLAIN, 30));
-        buttonB.setFont(new Font("SanSerif", Font.PLAIN, 30));
-        buttonC.setFont(new Font("SanSerif", Font.PLAIN, 30));
-        buttonD.setFont(new Font("SanSerif", Font.PLAIN, 30));
+        buttonA.setFont(GUI.font30);
+        buttonB.setFont(GUI.font30);
+        buttonC.setFont(GUI.font30);
+        buttonD.setFont(GUI.font30);
 
         buttonA.setBounds(0, 0, 100, 100);
         buttonB.setBounds(500, 0, 100, 100);

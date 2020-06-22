@@ -22,7 +22,6 @@ public class AlarmModeTest {
 
     @Test
     public void validHourAlarmMode(){
-        AlarmMode alarmMode = new AlarmMode();
         Alarm alarm = new Alarm();
         alarm.alarmTime = new Time();
         alarmMode.getList().add(alarm);
@@ -40,7 +39,6 @@ public class AlarmModeTest {
 
     @Test
     public void validMinuteAlarmMode(){
-        AlarmMode alarmMode = new AlarmMode();
         Alarm alarm = new Alarm();
         alarm.alarmTime = new Time();
         alarmMode.getList().add(alarm);
@@ -58,7 +56,6 @@ public class AlarmModeTest {
 
     @Test
     public void validSecondAlarmMode(){
-        AlarmMode alarmMode = new AlarmMode();
         Alarm alarm = new Alarm();
         alarm.alarmTime = new Time();
         alarmMode.getList().add(alarm);

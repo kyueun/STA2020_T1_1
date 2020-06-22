@@ -39,27 +39,27 @@ public class TimeKeepingSetPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
-            hourLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            hourLabel.setFont(GUI.font75);
             hourLabel.setText("10");
             hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(hourLabel);
 
-            colon1.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            colon1.setFont(GUI.font75);
             colon1.setText(":");
             colon1.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(colon1);
 
-            minuteLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            minuteLabel.setFont(GUI.font75);
             minuteLabel.setText("12");
             minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(minuteLabel);
 
-            colon2.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            colon2.setFont(GUI.font75);
             colon2.setText(":");
             colon2.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(colon2);
 
-            secondLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            secondLabel.setFont(GUI.font75);
             secondLabel.setText("40");
             secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(secondLabel);
@@ -77,27 +77,27 @@ public class TimeKeepingSetPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
-            yearLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            yearLabel.setFont(GUI.font50);
             yearLabel.setText("2020");
             yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(yearLabel);
 
-            dot1.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            dot1.setFont(GUI.font50);
             dot1.setText(".");
             dot1.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(dot1);
 
-            monthLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            monthLabel.setFont(GUI.font50);
             monthLabel.setText("01");
             monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(monthLabel);
 
-            dot2.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            dot2.setFont(GUI.font50);
             dot2.setText(".");
             dot2.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(dot2);
 
-            dayLabel.setFont(new Font("SanSerif", Font.PLAIN, 50));
+            dayLabel.setFont(GUI.font50);
             dayLabel.setText("01");
             dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(dayLabel);
@@ -159,9 +159,9 @@ public class TimeKeepingSetPanel extends JPanel {
                 GUI.underline(labels[i]);
             } else {
                 if ((i >= 0) && (i <= 2)) {
-                    GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 75));
+                    GUI.deleteUnderline(labels[i], GUI.font75);
                 } else {
-                    GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 50));
+                    GUI.deleteUnderline(labels[i], GUI.font50);
                 }
             }
         }

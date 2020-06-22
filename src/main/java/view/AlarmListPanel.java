@@ -27,7 +27,7 @@ public class AlarmListPanel extends JPanel {
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
 
-        curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
+        curTimeLabel.setFont(GUI.font40);
         curTimeLabel.setText("10:12:40");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, curTimeLabel, 0, 0, 1, 1, 0.1, 0.1);
@@ -45,28 +45,28 @@ public class AlarmListPanel extends JPanel {
             this.setLayout(new GridLayout(4, 1));
             this.setBackground(Color.WHITE);
 
-            alarmLabels[0].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            alarmLabels[0].setFont(GUI.font30);
             alarmLabels[0].setText("[OFF] 13:30:20");
             alarmLabels[0].setOpaque(true);
             alarmLabels[0].setBackground(Color.LIGHT_GRAY);
             alarmLabels[0].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[0]);
 
-            alarmLabels[1].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            alarmLabels[1].setFont(GUI.font30);
             alarmLabels[1].setText("[OFF] 13:20:42");
             alarmLabels[1].setOpaque(true);
             alarmLabels[1].setBackground(Color.WHITE);
             alarmLabels[1].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[1]);
 
-            alarmLabels[2].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            alarmLabels[2].setFont(GUI.font30);
             alarmLabels[2].setText("");
             alarmLabels[2].setOpaque(true);
             alarmLabels[2].setBackground(Color.WHITE);
             alarmLabels[2].setHorizontalAlignment(SwingConstants.CENTER);
             this.add(alarmLabels[2]);
 
-            alarmLabels[3].setFont(new Font("SanSerif", Font.PLAIN, 30));
+            alarmLabels[3].setFont(GUI.font30);
             alarmLabels[3].setText("");
             alarmLabels[3].setOpaque(true);
             alarmLabels[3].setBackground(Color.WHITE);

@@ -19,7 +19,7 @@ public class AlarmSetPanel extends JPanel {
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
 
-        curTimeLabel.setFont(new Font("SanSerif", Font.PLAIN, 40));
+        curTimeLabel.setFont(GUI.font40);
         curTimeLabel.setText("10:12:40");
         curTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GUI.setComponentLayout(this.gridBagLayout, this.gridBagConstraints, curTimeLabel, 0, 0, 1, 1, 0.1, 0.1);
@@ -43,27 +43,27 @@ public class AlarmSetPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.CENTER));
             this.setBackground(Color.WHITE);
 
-            hourLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            hourLabel.setFont(GUI.font75);
             hourLabel.setText("03");
             hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(hourLabel);
 
-            colon1.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            colon1.setFont(GUI.font75);
             colon1.setText(":");
             colon1.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(colon1);
 
-            minuteLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            minuteLabel.setFont(GUI.font75);
             minuteLabel.setText("07");
             minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(minuteLabel);
 
-            colon2.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            colon2.setFont(GUI.font75);
             colon2.setText(":");
             colon2.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(colon2);
 
-            secondLabel.setFont(new Font("SanSerif", Font.PLAIN, 75));
+            secondLabel.setFont(GUI.font75);
             secondLabel.setText("31");
             secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(secondLabel);
@@ -114,7 +114,7 @@ public class AlarmSetPanel extends JPanel {
             if (i == idx) {
                 GUI.underline(labels[i]);
             } else {
-                GUI.deleteUnderline(labels[i], new Font("SanSerif", Font.PLAIN, 75));
+                GUI.deleteUnderline(labels[i], GUI.font75);
             }
         }
 
